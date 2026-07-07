@@ -5,8 +5,14 @@
 export const site = {
   name: "おうちクラウド Lab",
   tagline: "自宅サーバー・homelab 機材を、実測とスペックで比較する",
-  // 本番の独自ドメインに置き換える（例: https://ouchi-cloud.dev）
-  url: "https://example.pages.dev",
+  // サイトのオリジン（末尾スラッシュなし）。
+  //  - GitHub Pages(プロジェクト): "https://YOUR_NAME.github.io"
+  //  - 独自ドメイン/Cloudflare:     "https://ouchi-cloud.dev"
+  url: "https://YOUR_NAME.github.io",
+  // 公開パスの接頭辞（内部リンクに付く）。
+  //  - github.io のサブディレクトリ公開: "/ouchi-cloud-lab"
+  //  - 独自ドメインでルート公開:          ""  ← 空にする
+  base: "/ouchi-cloud-lab",
   lang: "ja",
   author: "おうちクラウド Lab 編集部",
   // OGP / Twitter 用（任意）

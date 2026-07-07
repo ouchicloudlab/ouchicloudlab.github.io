@@ -1,5 +1,10 @@
 import { site, affiliate, ads, categories } from "./config.mjs";
 
+// ベースパス付きの内部リンク（例: "/articles/x/" -> "/ouchi-cloud-lab/articles/x/"）
+export const withBase = (p = "/") => (site.base || "") + p;
+// 絶対URL（canonical / OGP / sitemap / rss 用）
+export const absUrl = (p = "/") => site.url + (site.base || "") + p;
+
 const esc = (s = "") =>
   String(s)
     .replace(/&/g, "&amp;")

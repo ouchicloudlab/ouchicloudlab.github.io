@@ -14,6 +14,7 @@ import {
   productCard,
   comparisonTable,
   adSlot,
+  absUrl,
 } from "../src/lib/templates.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -29,10 +30,17 @@ function rmrf(dir) {
 function ensure(dir) {
   fs.mkdirSync(dir, { recursive: true });
 }
+// 内部の絶対リンク（href="/..." src="/...")にベースパスを付与する。
+// 外部リンク(http/https)や #アンカーは対象外。
+function applyBase(html) {
+  const base = site.base || "";
+  if (!base) return html;
+  return html.replace(/(href|src)="\/(?!\/)/g, `$1="${base}/`);
+}
 function writePage(relPath, html) {
   const out = path.join(distDir, relPath, "index.html");
   ensure(path.dirname(out));
-  fs.writeFileSync(out, html, "utf8");
+  fs.writeFileSync(out, applyBase(html), "utf8");
 }
 function copyDir(src, dest) {
   if (!fs.existsSync(src)) return;
@@ -91,7 +99,7 @@ function renderArticleBody(article) {
 function buildArticlePage(article) {
   const cat = categories[article.category];
   const bodyHtml = renderArticleBody(article);
-  const canonical = `${site.url}/articles/${article.slug}/`;
+  const canonical = absUrl(`/articles/${article.slug}/`);
   const body = `
 <article class="article">
   <nav class="breadcrumb"><a href="/">ホーム</a> › ${
@@ -149,7 +157,7 @@ function buildHome(articles) {
   writePage("", layout({
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
-    canonical: `${site.url}/`,
+    canonical: absUrl("/"),
     body,
   }));
 }
@@ -168,7 +176,7 @@ function buildCategoryPages(articles) {
     writePage(`category/${slug}`, layout({
       title: `${cat.label}の比較記事 | ${site.name}`,
       description: `${cat.label}に関する自宅サーバー機材の比較・レビュー記事一覧。`,
-      canonical: `${site.url}/category/${slug}/`,
+      canonical: absUrl(`/category/${slug}/`),
       body,
     }));
   }
@@ -176,9 +184,9 @@ function buildCategoryPages(articles) {
 
 function buildSitemap(articles) {
   const urls = [
-    `${site.url}/`,
-    ...Object.keys(categories).map((s) => `${site.url}/category/${s}/`),
-    ...articles.map((a) => `${site.url}/articles/${a.slug}/`),
+    absUrl("/"),
+    ...Object.keys(categories).map((s) => absUrl(`/category/${s}/`)),
+    ...articles.map((a) => absUrl(`/articles/${a.slug}/`)),
   ];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -193,8 +201,8 @@ function buildRss(articles) {
     .map(
       (a) => `  <item>
     <title>${a.title}</title>
-    <link>${site.url}/articles/${a.slug}/</link>
-    <guid>${site.url}/articles/${a.slug}/</guid>
+    <link>${absUrl(`/articles/${a.slug}/`)}</link>
+    <guid>${absUrl(`/articles/${a.slug}/`)}</guid>
     <pubDate>${new Date(a.date).toUTCString()}</pubDate>
     <description><![CDATA[${a.description || ""}]]></description>
   </item>`
@@ -204,7 +212,7 @@ function buildRss(articles) {
 <rss version="2.0">
 <channel>
   <title>${site.name}</title>
-  <link>${site.url}/</link>
+  <link>${absUrl("/")}</link>
   <description>${site.description}</description>
 ${items}
 </channel>
@@ -213,7 +221,7 @@ ${items}
 }
 
 function buildRobots() {
-  const txt = `User-agent: *\nAllow: /\nSitemap: ${site.url}/sitemap.xml\n`;
+  const txt = `User-agent: *\nAllow: /\nSitemap: ${absUrl("/sitemap.xml")}\n`;
   fs.writeFileSync(path.join(distDir, "robots.txt"), txt, "utf8");
 }
 

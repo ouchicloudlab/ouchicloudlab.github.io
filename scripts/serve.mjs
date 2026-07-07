@@ -3,10 +3,12 @@ import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { site } from "../src/lib/config.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dist = path.resolve(__dirname, "..", "dist");
 const port = process.env.PORT || 4321;
+const base = site.base || "";
 
 const types = {
   ".html": "text/html; charset=utf-8",
@@ -24,6 +26,13 @@ const types = {
 http
   .createServer((req, res) => {
     let urlPath = decodeURIComponent(req.url.split("?")[0]);
+    // ルート("/")アクセスはベース付きトップへ誘導（剥がす前に判定）
+    if (base && (urlPath === "/" || urlPath === "")) {
+      res.writeHead(302, { Location: `${base}/` });
+      return res.end();
+    }
+    // ベースパス（/ouchi-cloud-lab）を剥がして dist ルートへマッピング
+    if (base && urlPath.startsWith(base)) urlPath = urlPath.slice(base.length) || "/";
     if (urlPath.endsWith("/")) urlPath += "index.html";
     let file = path.join(dist, urlPath);
     if (!file.startsWith(dist)) {
