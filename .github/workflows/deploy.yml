@@ -5,6 +5,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch: {}
+  # 記事の自動生成ワークフロー（ボットのコミット）が終わったら自動でデプロイする。
+  # ※ ボットの push は GITHUB_TOKEN 経由のため push イベントを起こさない仕様の対策。
+  workflow_run:
+    workflows: ["記事の自動生成（週次）"]
+    types: [completed]
 
 permissions:
   contents: read
