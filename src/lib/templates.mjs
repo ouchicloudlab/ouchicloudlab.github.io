@@ -14,14 +14,18 @@ const esc = (s = "") =>
 
 // ---- アフィリンク生成 -------------------------------------------------
 // frontmatter の product.affiliate.amazon などが「ASIN」または「URL」でも動くようにする。
-function amazonUrl(ref) {
-  if (!ref) return null;
+function amazonUrl(ref, name) {
   let url;
-  if (/^https?:\/\//.test(ref)) {
-    url = ref;
+  if (ref && /^https?:\/\//.test(ref)) {
+    url = ref; // フルURL指定
+  } else if (ref && !/^REPLACE/i.test(ref)) {
+    url = `https://www.amazon.co.jp/dp/${encodeURIComponent(ref)}`; // 実在ASIN
+  } else if (name) {
+    // ASIN未設定/プレースホルダ時は製品名の検索リンクに自動フォールバック。
+    // 常に有効なリンクになり、誤った商品ページへ飛ぶ事故を防げる。
+    url = `https://www.amazon.co.jp/s?k=${encodeURIComponent(name)}`;
   } else {
-    // ASIN とみなす
-    url = `https://www.amazon.co.jp/dp/${encodeURIComponent(ref)}`;
+    return null;
   }
   if (affiliate.amazonTag) {
     const sep = url.includes("?") ? "&" : "?";
@@ -56,7 +60,7 @@ export function adSlot(kind = "inArticle") {
 
 // ---- 商品カード ------------------------------------------------------
 export function productCard(p, rank) {
-  const amazon = amazonUrl(p.affiliate?.amazon);
+  const amazon = amazonUrl(p.affiliate?.amazon, p.name);
   const rakuten = rakutenUrl(p.affiliate?.rakuten);
   const stars =
     p.rating != null
@@ -115,7 +119,7 @@ export function comparisonTable(products) {
   if (!products || products.length === 0) return "";
   const rows = products
     .map((p) => {
-      const amazon = amazonUrl(p.affiliate?.amazon);
+      const amazon = amazonUrl(p.affiliate?.amazon, p.name);
       const link = amazon
         ? `<a href="${esc(amazon)}" rel="${affiliate.rel}" target="_blank">見る</a>`
         : "—";

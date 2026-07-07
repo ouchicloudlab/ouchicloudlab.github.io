@@ -28,9 +28,8 @@ export const site = {
 //    トラッキングIDはここで一元管理する。
 // =============================================================
 export const affiliate = {
-  // Amazonアソシエイト・トラッキングID（例: ouchicloud-22）
-  // 未取得のうちは "" のままでOK（リンクは商品ページに繋がる）
-  amazonTag: "", // 例: "ouchicloud-22"
+  // Amazonアソシエイト・トラッキングID
+  amazonTag: "ouchicloudlab-22",
 
   // もしもアフィリエイト等を使う場合の識別子（任意）
   moshimoId: "",
