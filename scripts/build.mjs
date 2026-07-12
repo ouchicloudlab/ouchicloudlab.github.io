@@ -15,11 +15,13 @@ import {
   comparisonTable,
   adSlot,
   absUrl,
+  contactBlock,
 } from "../src/lib/templates.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const articlesDir = path.join(root, "src", "content", "articles");
+const pagesDir = path.join(root, "src", "content", "pages");
 const distDir = path.join(root, "dist");
 const publicDir = path.join(root, "public");
 
@@ -72,6 +74,18 @@ function loadArticles() {
   // 新しい順
   articles.sort((a, b) => new Date(b.date) - new Date(a.date));
   return articles;
+}
+
+// ---- 固定ページの読み込み（運営者情報・プライバシー・お問い合わせ等）---
+function loadPages() {
+  if (!fs.existsSync(pagesDir)) return [];
+  const files = fs.readdirSync(pagesDir).filter((f) => f.endsWith(".md"));
+  return files.map((file) => {
+    const raw = fs.readFileSync(path.join(pagesDir, file), "utf8");
+    const { data, content } = matter(raw);
+    const slug = data.slug || file.replace(/\.md$/, "");
+    return { ...data, slug, markdown: content };
+  });
 }
 
 // ---- 記事本文レンダリング -------------------------------------------
@@ -182,11 +196,33 @@ function buildCategoryPages(articles) {
   }
 }
 
-function buildSitemap(articles) {
+// 固定ページ生成。Markdown中の <!-- CONTACT --> は連絡先ブロックへ置換。
+function buildStaticPage(page) {
+  const canonical = absUrl(`/${page.slug}/`);
+  let md = page.markdown.replace(/<!--\s*CONTACT\s*-->/g, contactBlock());
+  const html = marked.parse(md);
+  const body = `
+<article class="page">
+  <nav class="breadcrumb"><a href="/">ホーム</a> › <span>${page.title}</span></nav>
+  <h1>${page.title}</h1>
+  <div class="article-body">
+    ${html}
+  </div>
+</article>`;
+  writePage(page.slug, layout({
+    title: `${page.title} | ${site.name}`,
+    description: page.description,
+    canonical,
+    body,
+  }));
+}
+
+function buildSitemap(articles, pages) {
   const urls = [
     absUrl("/"),
     ...Object.keys(categories).map((s) => absUrl(`/category/${s}/`)),
     ...articles.map((a) => absUrl(`/articles/${a.slug}/`)),
+    ...pages.map((p) => absUrl(`/${p.slug}/`)),
   ];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -234,17 +270,20 @@ function main() {
   copyDir(publicDir, distDir);
 
   const articles = loadArticles();
+  const pages = loadPages();
   buildHome(articles);
   buildCategoryPages(articles);
   articles.forEach(buildArticlePage);
-  buildSitemap(articles);
+  pages.forEach(buildStaticPage);
+  buildSitemap(articles, pages);
   buildRss(articles);
   buildRobots();
 
   console.log(
-    `✅ ビルド完了: 記事 ${articles.length} 本 / 出力先 dist/`
+    `✅ ビルド完了: 記事 ${articles.length} 本 / 固定ページ ${pages.length} 枚 / 出力先 dist/`
   );
   articles.forEach((a) => console.log(`   - /articles/${a.slug}/  (${a.title})`));
+  pages.forEach((p) => console.log(`   - /${p.slug}/  (${p.title})`));
 }
 
 main();

@@ -1,4 +1,4 @@
-import { site, affiliate, ads, categories } from "./config.mjs";
+import { site, affiliate, ads, categories, owner } from "./config.mjs";
 
 // ベースパス付きの内部リンク（例: "/articles/x/" -> "/ouchi-cloud-lab/articles/x/"）
 export const withBase = (p = "/") => (site.base || "") + p;
@@ -56,6 +56,22 @@ export function adSlot(kind = "inArticle") {
   }
   // 未設定時はプレースホルダ（審査通過後に自動で本物に変わる）
   return `<div class="ad-slot ad-placeholder" aria-hidden="true">広告枠（AdSense審査通過後に表示）</div>`;
+}
+
+// ---- お問い合わせブロック --------------------------------------------
+// 固定ページ内の <!-- CONTACT --> を、設定に応じたフォーム/メール表示に置換。
+export function contactBlock() {
+  if (owner.contactFormUrl) {
+    return `<p><a class="btn" href="${esc(
+      owner.contactFormUrl
+    )}" target="_blank" rel="noopener">お問い合わせフォームを開く</a></p>`;
+  }
+  if (owner.contactEmail && !/^REPLACE/i.test(owner.contactEmail)) {
+    const e = esc(owner.contactEmail);
+    return `<p>メールでのお問い合わせは下記アドレスまでお願いいたします。</p>
+<p class="contact-email"><a href="mailto:${e}">${e}</a></p>`;
+  }
+  return `<p class="empty">現在、お問い合わせ先を準備中です。近日中に公開いたします。</p>`;
 }
 
 // ---- 商品カード ------------------------------------------------------
@@ -198,6 +214,11 @@ ${body}
 </main>
 <footer class="site-footer">
   <div class="container">
+    <nav class="footer-nav">
+      <a href="/about/">運営者情報</a>
+      <a href="/privacy/">プライバシーポリシー</a>
+      <a href="/contact/">お問い合わせ</a>
+    </nav>
     <p class="disclosure">※当サイトはアフィリエイトプログラム（Amazonアソシエイト等）を利用しています。商品リンク経由の購入で当サイトが収益を得る場合があります。価格・在庫は変動するため、最新情報は各販売ページでご確認ください。</p>
     <p>&copy; ${new Date().getFullYear()} ${esc(site.name)} — ${esc(site.tagline)}</p>
   </div>
