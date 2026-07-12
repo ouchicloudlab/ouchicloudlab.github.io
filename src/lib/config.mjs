@@ -8,7 +8,7 @@ export const site = {
   // サイトのオリジン（末尾スラッシュなし）。
   //  - GitHub Pages(プロジェクト): "https://YOUR_NAME.github.io"
   //  - 独自ドメイン/Cloudflare:     "https://ouchi-cloud.dev"
-  url: "https://flanchan-lgtm.github.io",
+  url: "https://ouchicloudlab.github.io",
   // 公開パスの接頭辞（内部リンクに付く）。
   //  - github.io のサブディレクトリ公開: "/ouchi-cloud-lab"
   //  - 独自ドメインでルート公開:          ""  ← 空にする
