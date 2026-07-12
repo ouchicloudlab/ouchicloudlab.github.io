@@ -47,7 +47,7 @@ export const affiliate = {
 //  空のうちは「広告枠プレースホルダ」が表示される。
 // =============================================================
 export const ads = {
-  adsenseClient: "", // 例: "ca-pub-1234567890123456"
+  adsenseClient: "ca-pub-4633536263090017", // 例: "ca-pub-1234567890123456"
   slots: {
     inArticle: "", // 記事中に差し込むスロットID
     sidebar: "", // サイドバー用スロットID
