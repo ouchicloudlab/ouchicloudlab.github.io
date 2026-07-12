@@ -12,7 +12,7 @@ export const site = {
   // 公開パスの接頭辞（内部リンクに付く）。
   //  - github.io のサブディレクトリ公開: "/ouchi-cloud-lab"
   //  - 独自ドメインでルート公開:          ""  ← 空にする
-  base: "/ouchi-cloud-lab",
+  base: "",
   lang: "ja",
   author: "おうちクラウド Lab 編集部",
   // OGP / Twitter 用（任意）
