@@ -11,3 +11,15 @@ Tailscale 自宅サーバー 外部アクセス 設定 2026
 Ollama ローカルLLM 自宅サーバー 必要スペック
 Jellyfin Plex 比較 自宅メディアサーバー
 # [done] 2.5GbE 家庭内LAN 高速化 機材 まとめ
+
+# --- 2026-07-13 追加分（機材購入ニーズ＝Amazonアフィリ寄り中心）---
+NAS用HDD おすすめ比較 WD Red Seagate IronWolf 自宅サーバー
+NVMe SSD NASキャッシュ 増設 効果と選び方 自宅サーバー
+Raspberry Pi 5 自宅サーバー おすすめ構成と用途 2026
+中古法人ミニPC 自宅サーバー化 選び方 ThinkCentre OptiPlex
+10インチ ミニラック 自宅サーバー ラック 自作 まとめ
+PoE スイッチ おすすめ 自宅ネットワーク 選び方
+自宅サーバー 消費電力 測定 ワットチェッカー おすすめ
+Home Assistant 自宅サーバー スマートホーム 始め方 必要機材
+TrueNAS Unraid Proxmox 自宅サーバーOS 比較 2026
+LANケーブル カテゴリ 違い CAT6A CAT8 自宅配線 選び方
