@@ -1,4 +1,4 @@
-import { site, affiliate, ads, categories, owner } from "./config.mjs";
+import { site, affiliate, ads, analytics, categories, owner } from "./config.mjs";
 
 // ベースパス付きの内部リンク（例: "/articles/x/" -> "/ouchi-cloud-lab/articles/x/"）
 export const withBase = (p = "/") => (site.base || "") + p;
@@ -165,6 +165,16 @@ export function layout({ title, description, canonical, body, article }) {
       )}" crossorigin="anonymous"></script>`
     : "";
 
+  // Google Analytics 4（測定タグ）。gaId 未設定なら何も出力しない。
+  const analyticsHead = analytics.gaId
+    ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${esc(
+        analytics.gaId
+      )}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${esc(
+        analytics.gaId
+      )}');</script>`
+    : "";
+
   const nav = Object.entries(categories)
     .map(
       ([slug, c]) =>
@@ -200,6 +210,7 @@ ${canonical ? `<link rel="canonical" href="${esc(canonical)}">` : ""}
 <link rel="stylesheet" href="/styles.css">
 <link rel="alternate" type="application/rss+xml" title="${esc(site.name)}" href="/rss.xml">
 ${adsenseHead}
+${analyticsHead}
 ${jsonLd}
 </head>
 <body>
