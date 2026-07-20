@@ -4,7 +4,7 @@
 # [done] 自宅NAS おすすめ比較 2026 Synology QNAP 自作
 # [done] 省電力ミニPC比較 アイドル10W以下 おうちサーバー
 # [done] Proxmox入門 ミニPC1台で始める仮想化 手順
-自宅10GbE ネットワーク化 スイッチ NIC ケーブル まとめ
+# [done] 自宅10GbE ネットワーク化 スイッチ NIC ケーブル まとめ
 Immich セルフホスト Googleフォト代替 構築ガイド
 Tailscale 自宅サーバー 外部アクセス 設定 2026
 # [done] homelab UPS 無停電電源 おすすめ 選び方
