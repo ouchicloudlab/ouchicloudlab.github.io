@@ -8,7 +8,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 import { marked } from "marked";
-import { site, categories } from "../src/lib/config.mjs";
+import { site, categories, ads } from "../src/lib/config.mjs";
 import {
   layout,
   productCard,
@@ -261,6 +261,15 @@ function buildRobots() {
   fs.writeFileSync(path.join(distDir, "robots.txt"), txt, "utf8");
 }
 
+// AdSense審査・広告配信に必要な ads.txt。
+// adsenseClient が空のうちは生成しない（no-op）。
+function buildAdsTxt() {
+  if (!ads.adsenseClient) return;
+  const pubId = ads.adsenseClient.replace(/^ca-/, "");
+  const txt = `google.com, ${pubId}, DIRECT, f08c47fec0942fa0\n`;
+  fs.writeFileSync(path.join(distDir, "ads.txt"), txt, "utf8");
+}
+
 // ---- 実行 ------------------------------------------------------------
 function main() {
   rmrf(distDir);
@@ -278,6 +287,7 @@ function main() {
   buildSitemap(articles, pages);
   buildRss(articles);
   buildRobots();
+  buildAdsTxt();
 
   console.log(
     `✅ ビルド完了: 記事 ${articles.length} 本 / 固定ページ ${pages.length} 枚 / 出力先 dist/`
