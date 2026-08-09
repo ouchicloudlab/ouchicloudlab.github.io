@@ -8,7 +8,7 @@
 # [done] Immich セルフホスト Googleフォト代替 構築ガイド
 # [done] Tailscale 自宅サーバー 外部アクセス 設定 2026
 # [done] homelab UPS 無停電電源 おすすめ 選び方
-Ollama ローカルLLM 自宅サーバー 必要スペック
+# [done] Ollama ローカルLLM 自宅サーバー 必要スペック
 Jellyfin Plex 比較 自宅メディアサーバー
 # [done] 2.5GbE 家庭内LAN 高速化 機材 まとめ
 
