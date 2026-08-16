@@ -9,7 +9,7 @@
 # [done] Tailscale 自宅サーバー 外部アクセス 設定 2026
 # [done] homelab UPS 無停電電源 おすすめ 選び方
 # [done] Ollama ローカルLLM 自宅サーバー 必要スペック
-Jellyfin Plex 比較 自宅メディアサーバー
+# [done] Jellyfin Plex 比較 自宅メディアサーバー
 # [done] 2.5GbE 家庭内LAN 高速化 機材 まとめ
 
 # --- 2026-07-13 追加分（機材購入ニーズ＝Amazonアフィリ寄り中心）---
