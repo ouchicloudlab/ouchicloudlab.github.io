@@ -106,7 +106,19 @@ function renderArticleBody(article) {
     .replace(/<!--\s*COMPARE\s*-->/g, `\n${tableHtml}\n`)
     .replace(/<!--\s*AD\s*-->/g, `\n${adSlot("inArticle")}\n`);
 
-  return marked.parse(md);
+  const html = marked.parse(md);
+
+  // Markdownの取りこぼし検出。日本語では「**強調（かっこ）**」のように
+  // 閉じ記号の直前が全角句読点だと marked が強調と解釈せず、
+  // アスタリスクがそのまま本文に残ってしまう。ビルド時に警告する。
+  const leftovers = html.match(new RegExp("\\*\\*[^*\\n]{0,60}\\*\\*", "g"));
+  if (leftovers) {
+    console.warn(
+      `⚠️  ${article.slug}: Markdownの強調が変換されていません → ${leftovers.join(" / ")}`
+    );
+  }
+
+  return html;
 }
 
 // ---- 各ページ生成 ----------------------------------------------------
