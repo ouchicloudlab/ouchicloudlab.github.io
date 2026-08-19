@@ -14,6 +14,13 @@ const esc = (s = "") =>
 
 // ---- アフィリンク生成 -------------------------------------------------
 // frontmatter の product.affiliate.amazon などが「ASIN」または「URL」でも動くようにする。
+// ref が実在ASIN/URLでない（＝検索結果へのフォールバック）かを判定する。
+// リンク先が商品ページなのか検索結果なのかでボタン表記を変え、
+// 読者に「どこへ飛ぶか」を正しく伝えるために使う。
+export function isAmazonSearchFallback(ref) {
+  return !(ref && (/^https?:\/\//.test(ref) || !/^REPLACE/i.test(ref)));
+}
+
 function amazonUrl(ref, name) {
   let url;
   if (ref && /^https?:\/\//.test(ref)) {
@@ -54,8 +61,10 @@ export function adSlot(kind = "inArticle") {
   <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>`;
   }
-  // 未設定時はプレースホルダ（審査通過後に自動で本物に変わる）
-  return `<div class="ad-slot ad-placeholder" aria-hidden="true">広告枠（AdSense審査通過後に表示）</div>`;
+  // スロット未設定時は「何も出力しない」。
+  // 空の広告枠プレースホルダを並べると、AdSense審査で
+  // 「広告のための箱だけが用意された未完成サイト」と見なされ減点される。
+  return "";
 }
 
 // ---- お問い合わせブロック --------------------------------------------
@@ -80,9 +89,9 @@ export function productCard(p, rank) {
   const rakuten = rakutenUrl(p.affiliate?.rakuten);
   const stars =
     p.rating != null
-      ? `<span class="stars" title="${p.rating}">${"★".repeat(
+      ? `<span class="stars" title="編集部スコア ${p.rating} / 5.0（公開スペック・価格・入手性から編集部が採点した用途適合度の目安です）">${"★".repeat(
           Math.round(p.rating)
-        )}${"☆".repeat(5 - Math.round(p.rating))} <b>${p.rating}</b></span>`
+        )}${"☆".repeat(5 - Math.round(p.rating))} <b>${p.rating}</b><small class="stars-note">編集部スコア</small></span>`
       : "";
   const pros = (p.pros || [])
     .map((x) => `<li class="pro">${esc(x)}</li>`)
@@ -92,12 +101,17 @@ export function productCard(p, rank) {
     .join("");
 
   const buttons = [];
-  if (amazon)
+  if (amazon) {
+    // 検索結果に飛ぶ場合は「Amazonで検索」と正直に表示する。
+    const label = isAmazonSearchFallback(p.affiliate?.amazon)
+      ? "Amazonで検索"
+      : "Amazonで見る";
     buttons.push(
       `<a class="btn btn-amazon" href="${esc(
         amazon
-      )}" rel="${affiliate.rel}" target="_blank">Amazonで見る</a>`
+      )}" rel="${affiliate.rel}" target="_blank">${label}</a>`
     );
+  }
   if (rakuten)
     buttons.push(
       `<a class="btn btn-rakuten" href="${esc(
@@ -137,7 +151,9 @@ export function comparisonTable(products) {
     .map((p) => {
       const amazon = amazonUrl(p.affiliate?.amazon, p.name);
       const link = amazon
-        ? `<a href="${esc(amazon)}" rel="${affiliate.rel}" target="_blank">見る</a>`
+        ? `<a href="${esc(amazon)}" rel="${affiliate.rel}" target="_blank">${
+            isAmazonSearchFallback(p.affiliate?.amazon) ? "検索" : "商品ページ"
+          }</a>`
         : "—";
       return `<tr>
   <td class="ct-name">${esc(p.name)}</td>
@@ -151,10 +167,11 @@ export function comparisonTable(products) {
   return `
 <div class="table-wrap">
 <table class="compare-table">
-  <thead><tr><th>製品</th><th>価格目安</th><th>評価</th><th>主要スペック</th><th>購入</th></tr></thead>
+  <thead><tr><th>製品</th><th>価格目安</th><th>編集部スコア</th><th>主要スペック</th><th>リンク</th></tr></thead>
   <tbody>${rows}</tbody>
 </table>
-</div>`;
+</div>
+<p class="table-note">※「編集部スコア」は各メーカーの公開仕様・実売価格・入手性・自宅サーバー用途への適合度をもとに、当サイト編集部が5点満点で採点した<strong>相対的な目安</strong>です。第三者機関による測定値ではありません。価格は確認時点のもので、変動します。</p>`;
 }
 
 // ---- ページ全体レイアウト -------------------------------------------
@@ -226,8 +243,9 @@ ${body}
 <footer class="site-footer">
   <div class="container">
     <nav class="footer-nav">
-      <a href="/about/">運営者情報</a>
+      <a href="/about/">運営者情報・編集ポリシー</a>
       <a href="/privacy/">プライバシーポリシー</a>
+      <a href="/disclaimer/">免責事項</a>
       <a href="/contact/">お問い合わせ</a>
     </nav>
     <p class="disclosure">※当サイトはアフィリエイトプログラム（Amazonアソシエイト等）を利用しています。商品リンク経由の購入で当サイトが収益を得る場合があります。価格・在庫は変動するため、最新情報は各販売ページでご確認ください。</p>

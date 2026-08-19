@@ -153,12 +153,24 @@ a:hover { text-decoration: underline; }
 .compare-table .ct-name { font-weight: 700; }
 
 /* ads */
+/* スロット未設定時は要素自体を出力しない（templates.mjs の adSlot 参照）。
+   空の広告枠プレースホルダは掲載しない方針のため、専用スタイルは持たない。 */
 .ad-slot { margin: 28px 0; text-align: center; }
-.ad-placeholder {
-  background: repeating-linear-gradient(45deg, var(--surface), var(--surface) 10px, var(--surface-2) 10px, var(--surface-2) 20px);
-  border: 1px dashed var(--border); border-radius: 8px; padding: 22px;
-  color: var(--muted); font-size: .82rem;
+
+/* 注記（比較表の採点基準・スコアの但し書き） */
+.table-note {
+  margin: 10px 0 24px; font-size: .82rem; line-height: 1.7; color: var(--muted);
+  background: var(--surface); border-left: 3px solid var(--border);
+  border-radius: 0 6px 6px 0; padding: 10px 14px;
 }
+.stars-note {
+  display: inline-block; margin-left: 6px; font-size: .68rem;
+  color: var(--muted); font-weight: 400; letter-spacing: .02em;
+}
+
+/* 本文中の表はスマホで横スクロールさせる（潰れて読めなくなるのを防ぐ） */
+.article-body table { display: block; overflow-x: auto; white-space: nowrap; }
+.article-body table th, .article-body table td { white-space: normal; min-width: 6em; }
 
 /* footer */
 .site-footer {

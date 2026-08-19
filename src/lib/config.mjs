@@ -4,7 +4,7 @@
 
 export const site = {
   name: "おうちクラウド Lab",
-  tagline: "自宅サーバー・homelab 機材を、実測とスペックで比較する",
+  tagline: "自宅サーバー・homelab 機材を、消費電力と総コストから選ぶ",
   // サイトのオリジン（末尾スラッシュなし）。
   //  - GitHub Pages(プロジェクト): "https://YOUR_NAME.github.io"
   //  - 独自ドメイン/Cloudflare:     "https://ouchi-cloud.dev"
@@ -19,7 +19,7 @@ export const site = {
   twitter: "@ouchi_cloud",
   // フッターに出す運営情報
   description:
-    "Minisforum・Beelink などのミニPC、Synology/QNAP のNAS、10GbE機材まで。省電力・実測ベースで自宅サーバー機材を比較するメディアです。",
+    "Minisforum・Beelink などのミニPC、Synology/QNAP のNAS、10GbE機材まで。メーカー公開仕様と電気代の試算をもとに、24時間稼働させる前提での機材選びを整理するメディアです。",
 };
 
 // =============================================================
