@@ -51,6 +51,56 @@ tags: [自宅サーバー, homelab, 初心者, Proxmox, Docker]
 2. **ストレージ（SSD/HDD）** … データ保存用
 3. **ネットワーク（自宅のルーター/LAN）** … 既存のもので十分
 
+<figure class="figure">
+<svg viewBox="0 0 720 400" role="img" aria-labelledby="home-title home-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="home-title">自宅サーバーの最小構成イメージ</title>
+  <desc id="home-desc">インターネットからルーターを経てミニPCとバックアップ用ディスクにつながる構成。ミニPC上でProxmoxとDockerが動き、外出先からはTailscale経由で接続する。</desc>
+  <g font-family="sans-serif" text-anchor="middle">
+    <rect x="270" y="12" width="180" height="42" rx="8" fill="#181d24" stroke="#2a323d"/>
+    <text x="360" y="38" font-size="13" fill="#9aa4b2">インターネット</text>
+    <line x1="360" y1="54" x2="360" y2="78" stroke="#2a323d" stroke-width="1.5"/>
+
+    <rect x="270" y="78" width="180" height="42" rx="8" fill="#181d24" stroke="#2a323d"/>
+    <text x="360" y="104" font-size="13" fill="#e6e9ee">ルーター（自宅LAN）</text>
+    <line x1="360" y1="120" x2="360" y2="146" stroke="#2a323d" stroke-width="1.5"/>
+
+    <rect x="150" y="146" width="420" height="150" rx="10" fill="#1f2630" stroke="#4fd1c5" stroke-width="1.5"/>
+    <text x="360" y="170" font-size="13.5" fill="#4fd1c5">ミニPC（アイドル10W前後・24時間稼働）</text>
+    <text x="360" y="191" font-size="11.5" fill="#9aa4b2">土台：Proxmox VE ／ Ubuntu Server など</text>
+
+    <rect x="168" y="204" width="120" height="36" rx="6" fill="#181d24" stroke="#2a323d"/>
+    <text x="228" y="227" font-size="11.5" fill="#e6e9ee">Pi-hole</text>
+    <rect x="300" y="204" width="120" height="36" rx="6" fill="#181d24" stroke="#2a323d"/>
+    <text x="360" y="227" font-size="11.5" fill="#e6e9ee">Immich</text>
+    <rect x="432" y="204" width="120" height="36" rx="6" fill="#181d24" stroke="#2a323d"/>
+    <text x="492" y="227" font-size="11.5" fill="#e6e9ee">Jellyfin</text>
+
+    <rect x="168" y="248" width="120" height="36" rx="6" fill="#181d24" stroke="#2a323d"/>
+    <text x="228" y="271" font-size="11.5" fill="#e6e9ee">Vaultwarden</text>
+    <rect x="300" y="248" width="120" height="36" rx="6" fill="#181d24" stroke="#2a323d"/>
+    <text x="360" y="271" font-size="11.5" fill="#e6e9ee">Uptime Kuma</text>
+    <rect x="432" y="248" width="120" height="36" rx="6" fill="#181d24" stroke="#2a323d"/>
+    <text x="492" y="271" font-size="11.5" fill="#e6e9ee">Nextcloud</text>
+
+    <line x1="360" y1="296" x2="360" y2="322" stroke="#f6ad55" stroke-width="1.5"/>
+    <rect x="230" y="322" width="260" height="52" rx="8" fill="#181d24" stroke="#f6ad55" stroke-width="1.5"/>
+    <text x="360" y="344" font-size="12.5" fill="#f6ad55">バックアップ用ディスク</text>
+    <text x="360" y="364" font-size="11" fill="#9aa4b2">外付けHDD／別のPC／クラウド</text>
+
+    <rect x="12" y="180" width="118" height="52" rx="8" fill="#181d24" stroke="#63b3ed" stroke-width="1.5"/>
+    <text x="71" y="202" font-size="12" fill="#63b3ed">外出先の端末</text>
+    <text x="71" y="221" font-size="10.5" fill="#9aa4b2">Tailscale 経由</text>
+    <line x1="130" y1="206" x2="150" y2="206" stroke="#63b3ed" stroke-width="1.5"/>
+
+    <rect x="590" y="180" width="118" height="52" rx="8" fill="#181d24" stroke="#2a323d"/>
+    <text x="649" y="202" font-size="12" fill="#e6e9ee">家庭内の端末</text>
+    <text x="649" y="221" font-size="10.5" fill="#9aa4b2">PC・スマホ・TV</text>
+    <line x1="570" y1="206" x2="590" y2="206" stroke="#2a323d" stroke-width="1.5"/>
+  </g>
+</svg>
+<figcaption>自宅サーバーの基本構成。ミニPC1台の上に複数のサービスを同居させ、データはバックアップ用ディスクへ複製します。外出先からはポート開放をせず、Tailscale などのVPN経由で接続するのが安全です。</figcaption>
+</figure>
+
 最初のうちは高価なNASや10GbEは不要です。**2〜3万円のミニPC1台**あれば、上に挙げたサービスのほとんどが動きます。
 
 ### メモリはいくつ必要か

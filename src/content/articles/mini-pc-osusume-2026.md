@@ -121,6 +121,60 @@ products:
 | Minisforum MS-01 | ¥89,800 | 約20W | 約21,724円 | **約111,524円** |
 | （参考）中古デスクトップPC | ¥15,000 | 約45W | 約48,880円 | **約63,880円** |
 
+<figure class="figure">
+<svg viewBox="0 0 820 306" role="img" aria-labelledby="tco-title tco-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="tco-title">ミニPC機種別・4年間の総コスト比較</title>
+  <desc id="tco-desc">本体価格と4年分の電気代を積み上げた横棒グラフ。中古デスクトップは本体が安くても電気代で総額が上回る。</desc>
+  <g font-family="sans-serif">
+    <rect x="185" y="18" width="12" height="12" fill="#63b3ed" rx="2"/>
+    <text x="203" y="29" font-size="12" fill="#9aa4b2">本体価格</text>
+    <rect x="275" y="18" width="12" height="12" fill="#f6ad55" rx="2"/>
+    <text x="293" y="29" font-size="12" fill="#9aa4b2">4年間の電気代（31円/kWh・24時間365日）</text>
+
+    <g font-size="12.5" fill="#e6e9ee">
+      <text x="176" y="76" text-anchor="end">GMKtec G3 Plus</text>
+      <text x="176" y="112" text-anchor="end">Beelink EQ14</text>
+      <text x="176" y="148" text-anchor="end" fill="#f56565">中古デスクトップ</text>
+      <text x="176" y="184" text-anchor="end">ASUS NUC 14 Pro</text>
+      <text x="176" y="220" text-anchor="end">UM890 Pro</text>
+      <text x="176" y="256" text-anchor="end">Minisforum MS-01</text>
+    </g>
+
+    <g>
+      <rect x="185" y="62" width="102" height="20" fill="#63b3ed" rx="2"/>
+      <rect x="287" y="62" width="35"  height="20" fill="#f6ad55" rx="2"/>
+      <text x="332" y="77" font-size="12" fill="#9aa4b2">約29,400円</text>
+
+      <rect x="185" y="98" width="116" height="20" fill="#63b3ed" rx="2"/>
+      <rect x="301" y="98" width="41"  height="20" fill="#f6ad55" rx="2"/>
+      <text x="352" y="113" font-size="12" fill="#9aa4b2">約33,500円</text>
+
+      <rect x="185" y="134" width="70"  height="20" fill="#63b3ed" rx="2"/>
+      <rect x="255" y="134" width="228" height="20" fill="#f6ad55" rx="2"/>
+      <text x="493" y="149" font-size="12" fill="#f56565">約63,900円（電気代が本体の3倍以上）</text>
+
+      <rect x="185" y="170" width="326" height="20" fill="#63b3ed" rx="2"/>
+      <rect x="511" y="170" width="51"  height="20" fill="#f6ad55" rx="2"/>
+      <text x="572" y="185" font-size="12" fill="#9aa4b2">約80,700円</text>
+
+      <rect x="185" y="206" width="372" height="20" fill="#63b3ed" rx="2"/>
+      <rect x="557" y="206" width="76"  height="20" fill="#f6ad55" rx="2"/>
+      <text x="643" y="221" font-size="12" fill="#9aa4b2">約96,100円</text>
+
+      <rect x="185" y="242" width="419" height="20" fill="#63b3ed" rx="2"/>
+      <rect x="604" y="242" width="101" height="20" fill="#f6ad55" rx="2"/>
+      <text x="715" y="257" font-size="12" fill="#9aa4b2">約111,500円</text>
+    </g>
+
+    <line x1="185" y1="276" x2="745" y2="276" stroke="#2a323d" stroke-width="1"/>
+    <text x="185" y="294" font-size="11" fill="#9aa4b2">0円</text>
+    <text x="465" y="294" font-size="11" fill="#9aa4b2" text-anchor="middle">約60,000円</text>
+    <text x="745" y="294" font-size="11" fill="#9aa4b2" text-anchor="end">約120,000円</text>
+  </g>
+</svg>
+<figcaption>4年間の総コスト（本体価格＋電気代）の比較。本体1.5万円の中古デスクトップ（アイドル45W想定）は、4年間の電気代だけで約48,900円かかり、新品の省電力ミニPCより総額が高くなります。電気代は電力量料金31円/kWhでの試算です。</figcaption>
+</figure>
+
 この表から読み取れることは3つあります。
 
 1. **省電力機どうしの電気代の差は小さい**。7Wと10Wの差は4年で約3,300円で、本体価格差の方がはるかに大きい。つまり**省電力機の中では、電気代を気にするより性能で選んでよい**。

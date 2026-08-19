@@ -236,15 +236,34 @@ function buildStaticPage(page) {
 }
 
 function buildSitemap(articles, pages) {
+  // 記事の最終更新日（updated があればそれ、なければ公開日）を lastmod に出す。
+  const iso = (d) => new Date(d).toISOString().slice(0, 10);
+  const latest = articles.length
+    ? iso(articles.map((a) => a.updated || a.date).sort().reverse()[0])
+    : null;
+
   const urls = [
-    absUrl("/"),
-    ...Object.keys(categories).map((s) => absUrl(`/category/${s}/`)),
-    ...articles.map((a) => absUrl(`/articles/${a.slug}/`)),
-    ...pages.map((p) => absUrl(`/${p.slug}/`)),
+    { loc: absUrl("/"), lastmod: latest },
+    ...Object.keys(categories).map((s) => ({
+      loc: absUrl(`/category/${s}/`),
+      lastmod: latest,
+    })),
+    ...articles.map((a) => ({
+      loc: absUrl(`/articles/${a.slug}/`),
+      lastmod: iso(a.updated || a.date),
+    })),
+    ...pages.map((p) => ({ loc: absUrl(`/${p.slug}/`), lastmod: null })),
   ];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((u) => `  <url><loc>${u}</loc></url>`).join("\n")}
+${urls
+  .map(
+    (u) =>
+      `  <url><loc>${u.loc}</loc>${
+        u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : ""
+      }</url>`
+  )
+  .join("\n")}
 </urlset>`;
   fs.writeFileSync(path.join(distDir, "sitemap.xml"), xml, "utf8");
 }

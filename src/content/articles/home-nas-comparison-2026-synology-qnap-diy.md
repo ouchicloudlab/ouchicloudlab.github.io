@@ -111,6 +111,43 @@ RAIDで守れるもの・守れないものを整理します。
 | NAS本体が故障・電源が壊れた | △ ディスクは無事でも取り出しに手間 |
 | 落雷・火災・水濡れ・盗難 | **× 全滅** |
 
+<figure class="figure">
+<svg viewBox="0 0 720 330" role="img" aria-labelledby="raid-title raid-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="raid-title">RAIDとバックアップの役割の違い</title>
+  <desc id="raid-desc">RAIDはディスク故障には有効だが、誤削除やランサムウェアでは全ディスクから同時にデータが消える。別媒体・別の場所へのコピーが必要であることを示した図。</desc>
+  <g font-family="sans-serif" text-anchor="middle">
+    <text x="180" y="26" font-size="14" fill="#48bb78">RAIDで守れる</text>
+    <text x="540" y="26" font-size="14" fill="#f56565">RAIDでは守れない</text>
+    <line x1="360" y1="8" x2="360" y2="322" stroke="#2a323d" stroke-width="1" stroke-dasharray="4 4"/>
+
+    <rect x="40" y="44" width="280" height="76" rx="8" fill="#181d24" stroke="#48bb78" stroke-width="1.5"/>
+    <text x="180" y="72" font-size="13" fill="#e6e9ee">HDDが1台壊れた</text>
+    <text x="180" y="98" font-size="12" fill="#9aa4b2">残りのディスクから復元できる</text>
+
+    <rect x="40" y="132" width="280" height="76" rx="8" fill="#181d24" stroke="#48bb78" stroke-width="1.5"/>
+    <text x="180" y="160" font-size="13" fill="#e6e9ee">ディスクの一部が読めなくなった</text>
+    <text x="180" y="186" font-size="12" fill="#9aa4b2">冗長データから修復できる</text>
+
+    <rect x="400" y="44" width="280" height="60" rx="8" fill="#181d24" stroke="#f56565" stroke-width="1.5"/>
+    <text x="540" y="70" font-size="13" fill="#e6e9ee">誤ってファイルを削除した</text>
+    <text x="540" y="92" font-size="12" fill="#9aa4b2">全ディスクから同時に消える</text>
+
+    <rect x="400" y="116" width="280" height="60" rx="8" fill="#181d24" stroke="#f56565" stroke-width="1.5"/>
+    <text x="540" y="142" font-size="13" fill="#e6e9ee">ランサムウェアに暗号化された</text>
+    <text x="540" y="164" font-size="12" fill="#9aa4b2">全ディスクが同時に暗号化される</text>
+
+    <rect x="400" y="188" width="280" height="60" rx="8" fill="#181d24" stroke="#f56565" stroke-width="1.5"/>
+    <text x="540" y="214" font-size="13" fill="#e6e9ee">落雷・火災・水濡れ・盗難</text>
+    <text x="540" y="236" font-size="12" fill="#9aa4b2">NASごと失われる</text>
+
+    <rect x="40" y="252" width="640" height="58" rx="8" fill="#1f2630" stroke="#4fd1c5" stroke-width="1.5"/>
+    <text x="360" y="277" font-size="13.5" fill="#4fd1c5">右側を守れるのは「別の媒体・別の場所へのコピー」だけ</text>
+    <text x="360" y="299" font-size="12" fill="#9aa4b2">3-2-1ルール：3つのコピー／2種類の媒体／1つは別の場所へ</text>
+  </g>
+</svg>
+<figcaption>RAIDはバックアップではありません。ディスクの物理故障には有効ですが、誤削除・ランサムウェア・災害では全ディスクのデータが同時に失われます。守れる範囲が異なるため、両者は代替関係にありません。</figcaption>
+</figure>
+
 したがって、**別の場所へのコピーが必ず必要**です。よく使われるのが「3-2-1ルール」です。
 
 - **3**つのコピーを持つ（オリジナル＋バックアップ2つ）

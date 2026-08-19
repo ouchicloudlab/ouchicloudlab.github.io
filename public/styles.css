@@ -191,3 +191,13 @@ a:hover { text-decoration: underline; }
   margin: 12px 0 4px; max-width: 46em; line-height: 1.9;
   color: var(--muted); font-size: .95rem;
 }
+
+/* 記事内の図版（自作のインラインSVG） */
+.figure {
+  margin: 26px 0; padding: 16px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius);
+}
+.figure svg { display: block; width: 100%; height: auto; }
+.figure figcaption {
+  margin-top: 10px; font-size: .82rem; line-height: 1.7; color: var(--muted);
+}
