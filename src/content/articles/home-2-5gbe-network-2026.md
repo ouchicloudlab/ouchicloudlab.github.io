@@ -3,6 +3,7 @@ title: 【2026年】家庭内LANを2.5GbE化する機材まとめ｜スイッチ
 slug: home-2-5gbe-network-2026
 description: 自宅サーバーやNASの転送を速くしたい人向けに、家庭内LANを2.5GbE化する最小構成をまとめました。必要なスイッチ・NIC・ケーブルと費用の目安、10GbEとの使い分けを解説します。
 date: 2026-07-11
+updated: 2026-08-20
 category: network
 type: comparison
 tags: [2.5GbE, ネットワーク, homelab, NAS, スイッチ]

@@ -3,6 +3,7 @@ title: 自宅サーバーのUPS（無停電電源）おすすめと選び方【2
 slug: homelab-ups-osusume-2026
 description: 24時間稼働の自宅サーバーやNASを停電・瞬電から守るUPSの選び方を解説。必要な容量（VA/W）の計算、常時商用給電と正弦波の違い、自動シャットダウン連携までまとめました。
 date: 2026-07-10
+updated: 2026-08-20
 category: network
 type: comparison
 tags: [UPS, 無停電電源, NAS, homelab, 停電対策]

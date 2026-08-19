@@ -3,6 +3,7 @@ title: 自宅サーバーとは？初心者向け完全ガイド【2026年版】
 slug: jitaku-server-nyumon
 description: 自宅サーバー（homelab）を始めたい初心者向けに、何ができるのか・必要な機材・初期費用と電気代の実際の計算・始め方の手順・やめておいた方がいいケースまで2026年の最新事情で解説します。
 date: 2026-07-06
+updated: 2026-08-20
 category: guide
 type: guide
 tags: [自宅サーバー, homelab, 初心者, Proxmox, Docker]

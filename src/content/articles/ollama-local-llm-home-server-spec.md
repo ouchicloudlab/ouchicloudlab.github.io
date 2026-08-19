@@ -3,6 +3,7 @@ title: OllamaでローカルLLMを自宅サーバー化する必要スペック�
 slug: ollama-local-llm-home-server-spec
 description: OllamaでローカルLLMを自宅サーバーに構築する際に必要なCPU・メモリ・GPU・ストレージの目安をモデルサイズ別に解説。予算別の構成例も紹介。
 date: 2026-08-09
+updated: 2026-08-20
 category: guide
 type: guide
 tags: [Ollama, ローカルLLM, 自宅サーバー, GPU, 自作PC]

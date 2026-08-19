@@ -3,6 +3,7 @@ title: アイドル10W以下の省電力ミニPC5選｜おうちサーバーの�
 slug: low-power-mini-pc-idle-under-10w-home-server
 description: 24時間稼働のおうちサーバーに最適な、アイドル時消費電力10W以下を実現する省電力ミニPCを5機種厳選。電気代シミュレーションと選び方も解説。
 date: 2026-07-13
+updated: 2026-08-20
 category: mini-pc
 type: comparison
 tags: [省電力ミニPC, おうちサーバー, Intel N100, 電気代, 自宅サーバー]

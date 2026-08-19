@@ -207,6 +207,7 @@ export function layout({ title, description, canonical, body, article }) {
         headline: article.title,
         description: article.description,
         datePublished: article.date,
+        dateModified: article.updated || article.date,
         author: { "@type": "Organization", name: site.author },
         publisher: { "@type": "Organization", name: site.name },
       })}</script>`

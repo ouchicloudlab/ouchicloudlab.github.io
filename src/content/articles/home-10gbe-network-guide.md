@@ -3,6 +3,7 @@ title: 自宅10GbE化の完全ガイド2026｜スイッチ・NIC・ケーブル�
 slug: home-10gbe-network-guide
 description: 自宅を10GbE化するための基礎知識をまとめました。スイッチ・NIC・ケーブルの選び方から注意点、費用目安まで初心者向けに解説します。
 date: 2026-07-20
+updated: 2026-08-20
 category: network
 type: guide
 tags: [10GbE, ネットワーク, スイッチ, NIC, LANケーブル]

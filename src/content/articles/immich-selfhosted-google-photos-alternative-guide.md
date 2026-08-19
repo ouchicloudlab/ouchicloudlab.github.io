@@ -3,6 +3,7 @@ title: Immichで自宅サーバーにGoogleフォト代替を構築する完全�
 slug: immich-selfhosted-google-photos-alternative-guide
 description: 無料の写真管理ツールImmichをセルフホストし、Googleフォトの容量制限や有料化から脱却する方法をDocker導入手順とともに解説します。
 date: 2026-07-27
+updated: 2026-08-20
 category: guide
 type: guide
 tags: [Immich, セルフホスト, Googleフォト代替, Docker, 自宅サーバー]

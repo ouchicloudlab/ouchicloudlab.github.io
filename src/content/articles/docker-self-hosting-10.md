@@ -3,6 +3,7 @@ title: Dockerで動かす自宅サーバーの人気サービス10選【2026年�
 slug: docker-self-hosting-10
 description: 自宅サーバー（homelab）で定番のセルフホストサービス10個を、必要メモリ・ストレージ・難易度と実際の docker compose 設定例つきで解説。導入順序とつまずきやすい点もまとめました。
 date: 2026-07-04
+updated: 2026-08-20
 category: guide
 type: guide
 tags: [Docker, セルフホスト, Nextcloud, Pi-hole, homelab]

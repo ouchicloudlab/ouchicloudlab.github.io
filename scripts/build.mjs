@@ -122,7 +122,12 @@ function buildArticlePage(article) {
   <header class="article-head">
     <div class="badges">
       ${cat ? `<span class="badge">${cat.emoji} ${cat.label}</span>` : ""}
-      <span class="date">更新: ${fmtDate(article.date)}</span>
+      <span class="date">公開: ${fmtDate(article.date)}</span>
+      ${
+        article.updated && article.updated !== article.date
+          ? `<span class="date">更新: ${fmtDate(article.updated)}</span>`
+          : ""
+      }
     </div>
     <h1>${article.title}</h1>
     <p class="lead">${article.description || ""}</p>
@@ -185,11 +190,12 @@ function buildCategoryPages(articles) {
     const body = `
 <section class="cat-head">
   <h1>${cat.emoji} ${cat.label} の記事</h1>
+  ${cat.intro ? `<p class="cat-intro">${cat.intro}</p>` : ""}
 </section>
 <div class="card-grid">${cards}</div>`;
     writePage(`category/${slug}`, layout({
       title: `${cat.label}の比較記事 | ${site.name}`,
-      description: `${cat.label}に関する自宅サーバー機材の比較・レビュー記事一覧。`,
+      description: cat.intro || `${cat.label}に関する自宅サーバー機材の比較記事一覧。`,
       canonical: absUrl(`/category/${slug}/`),
       body,
     }));

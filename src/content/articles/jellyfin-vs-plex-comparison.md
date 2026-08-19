@@ -3,6 +3,7 @@ title: Jellyfin vs Plex 徹底比較｜自宅メディアサーバー構築に�
 slug: jellyfin-vs-plex-comparison
 description: JellyfinとPlexの違いを機能・料金・使いやすさで比較。自宅サーバーで動画や音楽を家族と共有したい人向けに、最適な選び方を解説します。
 date: 2026-08-16
+updated: 2026-08-20
 category: guide
 type: comparison
 tags: [Jellyfin, Plex, メディアサーバー, 自宅サーバー, NAS]

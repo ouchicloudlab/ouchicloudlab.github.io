@@ -3,6 +3,7 @@ title: Proxmox入門｜ミニPC1台で始める自宅仮想化のはじめ方【
 slug: proxmox-nyumon-minipc
 description: 自宅サーバーの定番、無料の仮想化基盤Proxmox VEをミニPC1台で始める手順を初心者向けに解説。インストールから最初のVM・LXCコンテナ作成、バックアップまで、つまずきやすい点も含めて紹介します。
 date: 2026-07-09
+updated: 2026-08-20
 category: guide
 type: guide
 tags: [Proxmox, 仮想化, homelab, ミニPC, 入門]

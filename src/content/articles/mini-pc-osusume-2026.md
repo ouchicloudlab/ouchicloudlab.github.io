@@ -3,6 +3,7 @@ title: 【2026年】自宅サーバー向けミニPCおすすめ5選｜消費電
 slug: mini-pc-osusume-2026
 description: Intel NUC撤退後の2026年、自宅サーバー（homelab）用ミニPCの本命はどれか。Minisforum・Beelink・ASUSを、公開仕様の消費電力・10GbE対応・拡張性と、4年間の電気代込み総コストで比較します。
 date: 2026-07-05
+updated: 2026-08-20
 category: mini-pc
 type: comparison
 tags: [ミニPC, homelab, Proxmox, 省電力, 10GbE]

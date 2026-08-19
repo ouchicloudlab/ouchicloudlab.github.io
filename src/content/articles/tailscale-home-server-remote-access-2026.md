@@ -3,6 +3,7 @@ title: Tailscaleで自宅サーバーに外部から安全にアクセスする�
 slug: tailscale-home-server-remote-access-2026
 description: ポート開放なしで自宅サーバーに外出先からアクセスできるTailscaleの導入手順を解説。仕組み・設定・注意点まで2026年最新情報でまとめる。
 date: 2026-08-03
+updated: 2026-08-20
 category: guide
 type: guide
 tags: [Tailscale, 自宅サーバー, VPN, リモートアクセス, セキュリティ]
