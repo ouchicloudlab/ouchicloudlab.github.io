@@ -130,7 +130,6 @@ products:
     <text x="203" y="29" font-size="12" fill="#9aa4b2">本体価格</text>
     <rect x="275" y="18" width="12" height="12" fill="#f6ad55" rx="2"/>
     <text x="293" y="29" font-size="12" fill="#9aa4b2">4年間の電気代（31円/kWh・24時間365日）</text>
-
     <g font-size="12.5" fill="#e6e9ee">
       <text x="176" y="76" text-anchor="end">GMKtec G3 Plus</text>
       <text x="176" y="112" text-anchor="end">Beelink EQ14</text>
@@ -139,33 +138,26 @@ products:
       <text x="176" y="220" text-anchor="end">UM890 Pro</text>
       <text x="176" y="256" text-anchor="end">Minisforum MS-01</text>
     </g>
-
     <g>
       <rect x="185" y="62" width="102" height="20" fill="#63b3ed" rx="2"/>
       <rect x="287" y="62" width="35"  height="20" fill="#f6ad55" rx="2"/>
       <text x="332" y="77" font-size="12" fill="#9aa4b2">約29,400円</text>
-
       <rect x="185" y="98" width="116" height="20" fill="#63b3ed" rx="2"/>
       <rect x="301" y="98" width="41"  height="20" fill="#f6ad55" rx="2"/>
       <text x="352" y="113" font-size="12" fill="#9aa4b2">約33,500円</text>
-
       <rect x="185" y="134" width="70"  height="20" fill="#63b3ed" rx="2"/>
       <rect x="255" y="134" width="228" height="20" fill="#f6ad55" rx="2"/>
       <text x="493" y="149" font-size="12" fill="#f56565">約63,900円（電気代が本体の3倍以上）</text>
-
       <rect x="185" y="170" width="326" height="20" fill="#63b3ed" rx="2"/>
       <rect x="511" y="170" width="51"  height="20" fill="#f6ad55" rx="2"/>
       <text x="572" y="185" font-size="12" fill="#9aa4b2">約80,700円</text>
-
       <rect x="185" y="206" width="372" height="20" fill="#63b3ed" rx="2"/>
       <rect x="557" y="206" width="76"  height="20" fill="#f6ad55" rx="2"/>
       <text x="643" y="221" font-size="12" fill="#9aa4b2">約96,100円</text>
-
       <rect x="185" y="242" width="419" height="20" fill="#63b3ed" rx="2"/>
       <rect x="604" y="242" width="101" height="20" fill="#f6ad55" rx="2"/>
       <text x="715" y="257" font-size="12" fill="#9aa4b2">約111,500円</text>
     </g>
-
     <line x1="185" y1="276" x2="745" y2="276" stroke="#2a323d" stroke-width="1"/>
     <text x="185" y="294" font-size="11" fill="#9aa4b2">0円</text>
     <text x="465" y="294" font-size="11" fill="#9aa4b2" text-anchor="middle">約60,000円</text>

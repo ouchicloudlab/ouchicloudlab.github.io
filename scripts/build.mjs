@@ -118,6 +118,16 @@ function renderArticleBody(article) {
     );
   }
 
+  // 埋め込んだHTML（インラインSVGなど）がエスケープされて本文に出ていないか。
+  // ブロック内に空行があると marked がHTMLブロックを打ち切り、
+  // 続きがそのままコードとして表示されてしまう（＝図版内は空行禁止）。
+  const escaped = html.match(new RegExp("&lt;(svg|g|rect|text|line|path)\\b", "g"));
+  if (escaped) {
+    console.warn(
+      `⚠️  ${article.slug}: 埋め込みHTMLがエスケープされています（${escaped.length}箇所）。図版ブロック内の空行を削除してください。`
+    );
+  }
+
   return html;
 }
 
