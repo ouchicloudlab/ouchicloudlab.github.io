@@ -13,7 +13,7 @@
 # [done] 2.5GbE 家庭内LAN 高速化 機材 まとめ
 
 # --- 2026-07-13 追加分（機材購入ニーズ＝Amazonアフィリ寄り中心）---
-NAS用HDD おすすめ比較 WD Red Seagate IronWolf 自宅サーバー
+# [done] NAS用HDD おすすめ比較 WD Red Seagate IronWolf 自宅サーバー
 NVMe SSD NASキャッシュ 増設 効果と選び方 自宅サーバー
 Raspberry Pi 5 自宅サーバー おすすめ構成と用途 2026
 中古法人ミニPC 自宅サーバー化 選び方 ThinkCentre OptiPlex
