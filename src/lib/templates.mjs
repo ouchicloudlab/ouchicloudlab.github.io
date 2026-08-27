@@ -249,6 +249,11 @@ ${body}
       <a href="/disclaimer/">免責事項</a>
       <a href="/contact/">お問い合わせ</a>
     </nav>
+    <p class="sister-site">
+      姉妹サイト:
+      <a href="/tools/">🧮 サクッとツール</a>
+      — 消費税・電気代・単位換算など、日常の計算をブラウザだけで片づける無料ツール集です。
+    </p>
     <p class="disclosure">※当サイトはアフィリエイトプログラム（Amazonアソシエイト等）を利用しています。商品リンク経由の購入で当サイトが収益を得る場合があります。価格・在庫は変動するため、最新情報は各販売ページでご確認ください。</p>
     <p>&copy; ${new Date().getFullYear()} ${esc(site.name)} — ${esc(site.tagline)}</p>
   </div>
