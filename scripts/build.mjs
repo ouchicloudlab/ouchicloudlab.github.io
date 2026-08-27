@@ -304,7 +304,16 @@ ${items}
 }
 
 function buildRobots() {
-  const txt = `User-agent: *\nAllow: /\nSitemap: ${absUrl("/sitemap.xml")}\n`;
+  // 同じドメインの別プロジェクト（/tools/ = サクッとツール）のサイトマップも
+  // ここに書く。robots.txt はサイトルートのものしか読まれないため、
+  // サブディレクトリ側に置いた robots.txt はクローラに無視される。
+  const sitemaps = [
+    absUrl("/sitemap.xml"),
+    `${site.url}/tools/sitemap.xml`,
+  ];
+  const txt =
+    `User-agent: *\nAllow: /\n` +
+    sitemaps.map((s) => `Sitemap: ${s}\n`).join("");
   fs.writeFileSync(path.join(distDir, "robots.txt"), txt, "utf8");
 }
 
