@@ -15,7 +15,7 @@
 # --- 2026-07-13 追加分（機材購入ニーズ＝Amazonアフィリ寄り中心）---
 # [done] NAS用HDD おすすめ比較 WD Red Seagate IronWolf 自宅サーバー
 # [done] NVMe SSD NASキャッシュ 増設 効果と選び方 自宅サーバー
-Raspberry Pi 5 自宅サーバー おすすめ構成と用途 2026
+# [done] Raspberry Pi 5 自宅サーバー おすすめ構成と用途 2026
 中古法人ミニPC 自宅サーバー化 選び方 ThinkCentre OptiPlex
 10インチ ミニラック 自宅サーバー ラック 自作 まとめ
 PoE スイッチ おすすめ 自宅ネットワーク 選び方
