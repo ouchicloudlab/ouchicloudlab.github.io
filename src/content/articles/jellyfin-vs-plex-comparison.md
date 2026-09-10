@@ -3,7 +3,7 @@ title: Jellyfin vs Plex 徹底比較｜自宅メディアサーバー構築に�
 slug: jellyfin-vs-plex-comparison
 description: JellyfinとPlexの違いを機能・料金・使いやすさで比較。自宅サーバーで動画や音楽を家族と共有したい人向けに、最適な選び方を解説します。
 date: 2026-08-16
-updated: 2026-08-20
+updated: 2026-09-11
 category: guide
 type: comparison
 tags: [Jellyfin, Plex, メディアサーバー, 自宅サーバー, NAS]
@@ -14,27 +14,21 @@ products:
     spec: "OSS/自前ホスト限定・トランスコードは自分のGPU/CPU依存・広告なし"
     pros: ["完全無料でずっと使える", "プライバシー重視で外部送信なし", "プラグインで機能拡張しやすい"]
     cons: ["リモート視聴の設定がやや難しい", "モバイルアプリの完成度がPlexよりやや粗い"]
-    affiliate:
-      amazon: "REPLACE_ASIN_XXX"
-      rakuten: ""
+    official: "https://jellyfin.org/"
   - name: Plex
     price: "無料（Plex Passは月額¥1,200前後 or 買い切り¥16,000前後）"
     rating: 4.5
     spec: "クラウド連携型・リモートアクセスが簡単・対応デバイス非常に多い"
     pros: ["セットアップが簡単で初心者向け", "外出先からの視聴が安定", "スマートテレビ対応が豊富"]
     cons: ["一部機能が有料（Plex Pass）", "アカウント情報がPlex社サーバー経由"]
-    affiliate:
-      amazon: "REPLACE_ASIN_XXX"
-      rakuten: ""
+    official: "https://www.plex.tv/"
   - name: Emby
     price: "無料（Emby Premiereは買い切り¥5,000前後）"
     rating: 4.0
     spec: "JellyfinとPlexの中間的立ち位置・一部機能は有料化"
     pros: ["JellyfinのベースとなったUIで使いやすい", "ハードウェアトランスコードに対応", "ライブTV機能が充実"]
     cons: ["主要機能の一部が有料", "コミュニティ規模はJellyfinより小さめ"]
-    affiliate:
-      amazon: "REPLACE_ASIN_XXX"
-      rakuten: ""
+    official: "https://emby.media/"
 ---
 
 ## 自宅メディアサーバーとは何か
@@ -87,6 +81,53 @@ products:
 **ハードウェアトランスコードの有無で10倍近い差**が出ます。メディアサーバーを主目的にするなら、**Intel の内蔵GPU（Quick Sync）を搭載した機種**を選んでください。これはミニPC選びで数少ない「明確にIntelが有利な用途」です。
 
 なお、Jellyfin でのハードウェアアクセラレーションは、コンテナに `/dev/dri` を渡す設定が必要です。Plex では**Plex Pass（有料）が必須**という違いがあります。
+
+
+<figure class="figure">
+<svg viewBox="0 0 720 340" role="img" aria-labelledby="jf-t jf-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="jf-t">ダイレクト再生とトランスコードの違い</title>
+  <desc id="jf-d">ダイレクト再生ではサーバーはファイルを読んで送るだけでCPUをほとんど使わない。トランスコードではサーバー側で映像を一度デコードして再エンコードするため、CPU負荷が跳ね上がる。</desc>
+  <g font-family="sans-serif">
+    <text x="12" y="20" font-size="13" fill="#4fd1c5">A. ダイレクト再生 — サーバーは「読んで送る」だけ</text>
+    <g text-anchor="middle">
+      <rect x="12" y="34" width="150" height="58" rx="8" fill="#1f2630" stroke="#4fd1c5" stroke-width="1.5"/>
+      <text x="87" y="58" font-size="12" fill="#4fd1c5">サーバー</text>
+      <text x="87" y="78" font-size="11" fill="#9aa4b2">CPU使用率 数%</text>
+      <rect x="222" y="34" width="150" height="58" rx="8" fill="#1f2630" stroke="#2a323d"/>
+      <text x="297" y="58" font-size="12" fill="#e6e9ee">元ファイルのまま</text>
+      <text x="297" y="78" font-size="11" fill="#9aa4b2">H.264 / HEVC</text>
+      <rect x="432" y="34" width="150" height="58" rx="8" fill="#1f2630" stroke="#2a323d"/>
+      <text x="507" y="58" font-size="12" fill="#e6e9ee">再生端末</text>
+      <text x="507" y="78" font-size="11" fill="#9aa4b2">端末側でデコード</text>
+      <text x="650" y="58" font-size="12" fill="#4fd1c5">快適</text>
+      <text x="650" y="78" font-size="10.5" fill="#9aa4b2">4Kでも余裕</text>
+    </g>
+    <g stroke="#4fd1c5" stroke-width="1.5"><line x1="162" y1="63" x2="222" y2="63"/><line x1="372" y1="63" x2="432" y2="63"/></g>
+    <text x="12" y="132" font-size="13" fill="#f6ad55">B. トランスコード — サーバーが映像を作り直す</text>
+    <g text-anchor="middle">
+      <rect x="12" y="146" width="150" height="72" rx="8" fill="#1f2630" stroke="#f6ad55" stroke-width="1.5"/>
+      <text x="87" y="170" font-size="12" fill="#f6ad55">サーバー</text>
+      <text x="87" y="190" font-size="11" fill="#9aa4b2">デコード → 再エンコード</text>
+      <text x="87" y="208" font-size="11" fill="#f6ad55">CPU使用率 60〜100%</text>
+      <rect x="222" y="146" width="150" height="72" rx="8" fill="#1f2630" stroke="#2a323d"/>
+      <text x="297" y="176" font-size="12" fill="#e6e9ee">変換後のファイル</text>
+      <text x="297" y="196" font-size="11" fill="#9aa4b2">端末が再生できる形式へ</text>
+      <rect x="432" y="146" width="150" height="72" rx="8" fill="#1f2630" stroke="#2a323d"/>
+      <text x="507" y="176" font-size="12" fill="#e6e9ee">再生端末</text>
+      <text x="507" y="196" font-size="11" fill="#9aa4b2">対応形式しか再生不可</text>
+      <text x="650" y="176" font-size="12" fill="#f6ad55">重い</text>
+      <text x="650" y="196" font-size="10.5" fill="#9aa4b2">4K同時2本で限界</text>
+    </g>
+    <g stroke="#f6ad55" stroke-width="1.5"><line x1="162" y1="182" x2="222" y2="182"/><line x1="372" y1="182" x2="432" y2="182"/></g>
+    <text x="12" y="254" font-size="12" fill="#e6e9ee">トランスコードが起きる主な条件</text>
+    <text x="12" y="276" font-size="11" fill="#9aa4b2">・端末がそのコーデックに対応していない（古いテレビでHEVCを再生しようとした、など）</text>
+    <text x="12" y="296" font-size="11" fill="#9aa4b2">・回線が細く、ビットレートを落とす必要がある（外出先からの視聴でよく起きる）</text>
+    <text x="12" y="316" font-size="11" fill="#9aa4b2">・字幕を映像に焼き込む必要がある（PGSなど画像形式の字幕は焼き込みになりやすい）</text>
+    <text x="12" y="334" font-size="10.5" fill="#9aa4b2">※CPU使用率は一般的な4コアCPUでソフトウェア変換した場合の目安です。QSVなどのハードウェア支援が効けば大きく下がります。</text>
+  </g>
+</svg>
+<figcaption>同じ動画を再生していても、サーバーの仕事量はまったく違います。機材選びで効いてくるのは「何本同時にトランスコードするか」だけです。全部ダイレクト再生で済む構成にできれば、格安ミニPCでも4Kが問題なく流れます。</figcaption>
+</figure>
 
 ## ファイル整理の作法（ここで9割決まる）
 

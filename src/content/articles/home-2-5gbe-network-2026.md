@@ -3,7 +3,7 @@ title: 【2026年】家庭内LANを2.5GbE化する機材まとめ｜スイッチ
 slug: home-2-5gbe-network-2026
 description: 自宅サーバーやNASの転送を速くしたい人向けに、家庭内LANを2.5GbE化する最小構成をまとめました。必要なスイッチ・NIC・ケーブルと費用の目安、10GbEとの使い分けを解説します。
 date: 2026-07-11
-updated: 2026-08-20
+updated: 2026-09-11
 category: network
 type: comparison
 tags: [2.5GbE, ネットワーク, homelab, NAS, スイッチ]
@@ -109,6 +109,39 @@ iperf3 -c 192.168.1.10
 ```
 
 `iperf3` はディスクを介さずネットワークだけを測るため、**「LANが遅いのか、ディスクが遅いのか」を切り分けられます**。1GbE環境なら 940Mbps 前後が出ていれば正常。ここが正常なのにファイルコピーが遅いなら、原因はディスク側です。
+
+
+<figure class="figure">
+<svg viewBox="0 0 720 330" role="img" aria-labelledby="g25-t g25-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="g25-t">50GBのファイルを転送するのにかかる時間の比較</title>
+  <desc id="g25-d">1GbEでは約7分半、2.5GbEでは約3分、10GbEでは約45秒。ただしHDD1台の環境では約180MB/sが上限になり、2.5GbEを超えても短縮しない。</desc>
+  <g font-family="sans-serif">
+    <text x="12" y="20" font-size="13" fill="#4fd1c5">50GBの動画フォルダを丸ごとコピーしたときの所要時間（理論帯域からの試算）</text>
+    <g font-size="11.5">
+      <text x="96" y="62" text-anchor="end" fill="#9aa4b2">1GbE</text>
+      <rect x="104" y="48" width="560" height="22" rx="3" fill="#4a5568"/>
+      <text x="116" y="63" fill="#e6e9ee">約7分30秒　（実効 約110MB/s）</text>
+      <text x="96" y="106" text-anchor="end" fill="#9aa4b2">2.5GbE</text>
+      <rect x="104" y="92" width="224" height="22" rx="3" fill="#4fd1c5" opacity="0.85"/>
+      <text x="116" y="107" fill="#181d24">約3分00秒</text>
+      <text x="338" y="107" fill="#9aa4b2">（実効 約280MB/s）</text>
+      <text x="96" y="150" text-anchor="end" fill="#9aa4b2">5GbE</text>
+      <rect x="104" y="136" width="112" height="22" rx="3" fill="#63b3ed" opacity="0.85"/>
+      <text x="226" y="151" fill="#9aa4b2">約1分30秒（実効 約560MB/s）</text>
+      <text x="96" y="194" text-anchor="end" fill="#9aa4b2">10GbE</text>
+      <rect x="104" y="180" width="56" height="22" rx="3" fill="#f6ad55" opacity="0.85"/>
+      <text x="170" y="195" fill="#9aa4b2">約45秒（実効 約1,100MB/s）</text>
+    </g>
+    <line x1="447" y1="40" x2="447" y2="212" stroke="#f6ad55" stroke-dasharray="5 4" stroke-width="1.2"/>
+    <text x="447" y="230" font-size="11" fill="#f6ad55" text-anchor="middle">HDD 1台の壁（約180MB/s ＝ 約4分40秒）— 受け側がHDD1台ならここより速くならない</text>
+    <text x="12" y="264" font-size="12" fill="#e6e9ee">読み取り方</text>
+    <text x="12" y="286" font-size="11" fill="#9aa4b2">・1GbE → 2.5GbE は所要時間が半分以下になり、体感がはっきり変わる</text>
+    <text x="12" y="306" font-size="11" fill="#9aa4b2">・受け側がHDD 1台なら、10GbEにしても2.5GbEとほぼ同じ時間で終わる（＝投資が無駄になる）</text>
+    <text x="12" y="324" font-size="10" fill="#9aa4b2">※各規格の理論帯域に一般的なプロトコル効率を掛けた試算です。当サイトの測定値ではありません。</text>
+  </g>
+</svg>
+<figcaption>50GBの転送にかかる時間。1GbEから2.5GbEへの変更は効果が大きい一方、その先は受け側のストレージが先に上限を作ります。NASがHDD1台構成なら、10GbEに投資しても2.5GbEとほとんど差が出ません。</figcaption>
+</figure>
 
 ## 結論：2.5GbE化に必要なのは3つだけ
 

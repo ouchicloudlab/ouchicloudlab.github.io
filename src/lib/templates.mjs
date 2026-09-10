@@ -22,6 +22,9 @@ export function isAmazonSearchFallback(ref) {
 }
 
 function amazonUrl(ref, name) {
+  // frontmatter に affiliate.amazon の指定がなければ、リンクそのものを作らない。
+  // 無料ソフトのように「Amazonで売っていないもの」に検索リンクが付くのを防ぐ。
+  if (!ref) return null;
   let url;
   if (ref && /^https?:\/\//.test(ref)) {
     url = ref; // フルURL指定
@@ -112,6 +115,12 @@ export function productCard(p, rank) {
       )}" rel="${affiliate.rel}" target="_blank">${label}</a>`
     );
   }
+  if (p.official)
+    buttons.push(
+      `<a class="btn btn-official" href="${esc(
+        p.official
+      )}" rel="nofollow noopener" target="_blank">公式サイト</a>`
+    );
   if (rakuten)
     buttons.push(
       `<a class="btn btn-rakuten" href="${esc(
@@ -154,6 +163,10 @@ export function comparisonTable(products) {
         ? `<a href="${esc(amazon)}" rel="${affiliate.rel}" target="_blank">${
             isAmazonSearchFallback(p.affiliate?.amazon) ? "検索" : "商品ページ"
           }</a>`
+        : p.official
+        ? `<a href="${esc(
+            p.official
+          )}" rel="nofollow noopener" target="_blank">公式サイト</a>`
         : "—";
       return `<tr>
   <td class="ct-name">${esc(p.name)}</td>
@@ -172,6 +185,75 @@ export function comparisonTable(products) {
 </table>
 </div>
 <p class="table-note">※「編集部スコア」は各メーカーの公開仕様・実売価格・入手性・自宅サーバー用途への適合度をもとに、当サイト編集部が5点満点で採点した<strong>相対的な目安</strong>です。第三者機関による測定値ではありません。価格は確認時点のもので、変動します。</p>`;
+}
+
+
+// ---- 図版（横棒グラフ）----------------------------------------------
+// frontmatter の chart: から、記事内に置くオリジナルの図版を組み立てる。
+// 自動生成した記事にも必ず図版が1点入るようにするための仕組み。
+//   chart:
+//     title: グラフの見出し
+//     rows: [{ label, value, display, highlight }]
+//     caption: 図の下に置く説明文
+//     note: 数値の出どころ・前提条件
+export function chartFigure(chart) {
+  if (!chart || !Array.isArray(chart.rows) || chart.rows.length === 0) return "";
+
+  const rows = chart.rows.filter((r) => r && r.label != null);
+  const max = Math.max(...rows.map((r) => Number(r.value) || 0), 1);
+  const rowH = 34;
+  const top = chart.title ? 46 : 16;
+  const barMaxW = 520;
+  const labelX = 148;
+  const barX = 156;
+  const bottom = (chart.note ? 26 : 0) + 14;
+  const height = top + rows.length * rowH + bottom;
+
+  const bars = rows
+    .map((r, i) => {
+      const y = top + i * rowH;
+      const w = Math.max(4, Math.round(((Number(r.value) || 0) / max) * barMaxW));
+      const color = r.highlight ? "#f6ad55" : i < rows.length / 2 ? "#4fd1c5" : "#63b3ed";
+      const text = esc(r.display != null ? String(r.display) : String(r.value));
+      // 棒が長いときは値を棒の中に、短いときは棒の右に置く（文字が図からはみ出さないように）
+      const inside = w > barMaxW * 0.72;
+      const valueX = inside ? barX + 10 : barX + w + 10;
+      const valueFill = inside ? "#181d24" : "#e6e9ee";
+      const anchor = inside ? "start" : "start";
+      return `    <text x="${labelX}" y="${y + 14}" text-anchor="end" font-size="11.5" fill="#9aa4b2">${esc(
+        String(r.label)
+      )}</text>
+    <rect x="${barX}" y="${y}" width="${w}" height="20" rx="3" fill="${color}" opacity="0.85"/>
+    <text x="${valueX}" y="${y + 14}" text-anchor="${anchor}" font-size="11.5" fill="${valueFill}">${text}</text>`;
+    })
+    .join("\n");
+
+  const titleLine = chart.title
+    ? `    <text x="12" y="22" font-size="13" fill="#4fd1c5">${esc(chart.title)}</text>`
+    : "";
+  const noteLine = chart.note
+    ? `    <text x="12" y="${height - 10}" font-size="10.5" fill="#9aa4b2">${esc(chart.note)}</text>`
+    : "";
+  const id = "chart-" + Math.abs(hashString(chart.title || rows[0].label)).toString(36);
+
+  return `<figure class="figure">
+<svg viewBox="0 0 720 ${height}" role="img" aria-labelledby="${id}-t" xmlns="http://www.w3.org/2000/svg">
+  <title id="${id}-t">${esc(chart.title || "比較グラフ")}</title>
+  <g font-family="sans-serif">
+${titleLine}
+${bars}
+${noteLine}
+  </g>
+</svg>
+${chart.caption ? `<figcaption>${esc(chart.caption)}</figcaption>` : ""}
+</figure>`;
+}
+
+// 図版のIDを安定させるための簡易ハッシュ。
+function hashString(s) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
+  return h;
 }
 
 // ---- ページ全体レイアウト -------------------------------------------
@@ -225,6 +307,7 @@ ${canonical ? `<link rel="canonical" href="${esc(canonical)}">` : ""}
 <meta property="og:description" content="${esc(description || site.description)}">
 <meta property="og:type" content="${article ? "article" : "website"}">
 <meta property="og:site_name" content="${esc(site.name)}">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="stylesheet" href="/styles.css">
 <link rel="alternate" type="application/rss+xml" title="${esc(site.name)}" href="/rss.xml">
 ${adsenseHead}
@@ -234,7 +317,17 @@ ${jsonLd}
 <body>
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="/">☁️ ${esc(site.name)}</a>
+    <a class="brand" href="/">
+      <svg class="brand-mark" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true">
+        <rect width="32" height="32" rx="7" fill="#0f1318"/>
+        <path d="M5.5 14.5 L16 5.5 L26.5 14.5" fill="none" stroke="#4fd1c5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="9" y="16.5" width="14" height="4.4" rx="1.3" fill="#4fd1c5"/>
+        <rect x="9" y="22.4" width="14" height="4.4" rx="1.3" fill="#63b3ed"/>
+        <circle cx="20.3" cy="18.7" r="1" fill="#0f1318"/>
+        <circle cx="20.3" cy="24.6" r="1" fill="#0f1318"/>
+      </svg>
+      <span>${esc(site.name)}</span>
+    </a>
     <nav class="main-nav">${nav}</nav>
   </div>
 </header>

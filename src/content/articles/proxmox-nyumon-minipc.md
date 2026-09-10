@@ -3,7 +3,7 @@ title: Proxmox入門｜ミニPC1台で始める自宅仮想化のはじめ方【
 slug: proxmox-nyumon-minipc
 description: 自宅サーバーの定番、無料の仮想化基盤Proxmox VEをミニPC1台で始める手順を初心者向けに解説。インストールから最初のVM・LXCコンテナ作成、バックアップまで、つまずきやすい点も含めて紹介します。
 date: 2026-07-09
-updated: 2026-08-20
+updated: 2026-09-11
 category: guide
 type: guide
 tags: [Proxmox, 仮想化, homelab, ミニPC, 入門]
@@ -107,6 +107,56 @@ Proxmox の最大の利点は、**VM/コンテナを丸ごとバックアップ�
 ### 4. 電源復帰時の自動起動とVMの自動起動
 
 ミニPC側のBIOSで「Restore on AC Power Loss → Power On」を設定し、Proxmox側では各VM/コンテナのオプションで「起動時に開始」を有効にします。これをやっておかないと、**停電後にサーバーは戻ってきません**。
+
+
+<figure class="figure">
+<svg viewBox="0 0 720 320" role="img" aria-labelledby="px-t px-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="px-t">ProxmoxのVMとLXCコンテナの構造の違い</title>
+  <desc id="px-d">VMはゲストOSのカーネルを丸ごと持つため独立性が高いがメモリを多く使う。LXCコンテナはホストのカーネルを共有するため軽いが、動かせるOSがLinuxに限られる。</desc>
+  <g font-family="sans-serif" text-anchor="middle">
+    <text x="180" y="22" font-size="13" fill="#63b3ed">VM（仮想マシン）</text>
+    <text x="540" y="22" font-size="13" fill="#4fd1c5">LXC コンテナ</text>
+    <rect x="20" y="36" width="150" height="42" rx="6" fill="#1f2630" stroke="#2a323d"/>
+    <text x="95" y="62" font-size="11.5" fill="#e6e9ee">アプリ</text>
+    <rect x="190" y="36" width="150" height="42" rx="6" fill="#1f2630" stroke="#2a323d"/>
+    <text x="265" y="62" font-size="11.5" fill="#e6e9ee">アプリ</text>
+    <rect x="20" y="84" width="150" height="42" rx="6" fill="#1f2630" stroke="#63b3ed"/>
+    <text x="95" y="103" font-size="11.5" fill="#63b3ed">ゲストOS</text>
+    <text x="95" y="119" font-size="10" fill="#9aa4b2">カーネルを丸ごと持つ</text>
+    <rect x="190" y="84" width="150" height="42" rx="6" fill="#1f2630" stroke="#63b3ed"/>
+    <text x="265" y="103" font-size="11.5" fill="#63b3ed">ゲストOS</text>
+    <text x="265" y="119" font-size="10" fill="#9aa4b2">Windowsも動く</text>
+    <rect x="20" y="132" width="320" height="34" rx="6" fill="#2a323d"/>
+    <text x="180" y="154" font-size="11.5" fill="#e6e9ee">仮想化レイヤ（KVM）</text>
+    <rect x="380" y="36" width="150" height="42" rx="6" fill="#1f2630" stroke="#2a323d"/>
+    <text x="455" y="62" font-size="11.5" fill="#e6e9ee">アプリ</text>
+    <rect x="550" y="36" width="150" height="42" rx="6" fill="#1f2630" stroke="#2a323d"/>
+    <text x="625" y="62" font-size="11.5" fill="#e6e9ee">アプリ</text>
+    <rect x="380" y="84" width="150" height="42" rx="6" fill="#1f2630" stroke="#4fd1c5"/>
+    <text x="455" y="103" font-size="11.5" fill="#4fd1c5">最小限のOS環境</text>
+    <text x="455" y="119" font-size="10" fill="#9aa4b2">カーネルは持たない</text>
+    <rect x="550" y="84" width="150" height="42" rx="6" fill="#1f2630" stroke="#4fd1c5"/>
+    <text x="625" y="103" font-size="11.5" fill="#4fd1c5">最小限のOS環境</text>
+    <text x="625" y="119" font-size="10" fill="#9aa4b2">Linuxのみ</text>
+    <rect x="380" y="132" width="320" height="34" rx="6" fill="#2a323d"/>
+    <text x="540" y="154" font-size="11.5" fill="#e6e9ee">ホストのカーネルを共有</text>
+    <rect x="20" y="174" width="680" height="34" rx="6" fill="#181d24" stroke="#2a323d"/>
+    <text x="360" y="196" font-size="12" fill="#9aa4b2">Proxmox VE（ホスト）／ ミニPCの物理ハードウェア</text>
+  </g>
+  <g font-family="sans-serif" font-size="11">
+    <text x="20" y="236" fill="#63b3ed">VMを選ぶとき</text>
+    <text x="20" y="258" fill="#9aa4b2">Windowsを動かす／カーネルごと分離したい／</text>
+    <text x="20" y="276" fill="#9aa4b2">壊れても他に影響させたくない。起動は分単位、</text>
+    <text x="20" y="294" fill="#9aa4b2">メモリは割り当てぶんを丸ごと確保する。</text>
+    <text x="380" y="236" fill="#4fd1c5">LXCを選ぶとき</text>
+    <text x="380" y="258" fill="#9aa4b2">Linuxの軽いサービスを数多く動かしたい。</text>
+    <text x="380" y="276" fill="#9aa4b2">起動は数秒、メモリは使ったぶんだけ。</text>
+    <text x="380" y="294" fill="#9aa4b2">同じミニPCでも動かせる数が段違いに増える。</text>
+    <text x="20" y="316" font-size="10.5" fill="#9aa4b2">※Dockerを動かす場合は、公式にはVM上での実行が推奨されています。LXC上でも動きますが、権限まわりの設定が必要になります。</text>
+  </g>
+</svg>
+<figcaption>VMとLXCの違いは「カーネルを自分で持つかどうか」です。ミニPC1台のメモリは限られているので、Linuxで済むサービスはLXCに寄せるほど多くのサービスを同居させられます。WindowsやOSごとの分離が要る場合だけVMを使うのが定石です。</figcaption>
+</figure>
 
 ## VMとLXCコンテナ、どちらを使うべきか
 

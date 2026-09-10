@@ -3,7 +3,7 @@ title: Raspberry Pi 5で自宅サーバー構築｜2026年おすすめ構成と�
 slug: raspberry-pi5-home-server-2026-guide
 description: Raspberry Pi 5を使った自宅サーバーの構成例を用途別に紹介。電気代の試算やDocker構成、つまずきポイントまで実用的にまとめた2026年版ガイド。
 date: 2026-09-07
-updated: 2026-09-07
+updated: 2026-09-11
 category: guide
 type: guide
 tags: [Raspberry Pi 5, 自宅サーバー, homelab, Docker, 省電力]
@@ -44,6 +44,46 @@ Pi 5にはメモリ容量違いで複数モデルがあります。自宅サー�
 軽量NASとして使う場合、Pi 5はUSB 3.0やPCIe Gen2 x1接続が中心のため、10GbEクラスの転送速度は出ません。あくまで「家庭内の写真・バックアップ置き場」程度と割り切るのが現実的です。
 
 <!-- AD -->
+
+
+<figure class="figure">
+<svg viewBox="0 0 720 380" role="img" aria-labelledby="pi-t pi-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="pi-t">Raspberry Pi 5とミニPCの得意な領域の違い</title>
+  <desc id="pi-d">横軸に処理能力、縦軸に消費電力をとると、Raspberry Pi 5は低消費電力かつ低処理能力の領域に位置する。中古デスクトップは消費電力が高く、省電力ミニPCが最もバランスの取れた位置にある。</desc>
+  <g font-family="sans-serif">
+    <text x="12" y="20" font-size="13" fill="#4fd1c5">消費電力と処理能力で見た位置関係</text>
+    <line x1="70" y1="40" x2="70" y2="250" stroke="#2a323d" stroke-width="1.5"/>
+    <line x1="70" y1="250" x2="690" y2="250" stroke="#2a323d" stroke-width="1.5"/>
+    <text x="64" y="46" font-size="11" text-anchor="end" fill="#9aa4b2">消費電力</text>
+    <text x="64" y="60" font-size="11" text-anchor="end" fill="#9aa4b2">大</text>
+    <text x="64" y="246" font-size="11" text-anchor="end" fill="#9aa4b2">小</text>
+    <text x="690" y="270" font-size="11" text-anchor="end" fill="#9aa4b2">処理能力 大 →</text>
+    <g text-anchor="middle">
+      <circle cx="150" cy="222" r="9" fill="#4fd1c5"/>
+      <text x="150" y="204" font-size="11.5" fill="#4fd1c5">Raspberry Pi 5</text>
+      <text x="150" y="190" font-size="10.5" fill="#9aa4b2">3〜8W</text>
+      <circle cx="330" cy="196" r="9" fill="#4fd1c5" opacity="0.8"/>
+      <text x="330" y="178" font-size="11.5" fill="#e6e9ee">N100級ミニPC</text>
+      <text x="330" y="164" font-size="10.5" fill="#9aa4b2">6〜10W</text>
+      <circle cx="530" cy="158" r="9" fill="#63b3ed"/>
+      <text x="530" y="140" font-size="11.5" fill="#63b3ed">Core Ultra級ミニPC</text>
+      <text x="530" y="126" font-size="10.5" fill="#9aa4b2">10〜20W</text>
+      <circle cx="400" cy="74" r="9" fill="#f6ad55"/>
+      <text x="400" y="56" font-size="11.5" fill="#f6ad55">中古デスクトップPC</text>
+      <text x="400" y="42" font-size="10.5" fill="#9aa4b2">40〜60W（本体は安いが電気代で逆転する）</text>
+    </g>
+    <text x="12" y="300" font-size="12" fill="#4fd1c5">Pi 5が向く用途</text>
+    <text x="12" y="322" font-size="11" fill="#9aa4b2">広告ブロック（Pi-hole）、VPN、</text>
+    <text x="12" y="342" font-size="11" fill="#9aa4b2">スマートホームの司令塔、センサー連携。</text>
+    <text x="12" y="362" font-size="11" fill="#9aa4b2">いずれも常時稼働だが負荷は軽い。</text>
+    <text x="392" y="300" font-size="12" fill="#f6ad55">Pi 5が向かない用途</text>
+    <text x="392" y="322" font-size="11" fill="#9aa4b2">動画のトランスコード、ローカルLLM、</text>
+    <text x="392" y="342" font-size="11" fill="#9aa4b2">大容量NAS、複数VMの同時稼働。</text>
+    <text x="392" y="362" font-size="10.5" fill="#9aa4b2">※位置は公開仕様に基づく編集部の相対評価です。</text>
+  </g>
+</svg>
+<figcaption>Raspberry Pi 5は「軽い処理を極小の電力で回し続ける」領域に強く、そこから外れる用途ではミニPCに任せたほうが結果的に安く済みます。買う前に、動かしたいものがこの図の左下に入るかどうかを確認してください。</figcaption>
+</figure>
 
 ## 電気代を試算してみる
 
@@ -96,6 +136,61 @@ services:
 2. `sudo apt update && sudo apt upgrade -y` で最新化
 3. `curl -fsSL https://get.docker.com | sh` でDocker導入
 4. 上記のような `docker-compose.yml` を作成し `docker compose up -d` で起動
+
+## 「本体1万円」では終わらない：実質の総額を出す
+
+Raspberry Pi 5の本体価格だけを見て予算を組むと、ほぼ確実に足が出ます。24時間稼働させる前提で必要になるものを、すべて足して計算してみます。
+
+| 必要なもの | 価格の目安 | 省略できるか |
+|---|---|---|
+| Raspberry Pi 5 本体（8GB） | ¥12,000前後 | できない |
+| 公式電源（5V/5A・27W） | ¥2,000前後 | できない（不足すると再起動を繰り返す） |
+| アクティブクーラー付きケース | ¥3,000前後 | 24時間稼働なら実質必須 |
+| microSDカード（32GB・高耐久） | ¥1,500前後 | NVMe構成なら起動用に最小限で可 |
+| PCIe変換HAT + NVMe SSD 256GB | ¥8,000前後 | Docker運用なら実質必須（理由は次節） |
+| **合計** | **約26,500円** | — |
+
+本体の倍以上になります。ここで比べたいのが、同じ用途を省電力ミニPCで組んだ場合です。N150クラスのミニPCは、メモリ・SSD・電源・ケースがすべて入った状態で2万円台前半から買えます。つまり、**Pi 5をNVMe構成でまとめると、ミニPCとほぼ同じ金額になります**。
+
+4年間の総額でも並べてみます。電力量料金は31円/kWhで計算しました。
+
+| 構成 | 初期費用 | 想定消費電力 | 4年間の電気代 | 4年間の総額 |
+|---|---|---|---|---|
+| Pi 5（microSD・軽量用途） | 約18,500円 | 約4W | 約4,345円 | 約22,845円 |
+| Pi 5（NVMe・Docker運用） | 約26,500円 | 約8W | 約8,690円 | 約35,190円 |
+| N150ミニPC（16GB/512GB） | 約24,800円 | 約8W | 約8,690円 | 約33,490円 |
+
+計算式は `消費電力(W) × 24時間 × 365日 ÷ 1000 × 31円 × 4年` です。
+
+読み取れることは単純です。**Pi 5が明確に安いのは、microSDで足りる軽量用途に絞ったときだけ**です。NVMeを足してDockerで何本もサービスを動かす構成にするなら、金額はミニPCと変わらず、CPU性能とメモリ上限では負けます。Pi 5を選ぶ理由は「安いから」ではなく、「消費電力が本当に小さいから」「GPIOやカメラを使いたいから」に絞ったほうが後悔しません。
+
+ミニPC側の選択肢は [アイドル10W以下の省電力ミニPC5選](/articles/low-power-mini-pc-idle-under-10w-home-server/) にまとめています。
+
+## microSD運用は何年もつのか、書き込み量から考える
+
+Pi 5で最も多い故障が、microSDカードの寿命切れです。ある日突然ファイルシステムが壊れ、起動しなくなります。これは運の問題ではなく、書き込み量から予測できる現象です。
+
+Dockerで数個のサービスを動かすと、次のような書き込みが毎日発生します。
+
+- コンテナのログ出力（設定しないと際限なく増えます）
+- データベースの書き込み（Pi-holeのクエリログ、Home Assistantの状態履歴など）
+- OSのシステムログとメトリクス
+
+家庭規模でも、合計すると**1日あたりおおよそ2〜5GB**になります。年間では730GB〜1.8TBです。
+
+一方、一般的なmicroSDカードの総書き込み耐性は数TB程度とされ、多くの製品では公表すらされていません。単純に割ると、**早ければ1〜2年で書き込み上限に達する**計算になります。高耐久をうたう産業用グレードでも、NVMe SSDには遠く及びません。
+
+対して、エントリークラスのNVMe SSD（256GB）でも総書き込み耐性は150TB前後が公表されています。同じ条件なら100年近い計算になり、事実上寿命を気にしなくてよくなります。
+
+現実的な対策は次の3つです。
+
+1. **起動ドライブをNVMeにする**。PCIe変換HATを足す8,000円が、いちばん確実な投資です。
+2. **ログの上限を設定する**。Docker では `docker-compose.yml` の各サービスに `logging` オプションで `max-size` と `max-file` を指定しておくと、ログが無限に膨らむのを防げます。
+3. **設定を丸ごとバックアップしておく**。カードが壊れる前提で、`/etc` と各コンテナのデータディレクトリを別の場所へ定期的にコピーします。
+
+なお、microSDのまま運用しても、書き込みの少ない用途（Pi-holeのログを無効化したVPN専用機など）なら何年も問題なく動きます。「microSDだから駄目」ではなく、**自分の使い方が1日何GB書き込むのかで判断する**のが正しい切り分けです。
+
+バックアップの考え方そのものは [Dockerで動かす自宅サーバーの人気サービス10選](/articles/docker-self-hosting-10/) でも触れています。
 
 ## つまずきポイント
 

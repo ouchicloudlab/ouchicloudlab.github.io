@@ -3,7 +3,7 @@ title: NAS用HDDおすすめ比較2026 WD RedとIronWolfの違いと選び方
 slug: nas-hdd-comparison-wd-red-ironwolf
 description: 自宅サーバー・NAS向けHDDをWD Red PlusやSeagate IronWolfなど5製品で比較。CMR/SMRの違いや電気代試算、RAID構成の注意点まで解説。
 date: 2026-08-23
-updated: 2026-08-23
+updated: 2026-09-11
 category: nas
 type: comparison
 tags: [NAS, HDD, WD Red, IronWolf, 自宅サーバー]
@@ -48,7 +48,7 @@ products:
       - "上位Proに比べ耐障害性能の余裕は少ない"
       - "型番により仕様が微妙に異なるため購入時に要確認"
     affiliate:
-      amazon: "REPLACE_ASIN_003"
+      amazon: "B0D8KTQBYS"
       rakuten: ""
   - name: Seagate IronWolf Pro 8TB (ST8000NT001)
     price: "¥27,000 前後"
@@ -62,7 +62,7 @@ products:
       - "価格がやや高め"
       - "静音性重視の用途にはやや不向き"
     affiliate:
-      amazon: "REPLACE_ASIN_004"
+      amazon: "B0BGSCF18W"
       rakuten: ""
   - name: Toshiba N300 4TB (HDWG440)
     price: "¥12,500 前後"
@@ -101,6 +101,45 @@ PC用HDDを24時間稼働のNASに使うと、想定外の負荷で故障率が�
 ### 3. 回転数（5,400rpm相当 vs 7,200rpm）
 
 回転数が高いほど転送速度は上がりますが、発熱・消費電力・動作音も増える傾向にあります。静音性を重視する自宅設置なら5,400rpm相当クラス、速度や多台数RAIDでの負荷を重視するなら7,200rpmクラス、という住み分けが目安になります。
+
+
+<figure class="figure">
+<svg viewBox="0 0 720 340" role="img" aria-labelledby="smr-t smr-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="smr-t">CMRとSMRの記録方式の違い</title>
+  <desc id="smr-d">CMRはトラックが重ならず、書き換えたいトラックだけを書き直せる。SMRはトラックを瓦のように重ねて記録密度を上げるかわりに、1本書き換えると後続のトラックも巻き添えで書き直しになる。</desc>
+  <g font-family="sans-serif">
+    <text x="20" y="22" font-size="13" fill="#4fd1c5">CMR（従来方式）— トラックが重ならない</text>
+    <text x="392" y="22" font-size="13" fill="#f6ad55">SMR（瓦記録）— トラックを重ねて詰め込む</text>
+    <g>
+      <rect x="20" y="40" width="320" height="26" rx="3" fill="#2a323d"/>
+      <rect x="20" y="74" width="320" height="26" rx="3" fill="#2a323d"/>
+      <rect x="20" y="108" width="320" height="26" rx="3" fill="#4fd1c5" opacity="0.9"/>
+      <rect x="20" y="142" width="320" height="26" rx="3" fill="#2a323d"/>
+      <rect x="20" y="176" width="320" height="26" rx="3" fill="#2a323d"/>
+      <text x="180" y="126" font-size="12" text-anchor="middle" fill="#181d24">ここだけ書き換える</text>
+    </g>
+    <text x="20" y="228" font-size="11.5" fill="#9aa4b2">3本目を書き換えても、影響を受けるのは3本目だけ。</text>
+    <text x="20" y="250" font-size="11.5" fill="#4fd1c5">書き込み速度が落ちない。RAIDの再構築にも耐える。</text>
+    <g>
+      <rect x="392" y="40" width="308" height="32" rx="3" fill="#2a323d"/>
+      <rect x="392" y="62" width="308" height="32" rx="3" fill="#2a323d" stroke="#181d24"/>
+      <rect x="392" y="84" width="308" height="32" rx="3" fill="#f6ad55" opacity="0.9" stroke="#181d24"/>
+      <rect x="392" y="106" width="308" height="32" rx="3" fill="#f6ad55" opacity="0.5" stroke="#181d24"/>
+      <rect x="392" y="128" width="308" height="32" rx="3" fill="#f6ad55" opacity="0.35" stroke="#181d24"/>
+      <rect x="392" y="150" width="308" height="32" rx="3" fill="#2a323d" stroke="#181d24"/>
+      <text x="546" y="105" font-size="12" text-anchor="middle" fill="#181d24">ここを書き換えると…</text>
+      <text x="546" y="202" font-size="11.5" text-anchor="middle" fill="#f6ad55">↑ 後ろの2本も巻き添えで書き直しになる</text>
+    </g>
+    <text x="392" y="230" font-size="11.5" fill="#9aa4b2">重なっている後続トラックも読み直して書き戻すため、</text>
+    <text x="392" y="252" font-size="11.5" fill="#f6ad55">連続書き込みが続くと速度が数十MB/sまで落ちることがある。</text>
+    <line x1="20" y1="268" x2="700" y2="268" stroke="#2a323d"/>
+    <text x="20" y="292" font-size="12" fill="#e6e9ee">NASで問題になる場面</text>
+    <text x="20" y="312" font-size="11" fill="#9aa4b2">RAIDの再構築（リビルド）は大量の連続書き込みです。SMRだと再構築が何日もかかったり、途中で失敗扱いになることがあります。</text>
+    <text x="20" y="332" font-size="11" fill="#9aa4b2">日常のファイル保存では差を感じにくいため、故障して初めて問題が表面化するのがこの方式の厄介なところです。</text>
+  </g>
+</svg>
+<figcaption>NAS用HDDでCMRかSMRかを確認すべき理由。日常の使い方では差が出にくい一方、ディスクが1台壊れてRAIDを再構築するときに決定的な差になります。NASに入れるHDDは、記録方式がCMRと明記されたモデルを選んでください。</figcaption>
+</figure>
 
 ## 比較早見表
 

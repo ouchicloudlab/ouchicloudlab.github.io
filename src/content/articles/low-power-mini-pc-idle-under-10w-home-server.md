@@ -3,7 +3,7 @@ title: アイドル10W以下の省電力ミニPC5選｜おうちサーバーの�
 slug: low-power-mini-pc-idle-under-10w-home-server
 description: 24時間稼働のおうちサーバーに最適な、アイドル時消費電力10W以下を実現する省電力ミニPCを5機種厳選。電気代シミュレーションと選び方も解説。
 date: 2026-07-13
-updated: 2026-08-20
+updated: 2026-09-11
 category: mini-pc
 type: comparison
 tags: [省電力ミニPC, おうちサーバー, Intel N100, 電気代, 自宅サーバー]
@@ -42,7 +42,7 @@ products:
     pros: ["アイドル電力は2〜4W台と圧倒的に低い", "コミュニティが大きく情報が豊富", "小型で置き場所を選ばない"]
     cons: ["x86非対応のためDocker移植性に制約が出る場合がある", "NVMe利用には別売HATが必要で総額が上がりがち"]
     affiliate:
-      amazon: "REPLACE_ASIN_PI5"
+      amazon: "B0CQZHN2K4"
       rakuten: ""
   - name: MINISFORUM UM790 Pro（Ryzen 7 7840HS）
     price: "¥65,000 前後"
@@ -51,7 +51,7 @@ products:
     pros: ["高性能でVM・トランスコードも余裕", "USB4/Thunderboltなど拡張性が高い"]
     cons: ["アイドル電力は10〜15W程度とやや高め", "価格帯が上がり省電力サーバー用途としてはオーバースペック気味"]
     affiliate:
-      amazon: "REPLACE_ASIN_UM790PRO"
+      amazon: "B0C4HD8KCW"
       rakuten: ""
 ---
 
@@ -93,6 +93,41 @@ Jellyfin、Home Assistant、Pi-hole、自宅NASなど、24時間365日稼働さ�
 ## 比較早見表
 
 <!-- COMPARE -->
+
+
+<figure class="figure">
+<svg viewBox="0 0 720 300" role="img" aria-labelledby="pw-t pw-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="pw-t">アイドル消費電力ごとの年間電気代</title>
+  <desc id="pw-d">31円/kWhで24時間365日稼働させた場合、5Wなら年間約1,358円、45Wなら年間約12,220円になる。省電力機どうしの差は小さく、消費電力が20Wを超えると差が急に広がる。</desc>
+  <g font-family="sans-serif">
+    <text x="12" y="20" font-size="13" fill="#4fd1c5">24時間365日つけっぱなしにしたときの年間電気代（31円/kWh）</text>
+    <g font-size="11.5">
+      <text x="118" y="56" text-anchor="end" fill="#9aa4b2">5W</text>
+      <rect x="126" y="42" width="63" height="20" rx="3" fill="#4fd1c5" opacity="0.85"/>
+      <text x="199" y="57" fill="#e6e9ee">約1,358円</text>
+      <text x="118" y="90" text-anchor="end" fill="#9aa4b2">7W</text>
+      <rect x="126" y="76" width="88" height="20" rx="3" fill="#4fd1c5" opacity="0.85"/>
+      <text x="224" y="91" fill="#e6e9ee">約1,901円</text>
+      <text x="118" y="124" text-anchor="end" fill="#9aa4b2">10W</text>
+      <rect x="126" y="110" width="126" height="20" rx="3" fill="#4fd1c5" opacity="0.85"/>
+      <text x="262" y="125" fill="#e6e9ee">約2,716円</text>
+      <text x="118" y="158" text-anchor="end" fill="#9aa4b2">15W</text>
+      <rect x="126" y="144" width="189" height="20" rx="3" fill="#63b3ed" opacity="0.85"/>
+      <text x="325" y="159" fill="#e6e9ee">約4,073円</text>
+      <text x="118" y="192" text-anchor="end" fill="#9aa4b2">20W</text>
+      <rect x="126" y="178" width="252" height="20" rx="3" fill="#63b3ed" opacity="0.85"/>
+      <text x="388" y="193" fill="#e6e9ee">約5,431円</text>
+      <text x="118" y="226" text-anchor="end" fill="#9aa4b2">45W</text>
+      <rect x="126" y="212" width="567" height="20" rx="3" fill="#f6ad55" opacity="0.85"/>
+      <text x="138" y="227" fill="#181d24">約12,220円　（中古デスクトップPC級のアイドル電力）</text>
+    </g>
+    <text x="12" y="258" font-size="11" fill="#9aa4b2">計算式：消費電力(W) × 24時間 × 365日 ÷ 1000 × 31円 ＝ 年間電気代</text>
+    <text x="12" y="278" font-size="11" fill="#e6e9ee">5Wと10Wの差は年1,358円。一方、10Wと45Wの差は年9,504円になります。</text>
+    <text x="12" y="296" font-size="10.5" fill="#9aa4b2">※アイドル電力はメーカー公開値および一般的な構成での目安です。当サイトの測定値ではありません。</text>
+  </g>
+</svg>
+<figcaption>アイドル電力の差がそのまま年間の電気代の差になります。ただし5Wと10Wの差は年1,400円弱で、本体価格の差のほうがずっと大きいのが実情です。省電力機どうしなら電気代より性能で選んでよく、避けるべきなのは20Wを大きく超える構成です。</figcaption>
+</figure>
 
 ## 選び方のポイント
 

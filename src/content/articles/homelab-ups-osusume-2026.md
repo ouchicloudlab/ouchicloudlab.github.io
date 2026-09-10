@@ -3,7 +3,7 @@ title: 自宅サーバーのUPS（無停電電源）おすすめと選び方【2
 slug: homelab-ups-osusume-2026
 description: 24時間稼働の自宅サーバーやNASを停電・瞬電から守るUPSの選び方を解説。必要な容量（VA/W）の計算、常時商用給電と正弦波の違い、自動シャットダウン連携までまとめました。
 date: 2026-07-10
-updated: 2026-08-20
+updated: 2026-09-11
 category: network
 type: comparison
 tags: [UPS, 無停電電源, NAS, homelab, 停電対策]
@@ -48,7 +48,7 @@ products:
       - 同容量帯ではやや高め
       - 拡張バッテリーには非対応
     affiliate:
-      amazon: "REPLACE_ASIN_BW55T"
+      amazon: "B079J8SCJK"
       rakuten: ""
   - name: APC BR1000S-JP
     price: "¥33,000 前後"
@@ -62,7 +62,7 @@ products:
       - 価格が高く設置スペースも要る
       - 小規模構成にはオーバースペック
     affiliate:
-      amazon: "REPLACE_ASIN_BR1000S"
+      amazon: "B01N7P3E52"
       rakuten: ""
 ---
 
@@ -144,6 +144,48 @@ UPSの容量はVA（皮相電力）とW（有効電力）で表記されます�
 | 仮想マシンを複数動かしたホスト | 3〜10分 |
 
 つまり、**十数分の給電能力があれば十分**です。「1時間もたせたい」という要件は、自宅サーバーではほとんど必要ありません。長時間の稼働継続を目指すと、UPSの価格と設置スペースが跳ね上がります。
+
+
+<figure class="figure">
+<svg viewBox="0 0 720 300" role="img" aria-labelledby="ups-t ups-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="ups-t">停電が起きてからサーバーが安全に停止するまでの流れ</title>
+  <desc id="ups-d">停電の瞬間にUPSがバッテリー給電へ切り替わり、猶予時間を待ってからシャットダウンが始まる。停止が完了するまでバッテリーが保たなければ意味がない。</desc>
+  <g font-family="sans-serif">
+    <text x="12" y="20" font-size="13" fill="#4fd1c5">停電してから安全に止まるまでの時間配分</text>
+    <line x1="40" y1="70" x2="700" y2="70" stroke="#2a323d" stroke-width="2"/>
+    <g text-anchor="middle" font-size="11">
+      <circle cx="40" cy="70" r="6" fill="#f6ad55"/>
+      <text x="46" y="52" fill="#f6ad55" text-anchor="start">0秒：停電</text>
+      <text x="46" y="94" fill="#9aa4b2" text-anchor="start">UPSが10ミリ秒以内に</text>
+      <text x="46" y="110" fill="#9aa4b2" text-anchor="start">バッテリー給電へ切替</text>
+      <circle cx="270" cy="70" r="6" fill="#63b3ed"/>
+      <text x="270" y="52" fill="#63b3ed">60秒：猶予時間の終わり</text>
+      <text x="270" y="94" fill="#9aa4b2">瞬電ならここまでに復電する。</text>
+      <text x="270" y="110" fill="#9aa4b2">復電しなければ停止を開始。</text>
+      <circle cx="500" cy="70" r="6" fill="#4fd1c5"/>
+      <text x="500" y="52" fill="#4fd1c5">60〜240秒：シャットダウン</text>
+      <text x="500" y="94" fill="#9aa4b2">VM／コンテナを順に停止し、</text>
+      <text x="500" y="110" fill="#9aa4b2">ディスクへ書き戻してから電源断。</text>
+      <circle cx="670" cy="70" r="6" fill="#e6e9ee"/>
+      <text x="670" y="52" fill="#e6e9ee">完了</text>
+    </g>
+    <text x="12" y="152" font-size="12" fill="#e6e9ee">必要なバッテリー給電時間はこう決まる</text>
+    <g font-size="11.5">
+      <rect x="40" y="168" width="230" height="24" rx="3" fill="#63b3ed" opacity="0.7"/>
+      <text x="155" y="185" text-anchor="middle" fill="#181d24">猶予時間（60秒）</text>
+      <rect x="270" y="168" width="230" height="24" rx="3" fill="#4fd1c5" opacity="0.7"/>
+      <text x="385" y="185" text-anchor="middle" fill="#181d24">停止処理（3分前後）</text>
+      <rect x="500" y="168" width="170" height="24" rx="3" fill="#4a5568"/>
+      <text x="585" y="185" text-anchor="middle" fill="#e6e9ee">安全マージン</text>
+    </g>
+    <text x="40" y="216" font-size="11" fill="#f6ad55">合計しておよそ6〜8分。UPSはこの時間を「実際につないだ機器の合計W数で」保たせる必要があります。</text>
+    <text x="12" y="248" font-size="11" fill="#9aa4b2">よくある失敗：カタログの給電時間は軽負荷時の値です。定格の半分程度まで機器をつなぐと、給電時間は数分の1に縮みます。</text>
+    <text x="12" y="270" font-size="11" fill="#9aa4b2">また、バッテリーは2〜5年で劣化します。買った当初は10分保っても、3年目には数分しか保ちません。</text>
+    <text x="12" y="292" font-size="10.5" fill="#9aa4b2">※時間の配分は一般的な家庭用サーバー1台構成での目安です。実際の停止時間は稼働中のVM数やディスクの書き込み量で変わります。</text>
+  </g>
+</svg>
+<figcaption>停電からシャットダウン完了までの時間配分。UPSに必要なのは「長時間の給電」ではなく、猶予時間と停止処理を足した数分間を確実に保つことです。この図の合計時間をバッテリーが保たなければ、UPSをつけていてもデータは守れません。</figcaption>
+</figure>
 
 ## 「正弦波」か「矩形波」か
 

@@ -3,7 +3,7 @@ title: 自宅10GbE化の完全ガイド2026｜スイッチ・NIC・ケーブル�
 slug: home-10gbe-network-guide
 description: 自宅を10GbE化するための基礎知識をまとめました。スイッチ・NIC・ケーブルの選び方から注意点、費用目安まで初心者向けに解説します。
 date: 2026-07-20
-updated: 2026-08-20
+updated: 2026-09-11
 category: network
 type: guide
 tags: [10GbE, ネットワーク, スイッチ, NIC, LANケーブル]
@@ -140,6 +140,49 @@ NAS本体に10GbEポートが標準搭載されているか、拡張カードス
 4. **保証がない**：故障時は自己責任です。
 
 **安く手に入るが、静かで省電力とは限らない**——というのが実情です。別室やガレージに設置できる環境なら有力な選択肢になります。
+
+
+<figure class="figure">
+<svg viewBox="0 0 720 300" role="img" aria-labelledby="tg-t tg-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="tg-t">10GbEで速度が出ないときに疑う5か所</title>
+  <desc id="tg-d">PCのストレージ、PCのNIC、ケーブルとスイッチ、NAS側のNIC、NASのストレージという経路上の5か所のどこかが上限を作っている。</desc>
+  <g font-family="sans-serif" text-anchor="middle">
+    <text x="360" y="20" font-size="12.5" fill="#9aa4b2">転送はこの経路を通る。いちばん遅い1か所が全体の速度になる。</text>
+    <rect x="10" y="44" width="120" height="72" rx="8" fill="#1f2630" stroke="#2a323d"/>
+    <text x="70" y="70" font-size="12" fill="#e6e9ee">PC</text>
+    <text x="70" y="90" font-size="10.5" fill="#9aa4b2">ストレージ</text>
+    <text x="70" y="106" font-size="10.5" fill="#9aa4b2">CPU</text>
+    <rect x="160" y="44" width="106" height="72" rx="8" fill="#1f2630" stroke="#2a323d"/>
+    <text x="213" y="76" font-size="12" fill="#e6e9ee">NIC</text>
+    <text x="213" y="96" font-size="10.5" fill="#9aa4b2">PCIeレーン数</text>
+    <rect x="296" y="44" width="128" height="72" rx="8" fill="#1f2630" stroke="#4fd1c5" stroke-width="1.5"/>
+    <text x="360" y="70" font-size="12" fill="#4fd1c5">スイッチ</text>
+    <text x="360" y="90" font-size="10.5" fill="#9aa4b2">ケーブル</text>
+    <text x="360" y="106" font-size="10.5" fill="#9aa4b2">Cat6A / DAC</text>
+    <rect x="454" y="44" width="106" height="72" rx="8" fill="#1f2630" stroke="#2a323d"/>
+    <text x="507" y="76" font-size="12" fill="#e6e9ee">NIC</text>
+    <text x="507" y="96" font-size="10.5" fill="#9aa4b2">NAS側の対応</text>
+    <rect x="590" y="44" width="120" height="72" rx="8" fill="#1f2630" stroke="#2a323d"/>
+    <text x="650" y="70" font-size="12" fill="#e6e9ee">NAS</text>
+    <text x="650" y="90" font-size="10.5" fill="#9aa4b2">HDD / SSD</text>
+    <text x="650" y="106" font-size="10.5" fill="#9aa4b2">RAID構成</text>
+  </g>
+  <g stroke="#2a323d" stroke-width="1.5">
+    <line x1="130" y1="80" x2="160" y2="80"/><line x1="266" y1="80" x2="296" y2="80"/>
+    <line x1="424" y1="80" x2="454" y2="80"/><line x1="560" y1="80" x2="590" y2="80"/>
+  </g>
+  <g font-family="sans-serif" font-size="11">
+    <text x="12" y="152" fill="#f6ad55">よくある上限のつくられ方</text>
+    <text x="12" y="176" fill="#9aa4b2">・HDD 1台のNAS … いくら10GbEでも 約180MB/s（＝1.5Gbps相当）で頭打ち</text>
+    <text x="12" y="198" fill="#9aa4b2">・NICが PCIe x1 スロット … 帯域が約8Gbpsに制限され、10Gbpsは出ない</text>
+    <text x="12" y="220" fill="#9aa4b2">・Cat5e のまま … 短距離なら通ることもあるが、リンクが落ちる／2.5Gに下がる</text>
+    <text x="12" y="242" fill="#9aa4b2">・SMBの1セッションが1コアに依存 … 低クロックCPUだと5Gbps前後で止まる</text>
+    <text x="12" y="264" fill="#9aa4b2">・スイッチが一部ポートのみ10GbE … 差し込んだ口が1GbEだった、という取り違え</text>
+    <text x="12" y="288" font-size="10.5" fill="#9aa4b2">※数値は各規格の理論値と一般的な機材の公開仕様から算出した目安で、当サイトの測定値ではありません。</text>
+  </g>
+</svg>
+<figcaption>10GbEの速度は、経路上でいちばん遅い場所で決まります。スイッチとNICを10GbEにしても、受け側がHDD1台なら約180MB/sで頭打ちです。機材を買い足す前に、この5か所のどれが上限を作っているかを先に切り分けてください。</figcaption>
+</figure>
 
 ## 速度が出ないときに確認する5つのこと
 

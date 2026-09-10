@@ -203,3 +203,11 @@ a:hover { text-decoration: underline; }
 .figure figcaption {
   margin-top: 10px; font-size: .82rem; line-height: 1.7; color: var(--muted);
 }
+
+/* ヘッダーの自作ロゴマーク */
+.brand { display: inline-flex; align-items: center; gap: 8px; }
+.brand-mark { flex: 0 0 auto; border-radius: 6px; }
+
+/* 公式サイトへの導線（アフィリエイトリンクではない） */
+.btn-official { background: transparent; border: 1px solid #4fd1c5; color: #4fd1c5; }
+.btn-official:hover { background: rgba(79, 209, 197, 0.12); }

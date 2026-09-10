@@ -3,7 +3,7 @@ title: 自宅NASおすすめ比較2026｜Synology・QNAP・自作の選び方
 slug: home-nas-comparison-2026-synology-qnap-diy
 description: 2026年版の自宅NAS比較。Synology・QNAPの完成品モデルと自作NASのメリット・デメリットを整理し、用途別に最適な1台を提案します。
 date: 2026-07-07
-updated: 2026-08-20
+updated: 2026-09-11
 category: nas
 type: comparison
 tags: [NAS, Synology, QNAP, 自作NAS, ホームサーバー]
@@ -20,7 +20,7 @@ products:
       - "CPU性能は控えめで動画変換等は苦手"
       - "拡張性が低い（2ベイ固定）"
     affiliate:
-      amazon: "REPLACE_ASIN_001"
+      amazon: "B0C8814GKB"
       rakuten: ""
   - name: Synology DS923+
     price: "¥75,000 前後"
@@ -34,7 +34,7 @@ products:
       - "本体価格がやや高め"
       - "トランスコード性能はハード非対応"
     affiliate:
-      amazon: "REPLACE_ASIN_002"
+      amazon: "B0CTMY8P38"
       rakuten: ""
   - name: QNAP TS-464
     price: "¥60,000 前後"
@@ -48,7 +48,7 @@ products:
       - "UIがSynologyよりやや複雑"
       - "ファームウェア更新頻度が高くやや不安定な時期もある"
     affiliate:
-      amazon: "REPLACE_ASIN_003"
+      amazon: "B0BP97WV3R"
       rakuten: ""
   - name: 自作NAS（Mini PC + TrueNAS/Unraid）
     price: "¥40,000〜¥120,000（構成次第）"

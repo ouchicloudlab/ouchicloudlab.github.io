@@ -16,6 +16,7 @@ import {
   adSlot,
   absUrl,
   contactBlock,
+  chartFigure,
 } from "../src/lib/templates.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -93,6 +94,10 @@ function loadPages() {
 //   <!-- PRODUCTS -->    -> 商品カード一覧
 //   <!-- COMPARE -->     -> 比較表
 //   <!-- AD -->          -> 記事内広告
+// ビルド中に見つかった品質上の問題の数。1件でもあればビルドを失敗させ、
+// 壊れたページや薄い記事が自動デプロイで公開されるのを止める。
+let buildProblems = 0;
+
 function renderArticleBody(article) {
   let md = article.markdown;
 
@@ -104,7 +109,8 @@ function renderArticleBody(article) {
   md = md
     .replace(/<!--\s*PRODUCTS\s*-->/g, `\n<div class="products">${cardsHtml}</div>\n`)
     .replace(/<!--\s*COMPARE\s*-->/g, `\n${tableHtml}\n`)
-    .replace(/<!--\s*AD\s*-->/g, `\n${adSlot("inArticle")}\n`);
+    .replace(/<!--\s*AD\s*-->/g, `\n${adSlot("inArticle")}\n`)
+    .replace(/<!--\s*FIGURE\s*-->/g, `\n${chartFigure(article.chart)}\n`);
 
   const html = marked.parse(md);
 
@@ -113,6 +119,7 @@ function renderArticleBody(article) {
   // アスタリスクがそのまま本文に残ってしまう。ビルド時に警告する。
   const leftovers = html.match(new RegExp("\\*\\*[^*\\n]{0,60}\\*\\*", "g"));
   if (leftovers) {
+    buildProblems++;
     console.warn(
       `⚠️  ${article.slug}: Markdownの強調が変換されていません → ${leftovers.join(" / ")}`
     );
@@ -123,12 +130,47 @@ function renderArticleBody(article) {
   // 続きがそのままコードとして表示されてしまう（＝図版内は空行禁止）。
   const escaped = html.match(new RegExp("&lt;(svg|g|rect|text|line|path)\\b", "g"));
   if (escaped) {
+    buildProblems++;
     console.warn(
       `⚠️  ${article.slug}: 埋め込みHTMLがエスケープされています（${escaped.length}箇所）。図版ブロック内の空行を削除してください。`
     );
   }
 
   return html;
+}
+
+// 記事1本ごとの最低ラインを確認する。
+// 自動生成された記事がそのまま公開されると、
+// 薄い記事・図版なしの記事が積み上がってサイト全体の評価を下げるため、
+// ここで止めて人が手を入れるきっかけにする。
+function checkArticleQuality(article) {
+  const md = article.markdown || "";
+  // 図版・コードブロックを除いた地の文の分量で判定する。
+  const prose = md
+    .replace(/<figure[\s\S]*?<\/figure>/g, "")
+    .replace(/```[\s\S]*?```/g, "");
+  // 比較記事は商品カードの本文が frontmatter 側にあるため、そのぶんも数える。
+  const productText = (article.products || [])
+    .map((p) => [p.name, p.spec, p.price, ...(p.pros || []), ...(p.cons || [])].join(""))
+    .join("");
+  const chars = (prose + productText).replace(/\s/g, "").length;
+
+  if (chars < 4500) {
+    buildProblems++;
+    console.warn(
+      `⚠️  ${article.slug}: 本文が ${chars} 字しかありません（図版・コード除く。最低4,500字）。加筆してください。`
+    );
+  }
+  if (!md.includes("<figure") && !article.chart) {
+    buildProblems++;
+    console.warn(
+      `⚠️  ${article.slug}: 図解（<figure>）がありません。オリジナルの図版を最低1点入れてください。`
+    );
+  }
+  if (!/^##\s/m.test(md.split("\n").slice(1).join("\n"))) {
+    buildProblems++;
+    console.warn(`⚠️  ${article.slug}: 見出し（##）がありません。`);
+  }
 }
 
 // ---- 各ページ生成 ----------------------------------------------------
@@ -338,6 +380,7 @@ function main() {
   const pages = loadPages();
   buildHome(articles);
   buildCategoryPages(articles);
+  articles.forEach(checkArticleQuality);
   articles.forEach(buildArticlePage);
   pages.forEach(buildStaticPage);
   buildSitemap(articles, pages);
@@ -350,6 +393,13 @@ function main() {
   );
   articles.forEach((a) => console.log(`   - /articles/${a.slug}/  (${a.title})`));
   pages.forEach((p) => console.log(`   - /${p.slug}/  (${p.title})`));
+
+  if (buildProblems > 0) {
+    console.error(
+      `\n❌ 品質チェックで ${buildProblems} 件の問題が見つかりました。上の警告を直してから公開してください。`
+    );
+    process.exitCode = 1;
+  }
 }
 
 main();

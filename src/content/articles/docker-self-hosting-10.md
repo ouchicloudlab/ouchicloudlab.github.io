@@ -3,7 +3,7 @@ title: Dockerで動かす自宅サーバーの人気サービス10選【2026年�
 slug: docker-self-hosting-10
 description: 自宅サーバー（homelab）で定番のセルフホストサービス10個を、必要メモリ・ストレージ・難易度と実際の docker compose 設定例つきで解説。導入順序とつまずきやすい点もまとめました。
 date: 2026-07-04
-updated: 2026-08-20
+updated: 2026-09-11
 category: guide
 type: guide
 tags: [Docker, セルフホスト, Nextcloud, Pi-hole, homelab]
@@ -37,6 +37,65 @@ tags: [Docker, セルフホスト, Nextcloud, Pi-hole, homelab]
 **合計メモリの目安**：①〜④だけなら 1GB 未満で足ります。⑤〜⑧まで入れると 8GB では窮屈で、**16GB あると安心**です。⑨の Ollama を本格的に使うならさらに別枠で 8〜16GB を見ておいてください。
 
 > メモリ容量は「同時に動かすサービスの合計」で効いてきます。ミニPCを選ぶ段階で、後から増設できるかどうかを確認しておくと安心です。機材選びは [自宅サーバー向けミニPCおすすめ5選](/articles/mini-pc-osusume-2026/) を参考にしてください。
+
+
+<figure class="figure">
+<svg viewBox="0 0 720 380" role="img" aria-labelledby="dk-t dk-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="dk-t">セルフホストサービスの導入順序と累計メモリの目安</title>
+  <desc id="dk-d">土台のOSとDockerから始め、軽量サービス、書類・ファイル系、写真と動画の順に増やしていくと、累計メモリは1GBから16GB程度まで段階的に増える。</desc>
+  <g font-family="sans-serif">
+    <text x="12" y="18" font-size="13" fill="#4fd1c5">導入順序 — 軽いものから積み上げる</text>
+    <g text-anchor="middle">
+      <rect x="12" y="32" width="160" height="112" rx="8" fill="#1f2630" stroke="#2a323d"/>
+      <text x="92" y="54" font-size="12" fill="#9aa4b2">STEP 1</text>
+      <text x="92" y="76" font-size="12.5" fill="#e6e9ee">土台</text>
+      <text x="92" y="98" font-size="11" fill="#9aa4b2">OS + Docker</text>
+      <text x="92" y="116" font-size="11" fill="#9aa4b2">まだ何も動かさない</text>
+      <text x="92" y="136" font-size="11.5" fill="#4fd1c5">累計 約1GB</text>
+      <rect x="188" y="32" width="160" height="112" rx="8" fill="#1f2630" stroke="#2a323d"/>
+      <text x="268" y="54" font-size="12" fill="#9aa4b2">STEP 2</text>
+      <text x="268" y="76" font-size="12.5" fill="#e6e9ee">軽量サービス</text>
+      <text x="268" y="98" font-size="11" fill="#9aa4b2">Pi-hole / Uptime Kuma</text>
+      <text x="268" y="116" font-size="11" fill="#9aa4b2">Vaultwarden</text>
+      <text x="268" y="136" font-size="11.5" fill="#4fd1c5">累計 約2GB</text>
+      <rect x="364" y="32" width="160" height="112" rx="8" fill="#1f2630" stroke="#2a323d"/>
+      <text x="444" y="54" font-size="12" fill="#9aa4b2">STEP 3</text>
+      <text x="444" y="76" font-size="12.5" fill="#e6e9ee">ファイル・書類</text>
+      <text x="444" y="98" font-size="11" fill="#9aa4b2">Nextcloud</text>
+      <text x="444" y="116" font-size="11" fill="#9aa4b2">Paperless-ngx</text>
+      <text x="444" y="136" font-size="11.5" fill="#f6ad55">累計 約6GB</text>
+      <rect x="540" y="32" width="168" height="112" rx="8" fill="#1f2630" stroke="#f6ad55" stroke-width="1.5"/>
+      <text x="624" y="54" font-size="12" fill="#9aa4b2">STEP 4</text>
+      <text x="624" y="76" font-size="12.5" fill="#e6e9ee">写真・動画</text>
+      <text x="624" y="98" font-size="11" fill="#9aa4b2">Immich / Jellyfin</text>
+      <text x="624" y="116" font-size="11" fill="#9aa4b2">機械学習・変換が重い</text>
+      <text x="624" y="136" font-size="11.5" fill="#f6ad55">累計 約16GB</text>
+    </g>
+    <g stroke="#2a323d" stroke-width="1.5" fill="none">
+      <path d="M172 88 L188 88"/><path d="M348 88 L364 88"/><path d="M524 88 L540 88"/>
+    </g>
+    <text x="12" y="184" font-size="13" fill="#4fd1c5">同じものを、必要メモリの累計で見る</text>
+    <g font-size="11.5">
+      <text x="112" y="214" text-anchor="end" fill="#9aa4b2">STEP 1 土台</text>
+      <rect x="120" y="202" width="35" height="18" rx="3" fill="#4fd1c5" opacity="0.75"/>
+      <text x="165" y="215" fill="#e6e9ee">1GB</text>
+      <text x="112" y="248" text-anchor="end" fill="#9aa4b2">STEP 2 軽量</text>
+      <rect x="120" y="236" width="70" height="18" rx="3" fill="#4fd1c5" opacity="0.75"/>
+      <text x="200" y="249" fill="#e6e9ee">2GB</text>
+      <text x="112" y="282" text-anchor="end" fill="#9aa4b2">STEP 3 ファイル</text>
+      <rect x="120" y="270" width="210" height="18" rx="3" fill="#63b3ed" opacity="0.75"/>
+      <text x="340" y="283" fill="#e6e9ee">6GB</text>
+      <text x="112" y="316" text-anchor="end" fill="#9aa4b2">STEP 4 写真・動画</text>
+      <rect x="120" y="304" width="560" height="18" rx="3" fill="#f6ad55" opacity="0.8"/>
+      <text x="128" y="317" fill="#181d24" font-size="11">16GB</text>
+    </g>
+    <line x1="330" y1="196" x2="330" y2="330" stroke="#f6ad55" stroke-dasharray="4 4" stroke-width="1"/>
+    <text x="336" y="344" font-size="11" fill="#f6ad55">ここから先はメモリ8GB機では厳しくなる</text>
+    <text x="12" y="366" font-size="10.5" fill="#9aa4b2">※各サービスの公式ドキュメントの推奨値と、一般的な家庭規模（写真3万枚・4K動画あり）を前提にした編集部の積算です。</text>
+  </g>
+</svg>
+<figcaption>導入順序と、そのときの累計メモリの目安。STEP 2 までなら2GB級の格安機でも動きますが、Immich や Jellyfin を足した時点で必要量が一気に跳ね上がります。「あとで写真バックアップもやりたい」なら、最初からメモリ16GBまで載る機種を選んでおくと買い直しになりません。</figcaption>
+</figure>
 
 ## 1. Pi-hole — ネットワーク全体の広告ブロック
 

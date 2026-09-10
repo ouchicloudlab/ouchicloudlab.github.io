@@ -3,7 +3,7 @@ title: Tailscaleで自宅サーバーに外部から安全にアクセスする�
 slug: tailscale-home-server-remote-access-2026
 description: ポート開放なしで自宅サーバーに外出先からアクセスできるTailscaleの導入手順を解説。仕組み・設定・注意点まで2026年最新情報でまとめる。
 date: 2026-08-03
-updated: 2026-08-20
+updated: 2026-09-11
 category: guide
 type: guide
 tags: [Tailscale, 自宅サーバー, VPN, リモートアクセス, セキュリティ]
@@ -24,6 +24,57 @@ Tailscaleは、WireGuardプロトコルをベースにしたメッシュ型VPN�
 従来の外部アクセス方法である「ルーターのポートを開けてグローバルIPやDDNSでアクセスする」方式は、インターネット全体に対して常時ポートが公開される状態になります。総当たり攻撃や脆弱性スキャンの対象になりやすく、管理も煩雑です。
 
 Tailscaleでは通信は登録済みデバイス間のみに限定され、外部から見えるポートは一切ありません。IPアドレスが変わるISP環境やCGNAT配下でも、追加設定なしで接続できる点も大きな利点です。
+
+
+<figure class="figure">
+<svg viewBox="0 0 720 330" role="img" aria-labelledby="ts-t ts-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="ts-t">ポート開放とTailscaleの通信経路の違い</title>
+  <desc id="ts-d">ポート開放ではルーターに外から入れる穴が開き、世界中の誰でもその入口に到達できる。Tailscaleでは各端末が外向きに接続して仮想LANを作るため、ルーターに穴を開けずに済む。</desc>
+  <g font-family="sans-serif">
+    <text x="12" y="20" font-size="13" fill="#f6ad55">A. ポート開放 — ルーターに入口を作る</text>
+    <g text-anchor="middle">
+      <rect x="12" y="36" width="130" height="46" rx="8" fill="#1f2630" stroke="#2a323d"/>
+      <text x="77" y="56" font-size="11.5" fill="#e6e9ee">外出先の自分</text>
+      <text x="77" y="73" font-size="10.5" fill="#9aa4b2">正規の利用</text>
+      <rect x="12" y="96" width="130" height="46" rx="8" fill="#1f2630" stroke="#f6ad55" stroke-width="1.5"/>
+      <text x="77" y="116" font-size="11.5" fill="#f6ad55">世界中のスキャン</text>
+      <text x="77" y="133" font-size="10.5" fill="#9aa4b2">同じ入口に到達できる</text>
+      <rect x="250" y="60" width="150" height="58" rx="8" fill="#1f2630" stroke="#f6ad55" stroke-width="1.5"/>
+      <text x="325" y="84" font-size="11.5" fill="#f6ad55">ルーター</text>
+      <text x="325" y="103" font-size="10.5" fill="#9aa4b2">ポートを開けた状態</text>
+      <rect x="510" y="60" width="150" height="58" rx="8" fill="#1f2630" stroke="#2a323d"/>
+      <text x="585" y="84" font-size="11.5" fill="#e6e9ee">自宅サーバー</text>
+      <text x="585" y="103" font-size="10.5" fill="#9aa4b2">パスワードだけが防壁</text>
+    </g>
+    <g stroke-width="1.5">
+      <line x1="142" y1="59" x2="250" y2="80" stroke="#2a323d"/>
+      <line x1="142" y1="119" x2="250" y2="98" stroke="#f6ad55"/>
+      <line x1="400" y1="89" x2="510" y2="89" stroke="#2a323d"/>
+    </g>
+    <line x1="12" y1="158" x2="708" y2="158" stroke="#2a323d"/>
+    <text x="12" y="184" font-size="13" fill="#4fd1c5">B. Tailscale — 全員が「外向きに」つないで仮想LANを作る</text>
+    <g text-anchor="middle">
+      <rect x="12" y="200" width="130" height="46" rx="8" fill="#1f2630" stroke="#4fd1c5" stroke-width="1.5"/>
+      <text x="77" y="220" font-size="11.5" fill="#4fd1c5">外出先の端末</text>
+      <text x="77" y="237" font-size="10.5" fill="#9aa4b2">外へ接続する側</text>
+      <rect x="250" y="200" width="150" height="46" rx="8" fill="#1f2630" stroke="#2a323d"/>
+      <text x="325" y="220" font-size="11.5" fill="#e6e9ee">ルーター</text>
+      <text x="325" y="237" font-size="10.5" fill="#4fd1c5">穴は開けない</text>
+      <rect x="510" y="200" width="150" height="46" rx="8" fill="#1f2630" stroke="#4fd1c5" stroke-width="1.5"/>
+      <text x="585" y="220" font-size="11.5" fill="#4fd1c5">自宅サーバー</text>
+      <text x="585" y="237" font-size="10.5" fill="#9aa4b2">こちらも外へ接続する側</text>
+    </g>
+    <g stroke="#4fd1c5" stroke-width="1.5">
+      <line x1="142" y1="223" x2="250" y2="223"/>
+      <line x1="400" y1="223" x2="510" y2="223"/>
+    </g>
+    <text x="360" y="272" font-size="11.5" text-anchor="middle" fill="#9aa4b2">両側から外向きに接続し、認証済みの端末どうしだけが直接つながる</text>
+    <text x="12" y="300" font-size="11" fill="#9aa4b2">外から到達できる入口が存在しないため、総当たり攻撃の対象になりません。接続できるのは、あらかじめ許可した端末だけです。</text>
+    <text x="12" y="322" font-size="10.5" fill="#9aa4b2">※接続方式の概念図です。実際には中継サーバー経由になる場合と、端末どうしが直接つながる場合があります。</text>
+  </g>
+</svg>
+<figcaption>ポート開放との根本的な違いは、外から入れる入口を作らないことです。ポート開放は正規の利用者と攻撃者に同じ入口を提供してしまいますが、Tailscaleでは双方が外向きに接続するため、そもそも叩かれる入口が存在しません。</figcaption>
+</figure>
 
 ## 導入手順
 

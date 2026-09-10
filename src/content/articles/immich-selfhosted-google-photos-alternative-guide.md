@@ -3,7 +3,7 @@ title: Immichで自宅サーバーにGoogleフォト代替を構築する完全�
 slug: immich-selfhosted-google-photos-alternative-guide
 description: 無料の写真管理ツールImmichをセルフホストし、Googleフォトの容量制限や有料化から脱却する方法をDocker導入手順とともに解説します。
 date: 2026-07-27
-updated: 2026-08-20
+updated: 2026-09-11
 category: guide
 type: guide
 tags: [Immich, セルフホスト, Googleフォト代替, Docker, 自宅サーバー]
@@ -52,6 +52,39 @@ Immichは写真のサムネイル生成やAI解析でそれなりにCPU・メモ
 | スマホ動画（4K・1分） | 約350MB | — |
 
 **Immich はサムネイルとプレビューを別途生成します。** その分として、**元データの10〜20%程度**を上乗せしてください。写真2万枚（約80GB）＋動画300本（約100GB）なら、`180GB × 1.2 ≒ 216GB` が最低ライン。ここに数年分の増加を見込んで、**1TB程度**を確保しておくと安心です。
+
+
+<figure class="figure">
+<svg viewBox="0 0 720 320" role="img" aria-labelledby="im-t im-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="im-t">Immichで必要になるストレージ容量の内訳</title>
+  <desc id="im-d">元の写真データに加えて、サムネイルとプレビュー、データベース、そして今後増える分の余白が必要になる。さらに同じ容量のバックアップ先が別に要る。</desc>
+  <g font-family="sans-serif">
+    <text x="12" y="20" font-size="13" fill="#4fd1c5">写真3万枚・動画300本（元データ約500GB）の場合に用意する容量</text>
+    <g font-size="11.5">
+      <text x="150" y="60" text-anchor="end" fill="#9aa4b2">元の写真・動画</text>
+      <rect x="158" y="46" width="300" height="22" rx="3" fill="#4fd1c5" opacity="0.85"/>
+      <text x="468" y="62" fill="#e6e9ee">約500GB</text>
+      <text x="150" y="98" text-anchor="end" fill="#9aa4b2">サムネイル・プレビュー</text>
+      <rect x="158" y="84" width="60" height="22" rx="3" fill="#63b3ed" opacity="0.85"/>
+      <text x="228" y="100" fill="#e6e9ee">約50〜100GB（元データの10〜20%）</text>
+      <text x="150" y="136" text-anchor="end" fill="#9aa4b2">データベース・索引</text>
+      <rect x="158" y="122" width="14" height="22" rx="3" fill="#63b3ed" opacity="0.6"/>
+      <text x="182" y="138" fill="#e6e9ee">数GB（顔認識・検索の索引を含む）</text>
+      <text x="150" y="174" text-anchor="end" fill="#9aa4b2">今後3年ぶんの余白</text>
+      <rect x="158" y="160" width="180" height="22" rx="3" fill="#4a5568"/>
+      <text x="348" y="176" fill="#e6e9ee">約300GB（年100GB増える想定）</text>
+    </g>
+    <line x1="12" y1="198" x2="708" y2="198" stroke="#2a323d"/>
+    <text x="150" y="224" text-anchor="end" font-size="12" fill="#e6e9ee">用意すべき容量</text>
+    <rect x="158" y="210" width="500" height="24" rx="3" fill="#f6ad55" opacity="0.85"/>
+    <text x="170" y="227" font-size="12" fill="#181d24">合計 約900GB → 実際には 1TB 以上のディスクを選ぶ</text>
+    <text x="12" y="266" font-size="12" fill="#f6ad55">これとは別に、同じ容量のバックアップ先がもう1つ必要です</text>
+    <text x="12" y="288" font-size="11" fill="#9aa4b2">Immichを入れた時点では「Googleフォトから乗り換えた」だけで、まだ写真は1か所にしかありません。</text>
+    <text x="12" y="308" font-size="11" fill="#9aa4b2">サーバーのディスクが壊れれば全部消えます。外付けHDDかクラウドへの複製を、運用開始と同時に用意してください。</text>
+  </g>
+</svg>
+<figcaption>Immichに必要な容量は、元の写真データだけでは足りません。サムネイルとプレビューで1〜2割、さらに今後増える分の余白が必要です。そして最も見落とされやすいのが、同じ容量のバックアップ先をもう1つ用意することです。</figcaption>
+</figure>
 
 ## 構築手順（Docker Compose）
 

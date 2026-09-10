@@ -3,7 +3,7 @@ title: OllamaでローカルLLMを自宅サーバー化する必要スペック�
 slug: ollama-local-llm-home-server-spec
 description: OllamaでローカルLLMを自宅サーバーに構築する際に必要なCPU・メモリ・GPU・ストレージの目安をモデルサイズ別に解説。予算別の構成例も紹介。
 date: 2026-08-09
-updated: 2026-08-20
+updated: 2026-09-11
 category: guide
 type: guide
 tags: [Ollama, ローカルLLM, 自宅サーバー, GPU, 自作PC]
@@ -41,6 +41,42 @@ GPUを使わずCPUのみで推論する場合でも動作はしますが、速�
 量子化レベル（Q4_K_M、Q5_K_Mなど）を下げるほど必要メモリは減りますが、応答品質もわずかに落ちます。まずはQ4_K_Mから試すのが定番です。
 
 <!-- AD -->
+
+
+<figure class="figure">
+<svg viewBox="0 0 720 320" role="img" aria-labelledby="ol-t ol-d" xmlns="http://www.w3.org/2000/svg">
+  <title id="ol-t">モデルサイズごとに必要なメモリと、GPUに載るかどうかの境界</title>
+  <desc id="ol-d">4ビット量子化した場合、7Bクラスで約6GB、14Bクラスで約10GB、32Bクラスで約22GB、70Bクラスで約42GBが必要になる。VRAMに収まるかどうかで生成速度が大きく変わる。</desc>
+  <g font-family="sans-serif">
+    <text x="12" y="20" font-size="13" fill="#4fd1c5">4ビット量子化（Q4）で動かすときに必要なメモリの目安</text>
+    <g font-size="11.5">
+      <text x="132" y="56" text-anchor="end" fill="#9aa4b2">3Bクラス</text>
+      <rect x="140" y="42" width="39" height="20" rx="3" fill="#4fd1c5" opacity="0.85"/>
+      <text x="189" y="57" fill="#e6e9ee">約3GB</text>
+      <text x="132" y="90" text-anchor="end" fill="#9aa4b2">7〜8Bクラス</text>
+      <rect x="140" y="76" width="78" height="20" rx="3" fill="#4fd1c5" opacity="0.85"/>
+      <text x="228" y="91" fill="#e6e9ee">約6GB</text>
+      <text x="132" y="124" text-anchor="end" fill="#9aa4b2">14Bクラス</text>
+      <rect x="140" y="110" width="130" height="20" rx="3" fill="#63b3ed" opacity="0.85"/>
+      <text x="280" y="125" fill="#e6e9ee">約10GB</text>
+      <text x="132" y="158" text-anchor="end" fill="#9aa4b2">32Bクラス</text>
+      <rect x="140" y="144" width="286" height="20" rx="3" fill="#63b3ed" opacity="0.85"/>
+      <text x="436" y="159" fill="#e6e9ee">約22GB</text>
+      <text x="132" y="192" text-anchor="end" fill="#9aa4b2">70Bクラス</text>
+      <rect x="140" y="178" width="546" height="20" rx="3" fill="#f6ad55" opacity="0.85"/>
+      <text x="152" y="193" fill="#181d24">約42GB</text>
+    </g>
+    <line x1="348" y1="36" x2="348" y2="206" stroke="#f6ad55" stroke-dasharray="5 4" stroke-width="1.2"/>
+    <text x="354" y="222" font-size="11" fill="#f6ad55">VRAM 16GBの壁 — ここより右のモデルは家庭用GPU1枚には載りきらない</text>
+    <line x1="12" y1="238" x2="708" y2="238" stroke="#2a323d"/>
+    <text x="12" y="262" font-size="12" fill="#e6e9ee">VRAMに載るかどうかで、体感は段違いに変わります</text>
+    <text x="12" y="284" font-size="11" fill="#4fd1c5">・全部VRAMに載る場合 … 毎秒数十トークン。会話として自然に待てる速さ</text>
+    <text x="12" y="304" font-size="11" fill="#f6ad55">・載りきらずCPU側にあふれる場合 … 毎秒数トークン。1回の返答に分単位で待つことも</text>
+    <text x="12" y="318" font-size="10" fill="#9aa4b2">※必要メモリはパラメータ数に量子化後のビット数を掛けた概算に、文脈保持ぶんを加えた目安です。実際の値はモデルと設定で変わります。</text>
+  </g>
+</svg>
+<figcaption>ローカルLLMで最初に効いてくるのは、モデルがVRAMに収まるかどうかです。収まれば会話として待てる速さになり、あふれた瞬間に体感が数分の1まで落ちます。GPUのVRAM容量が、そのまま動かせるモデルの上限だと考えてください。</figcaption>
+</figure>
 
 ## 速度の目安：どれくらい待つことになるのか
 
