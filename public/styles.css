@@ -199,7 +199,16 @@ a:hover { text-decoration: underline; }
   margin: 26px 0; padding: 16px; background: var(--surface);
   border: 1px solid var(--border); border-radius: var(--radius);
 }
+.figure-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .figure svg { display: block; width: 100%; height: auto; }
+/* 画面が狭いときは図を縮小せず、横スクロールで見せる。
+   縮小すると図中の文字が読めない大きさになるため。 */
+@media (max-width: 700px) {
+  .figure-scroll svg { width: 660px; max-width: none; }
+  .figure-scroll::after {
+    content: ""; display: block; height: 2px;
+  }
+}
 .figure figcaption {
   margin-top: 10px; font-size: .82rem; line-height: 1.7; color: var(--muted);
 }

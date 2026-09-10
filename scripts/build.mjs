@@ -112,7 +112,15 @@ function renderArticleBody(article) {
     .replace(/<!--\s*AD\s*-->/g, `\n${adSlot("inArticle")}\n`)
     .replace(/<!--\s*FIGURE\s*-->/g, `\n${chartFigure(article.chart)}\n`);
 
-  const html = marked.parse(md);
+  let html = marked.parse(md);
+
+  // 図版のSVGを横スクロール用のコンテナで包む。
+  // スマートフォンの幅に合わせて縮小すると図の中の文字が5px前後になり読めないため、
+  // 縮小せずに横スクロールさせる（説明文は折り返したままにしたいのでSVGだけを包む）。
+  html = html.replace(
+    /(<figure class="figure">\s*)(<svg[\s\S]*?<\/svg>)/g,
+    (m, head, svg) => `${head}<div class="figure-scroll">${svg}</div>`
+  );
 
   // Markdownの取りこぼし検出。日本語では「**強調（かっこ）**」のように
   // 閉じ記号の直前が全角句読点だと marked が強調と解釈せず、
