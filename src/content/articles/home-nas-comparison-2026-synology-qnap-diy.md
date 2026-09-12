@@ -9,60 +9,59 @@ type: comparison
 tags: [NAS, Synology, QNAP, 自作NAS, ホームサーバー]
 products:
   - name: Synology DS223j
-    price: "¥25,000 前後"
+    price: "¥34,691"
     rating: 4.0
-    spec: "2ベイ / ARMクアッドコア / 1GB RAM / 1GbE×1"
+    spec: "2ベイ / ARMクアッドコア / 1GB RAM / 1GbE×1 ※ドライブ別売"
     pros:
-      - "DSMの使いやすさが圧倒的"
-      - "設定が簡単で初心者向け"
-      - "静音・省電力"
+      - DSMの完成度が高く、設定を最後まで迷わず進められる
+      - 消費電力が小さく、動作音も静かで居室に置ける
+      - 完成品NASの中では最も安い部類で、最初の1台に選びやすい
     cons:
-      - "CPU性能は控えめで動画変換等は苦手"
-      - "拡張性が低い（2ベイ固定）"
+      - CPU性能は控えめで、動画の変換のような重い処理は苦手
+      - 2ベイ固定で、あとから容量を増やす自由度が低い
     affiliate:
       amazon: "B0C8814GKB"
       rakuten: ""
-  - name: Synology DS923+
-    price: "¥75,000 前後"
+  - name: Synology DS425+
+    price: "¥108,990"
     rating: 4.6
-    spec: "4ベイ / AMD Ryzen R1600 / 4GB RAM（拡張可）/ 2.5GbE×2"
+    spec: "4ベイ / クアッドコアCPU / 2GB RAM（拡張可）/ 2.5GbE ※ドライブ別売"
     pros:
-      - "拡張ユニットでベイ増設が可能"
-      - "M.2 NVMeキャッシュ対応"
-      - "パッケージセンターでアプリ追加が豊富"
+      - 4ベイでRAIDを組め、あとからの容量拡張に耐える
+      - 2.5GbE対応で、ネットワーク側がボトルネックになりにくい
+      - Synologyのアプリ群がそのまま使え、運用の手間が少ない
     cons:
-      - "本体価格がやや高め"
-      - "トランスコード性能はハード非対応"
+      - 本体だけで10万円を超え、HDD代が別に必要になる
+      - ハードウェアでの動画変換には対応していない
     affiliate:
-      amazon: "B0CTMY8P38"
+      amazon: "B0FGPXFW1B"
       rakuten: ""
   - name: QNAP TS-464
-    price: "¥60,000 前後"
+    price: "¥146,263"
     rating: 4.3
-    spec: "4ベイ / Intel Celeron / 4GB RAM（拡張可）/ 2.5GbE×2 / HDMI出力"
+    spec: "4ベイ / Intel 4コアCPU / 8GB RAM / 2.5GbE×2 / PCIeスロット×1 ※ドライブ別売"
     pros:
-      - "HDMI出力でメディアサーバー用途に強い"
-      - "ハードウェアトランスコード対応"
-      - "QuTS hero（ZFS）選択も可能"
+      - HDMI出力とハードウェア変換で、メディアサーバー用途に強い
+      - PCIeスロットがあり、10GbE NICやSSDキャッシュを後付けできる
+      - ZFSベースの QuTS hero も選べる
     cons:
-      - "UIがSynologyよりやや複雑"
-      - "ファームウェア更新頻度が高くやや不安定な時期もある"
+      - 今回の4つの中では最も高く、初期費用が重い
+      - 管理画面の項目が多く、Synologyより慣れが要る
     affiliate:
       amazon: "B0BP97WV3R"
       rakuten: ""
-  - name: 自作NAS（Mini PC + TrueNAS/Unraid）
-    price: "¥40,000〜¥120,000（構成次第）"
+  - name: 自作NAS（ミニPC + TrueNAS / Unraid）
+    price: "¥60,000〜（構成次第）"
     rating: 4.2
-    spec: "N100系ミニPC等 + HDD/SSD自由選択 + TrueNAS SCALE / Unraid"
+    spec: "N100/N150系ミニPC等 + HDD/SSDを自由に選択 + TrueNAS SCALE / Unraid"
     pros:
-      - "コスパと拡張性を自由に調整できる"
-      - "ZFS等の高度なストレージ機能が無料で使える"
-      - "仮想化・コンテナも柔軟に構築可能"
+      - 構成を自由に決められ、使わない機能に金を払わずに済む
+      - ZFSなどの高度なストレージ機能を追加費用なしで使える
+      - 同じ機械で仮想化やコンテナも動かせる
     cons:
-      - "初期構築・トラブル対応に知識が必要"
-      - "保証やサポートはメーカー製より弱い"
+      - 構築とトラブル対応を自分でやる必要がある
+      - メーカー保証とサポートは完成品NASより弱い
     affiliate:
-      amazon: "REPLACE_ASIN_004"
       rakuten: ""
 ---
 

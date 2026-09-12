@@ -262,7 +262,7 @@ function buildCategoryPages(articles) {
     const body = `
 <section class="cat-head">
   <h1>${cat.emoji} ${cat.label} の記事</h1>
-  ${cat.intro ? `<p class="cat-intro">${cat.intro}</p>` : ""}
+  ${cat.intro ? cat.intro.split(/\n{2,}/).map((s) => `<p class="cat-intro">${s.trim()}</p>`).join("") : ""}
 </section>
 <div class="card-grid">${cards}</div>`;
     writePage(`category/${slug}`, layout({

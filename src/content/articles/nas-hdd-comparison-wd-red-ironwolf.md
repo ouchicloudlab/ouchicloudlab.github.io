@@ -8,75 +8,75 @@ category: nas
 type: comparison
 tags: [NAS, HDD, WD Red, IronWolf, 自宅サーバー]
 products:
-  - name: WD Red Plus 4TB (WD40EFPX)
-    price: "¥13,000 前後"
+  - name: WD Red Plus 4TB（WD40EFZZ-AJP）
+    price: "¥37,725"
     rating: 4.3
-    spec: "CMR方式 / 5,400rpm相当 / キャッシュ128MB / ワークロードレート180TB/年"
+    spec: "CMR方式 / 5,400rpm / キャッシュ128MB / 3.5インチ SATA"
     pros:
-      - "価格と信頼性のバランスが良く定番"
-      - "CMR方式でRAID構築時のトラブルが少ない"
-      - "静音・低発熱で24時間稼働に向く"
+      - CMR方式で、RAIDの再構築中にトラブルが起きにくい
+      - 5,400rpmで動作音と発熱が控えめ、24時間稼働に向く
+      - NAS向けHDDとしては最も情報が多く、互換性の心配が少ない
     cons:
-      - "7200rpm系よりシーケンシャル性能は控えめ"
-      - "高負荷な多台数RAIDにはやや非力"
+      - 7,200rpm系より連続読み書きの速度は控えめ
+      - 多台数・高負荷のRAIDにはやや力不足
     affiliate:
-      amazon: "REPLACE_ASIN_001"
+      amazon: "B0FY2N485X"
       rakuten: ""
-  - name: WD Red Pro 8TB (WD8005FFBX)
-    price: "¥28,000 前後"
+  - name: WD Red Pro 8TB
+    price: "¥74,500"
     rating: 4.5
-    spec: "CMR方式 / 7,200rpm / キャッシュ256MB / ワークロードレート300TB/年"
+    spec: "CMR方式 / 7,200rpm / 3.5インチ SATA / 8TB"
     pros:
-      - "7200rpmで転送速度に余裕がある"
-      - "ワークロードレートが高く多台数NAS向け"
-      - "5年保証で長期運用に安心感がある"
+      - 7,200rpmで連続読み書きの速度に余裕がある
+      - 上位シリーズで、多台数のNASを想定した耐久設計
+      - 1台あたりの容量が大きく、ベイ数の少ないNASでも容量を稼げる
     cons:
-      - "回転数が高い分、動作音・発熱はやや大きい"
-      - "同容量帯ではPlusより価格が上がる"
+      - 回転数が高い分、動作音と発熱は大きめ
+      - 1台あたりの単価が高く、4台そろえると相当な金額になる
     affiliate:
-      amazon: "REPLACE_ASIN_002"
+      amazon: "B0FGY6YW5D"
       rakuten: ""
-  - name: Seagate IronWolf 4TB (ST4000VN006)
-    price: "¥12,000 前後"
+  - name: Seagate IronWolf 4TB（ST4000VN006）
+    price: "¥34,980"
     rating: 4.2
-    spec: "CMR方式 / 5,400rpm相当 / キャッシュ256MB / ワークロードレート180TB/年"
+    spec: "CMR方式 / 5,400rpm相当 / キャッシュ256MB / 3.5インチ SATA"
     pros:
-      - "WD Red Plusと並ぶ定番でコスパが良い"
-      - "IronWolf Health Managementで状態監視がしやすい"
-      - "1〜8ベイクラスの小規模NASに最適化"
+      - WD Red Plusと並ぶ定番で、4TBクラスでは最も安い部類
+      - IronWolf Health Management に対応し、状態を監視しやすい
+      - キャッシュ256MBで、同クラスのWDより多い
     cons:
-      - "上位Proに比べ耐障害性能の余裕は少ない"
-      - "型番により仕様が微妙に異なるため購入時に要確認"
+      - 動作音はWD Red Plusよりやや大きいという声がある
+      - 保証期間はProシリーズより短い
     affiliate:
       amazon: "B0D8KTQBYS"
       rakuten: ""
-  - name: Seagate IronWolf Pro 8TB (ST8000NT001)
-    price: "¥27,000 前後"
+  - name: Seagate IronWolf Pro 8TB（ST8000NT001）
+    price: "¥57,555"
     rating: 4.5
-    spec: "CMR方式 / 7,200rpm / キャッシュ256MB / ワークロードレート300TB/年"
+    spec: "CMR方式 / 7,200rpm / 3.5インチ SATA / 8TB"
     pros:
-      - "WD Red Proと同格の高耐久・高性能モデル"
-      - "データ復旧サービス(Rescue)が付帯するモデルがある"
-      - "多台数RAID・法人利用にも耐える設計"
+      - 8TBクラスでは価格が抑えられており、容量単価が良い
+      - Proシリーズで保証が長く、多台数運用を想定している
+      - データ復旧サービスが付帯するモデルがある
     cons:
-      - "価格がやや高め"
-      - "静音性重視の用途にはやや不向き"
+      - 7,200rpmのため動作音・発熱ともに大きめ
+      - 在庫の変動が大きく、価格も動きやすい
     affiliate:
       amazon: "B0BGSCF18W"
       rakuten: ""
-  - name: Toshiba N300 4TB (HDWG440)
-    price: "¥12,500 前後"
-    rating: 4.0
-    spec: "CMR方式 / 7,200rpm / キャッシュ256MB / ワークロードレート180TB/年"
+  - name: 東芝 N300 8TB（HDWG780）
+    price: "¥52,200"
+    rating: 4.2
+    spec: "CMR方式 / 7,200rpm / 3.5インチ SATA / 8TB / 国内代理店3年保証"
     pros:
-      - "7200rpmながら価格が抑えめ"
-      - "WD・Seagate以外の選択肢としてRAID構成の混在に使える"
-      - "3年保証だがコスパは良好"
+      - 8TBクラスで最も安く、容量単価では今回の5製品で最良
+      - 国内代理店の3年保証と、故障時の同時交換に対応する販路がある
+      - 7,200rpmでCMR、NAS向けとして必要な条件は満たしている
     cons:
-      - "国内での流通量がWD/Seagateよりやや少ない"
-      - "上位モデル（N300 Pro相当）は選択肢が限られる"
+      - 在庫が少なく、まとめ買いがしにくい
+      - WD・Seagateに比べると国内での運用情報が少ない
     affiliate:
-      amazon: "REPLACE_ASIN_005"
+      amazon: "B0DJCP4KM1"
       rakuten: ""
 ---
 
@@ -188,7 +188,7 @@ WD Red PlusとSeagate IronWolf（無印）、WD Red ProとIronWolf Proは、そ�
 
 - **1〜2ベイの個人用NAS、静音重視** → WD Red Plus / IronWolf（無印）の4TB前後
 - **4ベイ以上でDocker・仮想化・複数ユーザー利用** → WD Red Pro / IronWolf Proの7,200rpmクラス
-- **予算を抑えつつ7,200rpmの速度も欲しい** → Toshiba N300を候補に加える
+- **予算を抑えつつ7,200rpmの速度も欲しい** → 東芝 N300 8TB を候補に加える（8TBクラスでは容量単価が最も安い）
 - **バックアップ専用機（低頻度アクセス）** → 通常のPC用HDDでも致命的な問題は出にくいが、24時間稼働ならNAS用が無難
 
 <!-- AD -->

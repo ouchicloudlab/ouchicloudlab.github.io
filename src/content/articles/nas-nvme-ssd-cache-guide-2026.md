@@ -8,41 +8,61 @@ category: nas
 type: comparison
 tags: [NAS, NVMe SSD, キャッシュ, 自宅サーバー, ストレージ高速化]
 products:
-  - name: Samsung 970 EVO Plus (500GB)
-    price: "¥7,000 前後"
-    rating: 4.3
-    spec: "PCIe3.0 NVMe / 読込 3,500MB/s・書込 3,200MB/s目安 / TBW 300TB"
-    pros: ["実績が豊富で入手性が高い", "発熱が比較的穏やか", "コストパフォーマンスが良い"]
-    cons: ["NAS向け耐久設計ではない", "ヒートシンクは別途用意が必要な場合あり"]
-    affiliate:
-      amazon: "B07MZ4R9FR"
-      rakuten: ""
-  - name: WD Red SN700 (500GB)
-    price: "¥9,000 前後"
+  - name: WD Red SN700 500GB
+    price: "¥32,478"
     rating: 4.5
-    spec: "PCIe3.0 NVMe / NAS常時稼働を想定した設計 / TBW 500TB程度"
-    pros: ["24時間稼働のNAS用途を想定", "TBWに余裕がありキャッシュ用途に向く", "対応NAS機種の互換情報が多い"]
-    cons: ["同容量帯の汎用SSDよりやや高め", "ピーク速度は汎用ハイエンド品に劣る場合がある"]
+    spec: "PCIe3.0 NVMe / NASの常時稼働を想定した設計 / M.2 2280"
+    pros:
+      - NASでの24時間稼働を前提に設計されている
+      - NASメーカー側の互換リストに載っていることが多い
+      - キャッシュのように書き込みが続く用途を想定している
+    cons:
+      - 同容量の汎用SSDより価格が高い
+      - ピーク速度は汎用のGen4製品に及ばない
     affiliate:
       amazon: "B09H1SCQFQ"
       rakuten: ""
-  - name: Seagate IronWolf 525 (500GB)
-    price: "¥10,000 前後"
-    rating: 4.2
-    spec: "PCIe3.0/4.0対応モデルあり / NAS向け耐久設計 / TBW 700TB程度"
-    pros: ["NAS専用設計でメーカー保証が手厚い", "TBWが大きくキャッシュの書込負荷に強い", "IronWolf Healthとの連携が可能な機種もある"]
-    cons: ["価格がやや高め", "対応NASが限定される場合がある"]
+  - name: GIGASTONE NAS SSD 500GB
+    price: "¥34,990"
+    rating: 4.1
+    spec: "PCIe3.0 NVMe / 24時間365日稼働をうたう高耐久モデル / 読込 2,100MB/s"
+    pros:
+      - NAS用途を明示した製品で、常時稼働を想定している
+      - 2枚組の販売もあり、ミラー構成を組みやすい
+      - 読み取りキャッシュに必要な速度は十分に満たす
+    cons:
+      - 国内での流通量が少なく、在庫が不安定
+      - NASメーカーの互換リストには載っていないことが多い
     affiliate:
-      amazon: "REPLACE_ASIN_003"
+      amazon: "B0CZQLGL7C"
       rakuten: ""
-  - name: Crucial P3 Plus (500GB)
-    price: "¥6,000 前後"
-    rating: 3.9
-    spec: "PCIe4.0 NVMe / 読込 5,000MB/s目安 / TBW 220TB程度"
-    pros: ["価格が安く試しやすい", "PCIe4.0対応で理論値は高い", "小容量から選びやすい"]
-    cons: ["TBWは他モデルよりやや控えめ", "長時間の書込キャッシュ用途では寿命面がやや不安"]
+  - name: キオクシア 内蔵SSD 1TB（SSD-CK1.0N4B/R）
+    price: "¥32,980"
+    rating: 4.3
+    spec: "PCIe Gen4×4 NVMe / 読込 7,200MB/s / M.2 2280 / 1TB"
+    pros:
+      - 同じ価格帯で容量が倍あり、キャッシュ容量に余裕を持たせられる
+      - 国内ブランドで、保証と入手性が安定している
+      - Gen4対応で、NAS以外に転用するときも無駄にならない
+    cons:
+      - NAS専用設計ではなく、常時書き込みの耐久性は公称されていない
+      - 発熱が大きめで、NASによってはヒートシンクの干渉に注意が必要
     affiliate:
-      amazon: "REPLACE_ASIN_004"
+      amazon: "B0GVY2YM31"
+      rakuten: ""
+  - name: TEAMGROUP MP44 1TB
+    price: "¥34,269"
+    rating: 3.9
+    spec: "PCIe Gen4×4 NVMe / SLCキャッシュ搭載 / M.2 2280 / 1TB"
+    pros:
+      - 1TBクラスでは価格が安く、ミラー構成を組みやすい
+      - DRAMレスながらSLCキャッシュで実用速度は確保している
+      - 薄型でノート・ミニPCとの併用もしやすい
+    cons:
+      - DRAMレス構成のため、長時間の連続書き込みでは速度が落ちる
+      - NAS用途での耐久性はメーカーが保証していない
+    affiliate:
+      amazon: "B0C4KRMKFW"
       rakuten: ""
 ---
 
@@ -143,7 +163,7 @@ NVMe SSDの消費電力は、アイドル時0.1〜0.3W程度、アクセス時�
 
 ※電力量単価は31円/kWhを仮定した試算です。実際の契約プランや地域により変動します。
 
-NVMe SSD自体の消費電力はHDD（5〜8W程度が一般的）より低い場合が多く、電気代の面では大きな負担増にはなりにくいというのが実態です。コストの中心は本体価格（数千〜1万円台）であり、投資回収は「体感速度の改善」という形で得られると考えるのが現実的です。
+NVMe SSD自体の消費電力はHDD（5〜8W程度が一般的）より低い場合が多く、電気代の面では大きな負担増にはなりにくいというのが実態です。コストの中心はあくまで本体価格です。2026年9月時点では500GB〜1TBクラスで3万円台まで値上がりしており、電気代よりもこの初期費用をどう見るかが判断の分かれ目になります。投資の見返りは「体感速度の改善」という形でしか返ってこないため、次の節の「効きやすい使い方」に自分が当てはまるかを先に確かめてください。
 
 <!-- AD -->
 

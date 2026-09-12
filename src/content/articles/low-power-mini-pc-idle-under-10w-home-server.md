@@ -8,50 +8,75 @@ category: mini-pc
 type: comparison
 tags: [省電力ミニPC, おうちサーバー, Intel N100, 電気代, 自宅サーバー]
 products:
-  - name: GMKtec NucBox G3 Plus（Intel N100）
-    price: "¥25,000 前後"
-    rating: 4.4
-    spec: "Intel N100（4コア） / 8GB RAM / 256GB SSD / 2.5GbE×1"
-    pros: ["アイドル時6〜8W程度と非常に省電力", "本体サイズが手のひらサイズでラック不要", "価格が安くコスパが高い"]
-    cons: ["性能はエントリー向けで重い仮想化には不向き", "拡張性が低くストレージ増設に制限あり"]
-    affiliate:
-      amazon: "REPLACE_ASIN_G3PLUS"
-      rakuten: ""
-  - name: ODROID-H4 Ultra
-    price: "¥30,000 前後（本体のみ）"
-    rating: 4.3
-    spec: "Intel N305（8コア） / RAM別売 / M.2 NVMe×2 / SATA×2 / 2.5GbE×2"
-    pros: ["SATA×2でNAS的な使い方がしやすい", "N305搭載でCPU性能に余裕がある", "デュアル2.5GbEでネットワーク用途にも強い"]
-    cons: ["アイドル電力はSATA接続台数で変動し10W前後になることも", "RAM・SSD・ケースが別売で初期費用がかさむ"]
-    affiliate:
-      amazon: "REPLACE_ASIN_ODROIDH4"
-      rakuten: ""
-  - name: Beelink EQ14（Intel N150）
-    price: "¥28,000 前後"
-    rating: 4.5
-    spec: "Intel N150 / 16GB RAM / 500GB SSD / 2.5GbE×2"
-    pros: ["最新N150搭載で省電力と性能のバランスが良い", "デュアル2.5GbEでルーター用途にも使える", "メモリ16GB標準でコンテナ運用も余裕"]
-    cons: ["ファンが常時回転しやや音が気になる個体もある", "M.2スロットが1本のみで増設に限りあり"]
-    affiliate:
-      amazon: "REPLACE_ASIN_EQ14"
-      rakuten: ""
-  - name: Raspberry Pi 5（8GBモデル・NVMe HAT構成）
-    price: "¥18,000 前後（本体+HAT+SSD別）"
+  - name: Raspberry Pi 5（8GBモデル）
+    price: "¥36,980"
     rating: 3.9
-    spec: "Broadcom BCM2712（4コア） / 8GB RAM / NVMe SSD対応（HAT経由）"
-    pros: ["アイドル電力は2〜4W台と圧倒的に低い", "コミュニティが大きく情報が豊富", "小型で置き場所を選ばない"]
-    cons: ["x86非対応のためDocker移植性に制約が出る場合がある", "NVMe利用には別売HATが必要で総額が上がりがち"]
+    spec: "Broadcom BCM2712（4コア）/ 8GB RAM / 公開値ベースでアイドル3〜4W"
+    pros:
+      - 今回の5機種で最も消費電力が小さく、アイドル3〜4Wで足りる
+      - 情報量が圧倒的に多く、詰まったときに解決策が見つかりやすい
+      - 手のひらサイズで、置き場所をほとんど選ばない
+    cons:
+      - x86ではないため、動かないDockerイメージがある
+      - 電源・ケース・NVMe HATを足すと総額が本体の1.5〜2倍になる
     affiliate:
       amazon: "B0CQZHN2K4"
       rakuten: ""
-  - name: MINISFORUM UM790 Pro（Ryzen 7 7840HS）
-    price: "¥65,000 前後"
-    rating: 4.0
-    spec: "AMD Ryzen 7 7840HS（8コア） / 32GB RAM / 1TB SSD / 2.5GbE×1"
-    pros: ["高性能でVM・トランスコードも余裕", "USB4/Thunderboltなど拡張性が高い"]
-    cons: ["アイドル電力は10〜15W程度とやや高め", "価格帯が上がり省電力サーバー用途としてはオーバースペック気味"]
+  - name: AIOPCWA ファンレス N200 ベアボーン
+    price: "¥42,850（ベアボーン・メモリ/SSD別売）"
+    rating: 4.2
+    spec: "Intel N200（TDP 6W）/ SATA3.0×2 / 2.5GbE×2（i226-V）/ M.2 NVMe×1 / PCIe×8スロット / ファンレス"
+    pros:
+      - ファンレスで可動部がなく、寝室に置いても完全に無音
+      - SATAが2ポートあり、3.5インチHDDを積んでNASにできる
+      - 2.5GbEを2口持ち、ルーターやファイアウォール用途にも使える
+    cons:
+      - ベアボーンのためメモリ・SSD・OSを自分で用意する必要がある
+      - ファンレスゆえ、夏場に高負荷を続けると性能が落ちる
     affiliate:
-      amazon: "B0C4HD8KCW"
+      amazon: "B0DCJRGN2F"
+      rakuten: ""
+  - name: WayPonDEV Nest Disk
+    price: "¥44,980"
+    rating: 4.3
+    spec: "Intel N150（4コア）/ 12GB LPDDR5 / NVMeベイ×4 / 2.5GbE×2 / WiFi 6"
+    pros:
+      - NVMeを4枚積めて、HDDを使わない静かなNASを組める
+      - 2.5GbEが2口あり、リンクアグリゲーションを組める
+      - メモリがDDR5で、コンテナを並べたときの余裕が大きい
+    cons:
+      - NVMe中心の構成になるため、大容量を狙うと費用がかさむ
+      - 国内での流通が少なく、情報も多くない
+    affiliate:
+      amazon: "B0G1T214SR"
+      rakuten: ""
+  - name: Beelink Mini S12 Pro（Intel N100）
+    price: "¥54,900"
+    rating: 4.4
+    spec: "Intel N100（4コア）/ 16GB DDR4 / 512GB SSD / 1GbE"
+    pros:
+      - N100搭載機の中では出荷数が多く、動作報告を見つけやすい
+      - メモリ16GBとSSD 512GBが最初から載っており、買い足しが要らない
+      - 省電力機の定番で、Proxmoxでの動作例も豊富
+    cons:
+      - 有線LANが1GbEのみで、NAS用途では帯域が足りなくなる
+      - M.2スロットが1本で、システムとデータを分けにくい
+    affiliate:
+      amazon: "B0BYYZGWGX"
+      rakuten: ""
+  - name: GEEKOM Air12 Lite（Intel N95）
+    price: "¥56,499"
+    rating: 4.2
+    spec: "Intel N95（4コア）/ 最大16GB+2TBに拡張可 / メーカー公称の消費電力 6〜15W / 3年保証"
+    pros:
+      - メーカーが消費電力6〜15Wと明示しており、見積もりが立てやすい
+      - 3年保証が付き、24時間稼働の機材としては安心感がある
+      - Wake On LAN・PXEブート・自動電源オンに対応し、遠隔運用しやすい
+    cons:
+      - 今回の5機種で最も高く、性能はN100機とほぼ変わらない
+      - 有線LANは1GbEで、2.5GbEは持たない
+    affiliate:
+      amazon: "B0GS9DDK59"
       rakuten: ""
 ---
 
@@ -86,7 +111,9 @@ Jellyfin、Home Assistant、Pi-hole、自宅NASなど、24時間365日稼働さ�
 
 **省電力機どうしの差は、思ったほど大きくありません。** 6Wと10Wの差は年間で約1,086円、5年でも約5,430円です。本体価格の差がそれ以上なら、電気代を理由に安い方を選ぶ意味は薄いということになります。
 
-**一方、20W以上との差は決定的です。** 10Wと45Wの差は年間約9,500円。5年で約4.8万円になり、ミニPCが1台買える金額です。「余っている古いPCを流用すればタダ」という発想が成立しないのは、この差によるものです。
+**一方、20W以上との差は決定的です。** 10Wと45Wの差は年間約9,500円。5年で約4.8万円になり、ミニPCが1台買える金額です。
+
+ただし2026年は、メモリとストレージの値上がりでミニPC本体が高くなりました。4年程度で見ると、中古PCを流用した場合の総額（本体＋電気代）は新品の省電力機とほぼ並びます。総額での比較は [自宅サーバー向けミニPCおすすめ5選](/articles/mini-pc-osusume-2026/) にまとめています。**それでも新品を選ぶ理由は、総額の安さではなく、静かさ・発熱の少なさ・保証**です。5年を超えて使うなら、電気代の差がふたたび効いてきます。
 
 > ※上記は電力量料金単価31円/kWhでの試算です。実際の請求額は契約プラン・燃料費調整額・再生可能エネルギー発電促進賦課金により変動します。
 

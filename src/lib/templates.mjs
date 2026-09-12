@@ -127,9 +127,9 @@ export function productCard(p, rank) {
         rakuten
       )}" rel="${affiliate.rel}" target="_blank">楽天で見る</a>`
     );
-  const btnHtml =
-    buttons.join("") ||
-    `<span class="btn btn-disabled">リンク準備中</span>`;
+  // 購入リンクがない項目（自作構成など）では、CTA自体を出さない。
+  // 「リンク準備中」のような空ボタンは未完成のサイトに見えるため置かない。
+  const btnHtml = buttons.join("");
 
   return `
 <div class="product-card" id="p-${rank}">
@@ -148,7 +148,7 @@ export function productCard(p, rank) {
     <div class="pc-proscons">
       <ul class="proscons-list">${pros}${cons}</ul>
     </div>
-    <div class="pc-cta">${btnHtml}</div>
+    ${btnHtml ? `<div class="pc-cta">${btnHtml}</div>` : ""}
   </div>
 </div>`;
 }
@@ -184,7 +184,7 @@ export function comparisonTable(products) {
   <tbody>${rows}</tbody>
 </table>
 </div>
-<p class="table-note">※「編集部スコア」は各メーカーの公開仕様・実売価格・入手性・自宅サーバー用途への適合度をもとに、当サイト編集部が5点満点で採点した<strong>相対的な目安</strong>です。第三者機関による測定値ではありません。価格は確認時点のもので、変動します。</p>`;
+<p class="table-note">※「編集部スコア」は各メーカーの公開仕様・実売価格・入手性・自宅サーバー用途への適合度をもとに、当サイト編集部が5点満点で採点した<strong>相対的な目安</strong>です。第三者機関による測定値ではありません。価格は<strong>${esc(site.priceCheckedOn || "")}</strong>に確認した Amazon.co.jp の実売価格で、その後変動します。購入前にリンク先で必ず現在の価格をご確認ください。</p>`;
 }
 
 
@@ -347,7 +347,7 @@ ${body}
       <a href="/tools/">🧮 サクッとツール</a>
       — 消費税・電気代・単位換算など、日常の計算をブラウザだけで片づける無料ツール集です。
     </p>
-    <p class="disclosure">※当サイトはアフィリエイトプログラム（Amazonアソシエイト等）を利用しています。商品リンク経由の購入で当サイトが収益を得る場合があります。価格・在庫は変動するため、最新情報は各販売ページでご確認ください。</p>
+    <p class="disclosure">※当サイトはアフィリエイトプログラム（Amazonアソシエイト等）を利用しています。商品リンク経由の購入で当サイトが収益を得る場合があります。掲載している価格は${esc(site.priceCheckedOn || "")}に確認したもので、その後変動します。最新の価格・在庫は各販売ページでご確認ください。</p>
     <p>&copy; ${new Date().getFullYear()} ${esc(site.name)} — ${esc(site.tagline)}</p>
   </div>
 </footer>

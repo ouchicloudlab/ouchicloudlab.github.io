@@ -1,85 +1,86 @@
 ---
 title: 【2026年】自宅サーバー向けミニPCおすすめ5選｜消費電力と拡張性で比較
 slug: mini-pc-osusume-2026
-description: Intel NUC撤退後の2026年、自宅サーバー（homelab）用ミニPCの本命はどれか。Minisforum・Beelink・ASUSを、公開仕様の消費電力・10GbE対応・拡張性と、4年間の電気代込み総コストで比較します。
+description: Intel NUC撤退後の2026年、自宅サーバー（homelab）用ミニPCの本命はどれか。Minisforum・Beelink・GMKtecを、公開仕様の消費電力・10GbE対応・拡張性と、4年間の電気代込み総コストで比較します。
 date: 2026-07-05
 updated: 2026-09-11
 category: mini-pc
 type: comparison
 tags: [ミニPC, homelab, Proxmox, 省電力, 10GbE]
 products:
-  - name: Minisforum MS-01
-    price: "¥89,800 前後"
-    rating: 4.8
-    spec: "Core i5-12600H / SFP+ 10GbE×2 + 2.5GbE×2 / PCIe拡張あり"
+  - name: GMKtec G10
+    price: "¥48,599"
+    rating: 4.3
+    spec: "Ryzen 5 3500U（4コア8スレッド）/ 16GB DDR4 / 512GB SSD / 2.5GbE / Proxmox・Linux対応を明記"
     pros:
-      - 10GbE×2を標準搭載、これ1台で本格ネットワークが組める
-      - PCIeスロットありでGPUや拡張カードを増設できる
-      - Proxmoxで仮想マシン10台以上を余裕で回せるパワー
+      - 今回の5機種で最も安く、メモリ16GBとSSD 512GBが最初から載っている
+      - メーカーが Proxmox と Linux での利用を明記している
+      - 4コア8スレッドで、N150系より同時実行に余裕がある
     cons:
-      - アイドル消費電力はやや高め（20W前後）
-      - 価格は入門機より高い
+      - CPUは世代が古く、単発の処理速度は上位機に及ばない
+      - メモリ上限が32GBで、大規模なVM運用には向かない
     affiliate:
-      amazon: "REPLACE_ASIN_MS01"   # ← Amazon商品ページのASINに置き換え
-      rakuten: ""                     # ← 楽天の生成リンクを貼る（任意）
-  - name: ASUS NUC 14 Pro
-    price: "¥69,800 前後"
-    rating: 4.6
-    spec: "Core Ultra / DDR5-5600 最大48GB / アイドル10W以下"
-    pros:
-      - アイドル10W以下、電力性能比が2026年トップクラス
-      - NUC直系の安定性と静音性
-      - 24時間稼働の常時サーバーに最適
-    cons:
-      - 10GbEは非搭載（2.5GbEまで）
-      - 拡張スロットは少なめ
-    affiliate:
-      amazon: "REPLACE_ASIN_NUC14"
+      amazon: "B0H2PRRMCK"
       rakuten: ""
-  - name: Beelink EQ14
-    price: "¥24,800 前後"
+  - name: Beelink MINI-S13 Pro
+    price: "¥57,900"
     rating: 4.4
-    spec: "Intel N150 / アイドル6〜10W / 2.5GbE×2"
+    spec: "Intel N150（4コア）/ 16GB DDR4 / 512GB SSD / 2.5GbE×2"
     pros:
-      - 2.5万円前後で始められる圧倒的コスパ
-      - アイドル6〜10Wで電気代がほぼ気にならない
-      - Pi-hole・Nextcloud・Home Assistant程度なら十分
+      - N150系では消費電力が小さく、24時間つけっぱなしに向く
+      - 2.5GbEが2口あり、内側と外側のネットワークを分けられる
+      - Pi-hole・Nextcloud・Home Assistant 程度なら十分に動く
     cons:
-      - CPU性能は控えめ、重い仮想化には不向き
-      - メモリ上限が低め
+      - CPU性能は控えめで、重い仮想化や動画変換には不向き
+      - M.2スロットが1本で、システムとデータの分離がしにくい
     affiliate:
-      amazon: "REPLACE_ASIN_EQ14"
+      amazon: "B0DPQ976XJ"
       rakuten: ""
-  - name: Minisforum UM890 Pro
-    price: "¥79,800 前後"
+  - name: Beelink EQR7
+    price: "¥88,900"
     rating: 4.5
-    spec: "Ryzen 9 8945HS / DDR5 最大96GB / USB4"
+    spec: "Ryzen 7 7735U（8コア16スレッド）/ Radeon 680M / 2.5GbE×2"
     pros:
-      - Ryzen 9の高いマルチコア性能でコンテナを大量に動かせる
-      - メモリ最大96GBで大規模homelab向き
-      - USB4で外部拡張も柔軟
+      - 8コア16スレッドで、コンテナを10本単位で並べても余裕がある
+      - 内蔵GPUが強く、Jellyfinのハードウェア変換に使える
+      - 2.5GbEが2口で、NAS用と外向けを分けられる
     cons:
+      - 入門機の倍近い価格になる
       - 10GbEは非搭載
+    affiliate:
+      amazon: "B0FJ1NVB61"
+      rakuten: ""
+  - name: MINISFORUM UM870Slim
+    price: "¥127,199"
+    rating: 4.4
+    spec: "Ryzen 7 8745H（8コア16スレッド）/ 32GB DDR5 / 1TB SSD"
+    pros:
+      - メモリ32GBとSSD 1TBが最初から載っており、買い足しが要らない
+      - DDR5で帯域に余裕があり、複数VMを同時に回しても詰まりにくい
+      - ローカルLLMのような、メモリを食う用途にも手が届く
+    cons:
+      - 価格が高く、動かすものが決まっていない段階では過剰
       - 高負荷時のファン音は大きめ
     affiliate:
-      amazon: "B0D86NH5B9"
+      amazon: "B0FH1D4W7Y"
       rakuten: ""
-  - name: GMKtec NucBox G3 Plus
-    price: "¥21,800 前後"
-    rating: 4.1
-    spec: "Intel N150 / 2.5GbE / 超小型"
+  - name: MINISFORUM MS-02U
+    price: "¥115,880（ベアボーン・メモリ/SSD別売）"
+    rating: 4.6
+    spec: "Core Ultra 5 235HX / 10GbE + 2.5GbE / 25GbE SFP+×2 / PCIeスロット×3 / M.2×4 / DDR5最大256GB"
     pros:
-      - 最安クラスで「まず1台」に最適
-      - 手のひらサイズで置き場所を選ばない
+      - 10GbEと25GbE SFP+を標準搭載し、これ1台で高速ネットワークを組める
+      - PCIeスロットが3基あり、あとからカードを足せる
+      - M.2が4基あり、システムとデータを物理的に分けられる
     cons:
-      - 拡張性はほぼ無い
-      - 長期の重負荷用途には力不足
+      - ベアボーンのためメモリ・SSD・OSが別途必要で、実質の総額は跳ね上がる
+      - 消費電力が今回の5機種で最も大きく、電気代も効いてくる
     affiliate:
-      amazon: "REPLACE_ASIN_G3PLUS"
+      amazon: "B0H3TRTCF5"
       rakuten: ""
 ---
 
-自宅サーバー（homelab）を始めるとき、最初に悩むのが「どのミニPCを買うか」です。2026年は状況が大きく変わりました。長年の定番だった **Intel NUC が撤退**し、その穴を Minisforum・Beelink・GMKtec・ASUS といったメーカーが埋めています。選択肢が増えた一方で、**消費電力・10GbE対応・拡張性**のどこを優先するかで最適解が変わります。
+自宅サーバー（homelab）を始めるとき、最初に悩むのが「どのミニPCを買うか」です。2026年は状況が大きく変わりました。長年の定番だった **Intel NUC が撤退**し、その穴を Minisforum・Beelink・GMKtec といったメーカーが埋めています。選択肢が増えた一方で、**消費電力・10GbE対応・拡張性**のどこを優先するかで最適解が変わります。
 
 この記事では、Proxmox や Docker で自宅サーバーを**24時間常時稼働**させる前提で、2026年に選択肢となる5機種を比較します。あわせて、本体価格だけでは見えない**4年間の総コスト**（電気代込み）も計算しました。
 
@@ -87,10 +88,12 @@ products:
 
 ## 結論：用途別のおすすめ
 
-- **本格的にやりたい / 10GbEを組みたい** → **Minisforum MS-01**
-- **24時間つけっぱなしで電気代を抑えたい** → **ASUS NUC 14 Pro**
-- **とにかく安く始めたい** → **Beelink EQ14**（または GMKtec）
-- **大量のコンテナ・VMを回したい** → **Minisforum UM890 Pro**
+- **本格的にやりたい / 10GbEを組みたい** → **MINISFORUM MS-02U**
+- **24時間つけっぱなしで電気代を抑えたい** → **Beelink MINI-S13 Pro**
+- **とにかく安く始めたい** → **GMKtec G10**
+- **大量のコンテナ・VMを回したい** → **MINISFORUM UM870Slim**（GPU変換も使うなら **Beelink EQR7**）
+
+なお2026年は、メモリとストレージの値上がりでミニPCの価格が大きく動いています。この記事の価格は**2026年9月13日に確認した実売価格**です。判断が変わるほど動くことがあるので、購入前にリンク先で必ず現在の価格を確認してください。
 
 まず一覧で比較します。
 
@@ -114,66 +117,66 @@ products:
 
 | 機種 | 本体価格 | 想定アイドル電力 | 4年間の電気代 | **4年間の総コスト** |
 |---|---|---|---|---|
-| GMKtec NucBox G3 Plus | ¥21,800 | 約7W | 約7,604円 | **約29,404円** |
-| Beelink EQ14 | ¥24,800 | 約8W | 約8,690円 | **約33,490円** |
-| ASUS NUC 14 Pro | ¥69,800 | 約10W | 約10,862円 | **約80,662円** |
-| Minisforum UM890 Pro | ¥79,800 | 約15W | 約16,293円 | **約96,093円** |
-| Minisforum MS-01 | ¥89,800 | 約20W | 約21,724円 | **約111,524円** |
-| （参考）中古デスクトップPC | ¥15,000 | 約45W | 約48,880円 | **約63,880円** |
+| GMKtec G10 | ¥48,599 | 約12W | 約13,035円 | **約61,634円** |
+| （参考）中古デスクトップPC | ¥15,000 | 約45W | 約48,881円 | **約63,881円** |
+| Beelink MINI-S13 Pro | ¥57,900 | 約8W | 約8,690円 | **約66,590円** |
+| Beelink EQR7 | ¥88,900 | 約12W | 約13,035円 | **約101,935円** |
+| MINISFORUM UM870Slim | ¥127,199 | 約16W | 約17,380円 | **約144,579円** |
+| MINISFORUM MS-02U（＋メモリ32GB・SSD 1TB 約5万円） | ¥165,880 | 約30W | 約32,587円 | **約198,467円** |
+
+※**アイドル電力は製品ごとの実測値ではありません**。Intel N150クラスは6〜10W、Ryzen Uシリーズは10〜15W、Ryzen 8000系Hシリーズは15〜20W、デスクトップ系CPUに10GbE/25GbEを足した構成は25〜35Wという、公開仕様と一般的な構成から置いた**クラス単位の目安**です。同じ機種でもSSDの本数・メモリ容量・BIOSの省電力設定で数W単位で変わります。
 
 <figure class="figure">
-<svg viewBox="0 0 820 306" role="img" aria-labelledby="tco-title tco-desc" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 820 330" role="img" aria-labelledby="tco-title tco-desc" xmlns="http://www.w3.org/2000/svg">
   <title id="tco-title">ミニPC機種別・4年間の総コスト比較</title>
-  <desc id="tco-desc">本体価格と4年分の電気代を積み上げた横棒グラフ。中古デスクトップは本体が安くても電気代で総額が上回る。</desc>
+  <desc id="tco-desc">本体価格と4年分の電気代を積み上げた横棒グラフ。2026年の値上がりにより、中古デスクトップの総額は新品の入門機とほぼ並んでいる。</desc>
   <g font-family="sans-serif">
-    <rect x="185" y="18" width="12" height="12" fill="#63b3ed" rx="2"/>
-    <text x="203" y="29" font-size="12" fill="#9aa4b2">本体価格</text>
-    <rect x="275" y="18" width="12" height="12" fill="#f6ad55" rx="2"/>
-    <text x="293" y="29" font-size="12" fill="#9aa4b2">4年間の電気代（31円/kWh・24時間365日）</text>
-    <g font-size="12.5" fill="#e6e9ee">
-      <text x="176" y="76" text-anchor="end">GMKtec G3 Plus</text>
-      <text x="176" y="112" text-anchor="end">Beelink EQ14</text>
-      <text x="176" y="148" text-anchor="end" fill="#f56565">中古デスクトップ</text>
-      <text x="176" y="184" text-anchor="end">ASUS NUC 14 Pro</text>
-      <text x="176" y="220" text-anchor="end">UM890 Pro</text>
-      <text x="176" y="256" text-anchor="end">Minisforum MS-01</text>
-    </g>
-    <g>
-      <rect x="185" y="62" width="102" height="20" fill="#63b3ed" rx="2"/>
-      <rect x="287" y="62" width="35"  height="20" fill="#f6ad55" rx="2"/>
-      <text x="332" y="77" font-size="12" fill="#9aa4b2">約29,400円</text>
-      <rect x="185" y="98" width="116" height="20" fill="#63b3ed" rx="2"/>
-      <rect x="301" y="98" width="41"  height="20" fill="#f6ad55" rx="2"/>
-      <text x="352" y="113" font-size="12" fill="#9aa4b2">約33,500円</text>
-      <rect x="185" y="134" width="70"  height="20" fill="#63b3ed" rx="2"/>
-      <rect x="255" y="134" width="228" height="20" fill="#f6ad55" rx="2"/>
-      <text x="493" y="149" font-size="12" fill="#f56565">約63,900円（電気代が本体の3倍以上）</text>
-      <rect x="185" y="170" width="326" height="20" fill="#63b3ed" rx="2"/>
-      <rect x="511" y="170" width="51"  height="20" fill="#f6ad55" rx="2"/>
-      <text x="572" y="185" font-size="12" fill="#9aa4b2">約80,700円</text>
-      <rect x="185" y="206" width="372" height="20" fill="#63b3ed" rx="2"/>
-      <rect x="557" y="206" width="76"  height="20" fill="#f6ad55" rx="2"/>
-      <text x="643" y="221" font-size="12" fill="#9aa4b2">約96,100円</text>
-      <rect x="185" y="242" width="419" height="20" fill="#63b3ed" rx="2"/>
-      <rect x="604" y="242" width="101" height="20" fill="#f6ad55" rx="2"/>
-      <text x="715" y="257" font-size="12" fill="#9aa4b2">約111,500円</text>
-    </g>
-    <line x1="185" y1="276" x2="745" y2="276" stroke="#2a323d" stroke-width="1"/>
-    <text x="185" y="294" font-size="11" fill="#9aa4b2">0円</text>
-    <text x="465" y="294" font-size="11" fill="#9aa4b2" text-anchor="middle">約60,000円</text>
-    <text x="745" y="294" font-size="11" fill="#9aa4b2" text-anchor="end">約120,000円</text>
+    <rect x="185" y="16" width="12" height="12" fill="#63b3ed" rx="2"/>
+    <text x="203" y="27" font-size="12" fill="#9aa4b2">本体価格</text>
+    <rect x="300" y="16" width="12" height="12" fill="#f6ad55" rx="2"/>
+    <text x="318" y="27" font-size="12" fill="#9aa4b2">4年間の電気代（31円/kWh・24時間365日）</text>
+    <text x="176" y="62" text-anchor="end" font-size="12" fill="#e6e9ee">GMKtec G10</text>
+    <rect x="184" y="50" width="136" height="18" fill="#63b3ed" rx="2"/>
+    <rect x="320" y="50" width="36" height="18" fill="#f6ad55" rx="2"/>
+    <text x="366" y="63" font-size="11.5" fill="#e6e9ee">約61,600円</text>
+    <text x="176" y="98" text-anchor="end" font-size="12" fill="#f56565">中古デスクトップ</text>
+    <rect x="184" y="86" width="42" height="18" fill="#63b3ed" rx="2"/>
+    <rect x="226" y="86" width="137" height="18" fill="#f6ad55" rx="2"/>
+    <text x="373" y="99" font-size="11.5" fill="#f56565">約63,900円（電気代が本体の3倍以上）</text>
+    <text x="176" y="134" text-anchor="end" font-size="12" fill="#e6e9ee">MINI-S13 Pro</text>
+    <rect x="184" y="122" width="162" height="18" fill="#63b3ed" rx="2"/>
+    <rect x="346" y="122" width="24" height="18" fill="#f6ad55" rx="2"/>
+    <text x="380" y="135" font-size="11.5" fill="#e6e9ee">約66,600円</text>
+    <text x="176" y="170" text-anchor="end" font-size="12" fill="#e6e9ee">Beelink EQR7</text>
+    <rect x="184" y="158" width="249" height="18" fill="#63b3ed" rx="2"/>
+    <rect x="433" y="158" width="36" height="18" fill="#f6ad55" rx="2"/>
+    <text x="479" y="171" font-size="11.5" fill="#e6e9ee">約101,900円</text>
+    <text x="176" y="206" text-anchor="end" font-size="12" fill="#e6e9ee">UM870Slim</text>
+    <rect x="184" y="194" width="356" height="18" fill="#63b3ed" rx="2"/>
+    <rect x="540" y="194" width="49" height="18" fill="#f6ad55" rx="2"/>
+    <text x="599" y="207" font-size="11.5" fill="#e6e9ee">約144,600円</text>
+    <text x="176" y="242" text-anchor="end" font-size="12" fill="#e6e9ee">MS-02U（一式）</text>
+    <rect x="184" y="230" width="464" height="18" fill="#63b3ed" rx="2"/>
+    <rect x="648" y="230" width="91" height="18" fill="#f6ad55" rx="2"/>
+    <text x="745" y="243" font-size="11.5" fill="#e6e9ee">約198,500円</text>
+    <line x1="184" y1="258" x2="744" y2="258" stroke="#2a323d"/>
+    <text x="184" y="274" font-size="11" fill="#9aa4b2">0円</text>
+    <text x="464" y="274" font-size="11" text-anchor="middle" fill="#9aa4b2">約100,000円</text>
+    <text x="744" y="274" font-size="11" text-anchor="end" fill="#9aa4b2">約200,000円</text>
+    <text x="12" y="298" font-size="11" fill="#f6ad55">以前は中古機がいちばん高くつきましたが、本体の値上がりで新品の入門機とほぼ並びました。</text>
+    <text x="12" y="318" font-size="10.5" fill="#9aa4b2">※本体価格は2026年9月13日の実売価格。アイドル電力はクラス単位の目安で、当サイトの測定値ではありません。</text>
   </g>
 </svg>
-<figcaption>4年間の総コスト（本体価格＋電気代）の比較。本体1.5万円の中古デスクトップ（アイドル45W想定）は、4年間の電気代だけで約48,900円かかり、新品の省電力ミニPCより総額が高くなります。電気代は電力量料金31円/kWhでの試算です。</figcaption>
+<figcaption>4年間の総コスト（本体価格＋電気代）。中古デスクトップ（アイドル45W想定）は電気代だけで約48,900円かかりますが、2026年はミニPC本体が値上がりしたため、総額では新品の入門機とほぼ並びます。新品を選ぶ理由は総額の安さではなく、静音性・省電力・保証だと考えてください。</figcaption>
 </figure>
 
 この表から読み取れることは3つあります。
 
-1. **省電力機どうしの電気代の差は小さい**。7Wと10Wの差は4年で約3,300円で、本体価格差の方がはるかに大きい。つまり**省電力機の中では、電気代を気にするより性能で選んでよい**。
-2. **一方、消費電力が20W以上になると効いてくる**。MS-01 の電気代は4年で約2.2万円。これは入門機がもう1台買える金額です。
-3. **「余った中古PCを使えばタダ」は成立しない**。本体1.5万円でも、4年間の総コストは約6.4万円。省電力ミニPCを新品で買うより高くなります。
+1. **省電力機どうしの電気代の差は小さい**。8Wと12Wの差は4年で約4,300円で、本体価格の差のほうがはるかに大きい。つまり**省電力機の中では、電気代を気にするより性能で選んでよい**。
+2. **一方、消費電力が30W前後になると効いてくる**。MS-02U の電気代は4年で約3.3万円。入門機がもう1台買える金額です。
+3. **「中古PCは電気代で損をする」は、2026年は言い切れなくなった**。中古機の4年総コスト約6.4万円に対し、値上がりした新品の省電力機は約6.2〜6.7万円です。**ほぼ並んでいます**。これはミニPCが高くなったためで、以前の結論をそのまま当てはめると判断を誤ります。
 
-> **編集部の見方**：4年総コストで比較すると、GMKtec や Beelink の入門機は圧倒的に安い。ただし、**足りなくて買い替えれば当然その分は無駄になります**。「何を動かすか」が決まっていないうちは入門機、Immich や Jellyfin、複数VMを最初から回すと決まっているなら NUC 14 Pro 以上、という切り分けが現実的です。
+> **編集部の見方**：値上がりの影響で、入門機と中古機の総コスト差はほぼ消えました。いま新品のミニPCを選ぶ理由は「安いから」ではなく、**静かで、小さくて、発熱が少なく、故障時に保証が効くから**です。そのうえで、**何を動かすか決まっていないうちは G10 か MINI-S13 Pro**、Immich や Jellyfin、複数VMを最初から回すと決まっているなら **EQR7 以上**、という切り分けが現実的です。足りなくて買い替えると、その差額はまるごと無駄になります。
 
 ## 選び方のポイント
 
@@ -233,7 +236,7 @@ NASと大容量データをやり取りしたり、仮想環境間で高速通�
 消費電力ならPiですが、x86ソフトの互換性・拡張性・体感速度でミニPCが有利です。2026年は省電力ミニPCが安くなり、多くの用途でミニPCが第一候補になっています。ただし消費電力3W以下で済ませたい、GPIOで電子工作をしたいという場合はPiに分があります。
 
 **Q. 中古のビジネスPCではダメ？**
-本体価格は魅力的ですが、アイドル消費電力が高く（20〜45W）、24時間稼働だと電気代で逆転します。上の総コスト表のとおり、45W級を4年使うと電気代だけで約4.9万円。**常時稼働前提なら省電力ミニPCがおすすめです。** 一方、週末だけ起動する検証用途なら中古機は十分ありです。
+以前は「電気代で逆転するので損」と言い切れましたが、2026年9月時点では**そう単純ではなくなりました**。中古機（本体1.5万円・45W想定）の4年総コストは約6.4万円で、値上がりした新品ミニPCの多くより安く収まります。判断の目安は次のとおりです。**発熱と動作音を許容でき、置き場所が居室から離れているなら中古機は合理的**です。一方、**寝室や書斎に置く、あるいは4年より長く使うつもりなら、静かで省電力な新品**が向きます。45W級を8年使えば電気代だけで約9.8万円になり、その頃には差が開きます。
 
 **Q. ノートPCを流用するのはあり？**
 ありです。バッテリーが内蔵UPSの代わりになるという意外な利点もあります。ただし、閉じたまま運用する設定（クラムシェル運用時のスリープ抑止）が必要で、長期間の満充電はバッテリー劣化・膨張のリスクがあります。数年単位で常用するなら専用機を推奨します。

@@ -8,61 +8,61 @@ category: network
 type: comparison
 tags: [2.5GbE, ネットワーク, homelab, NAS, スイッチ]
 products:
-  - name: TP-Link TL-SG105-M2
-    price: "¥12,000 前後"
+  - name: TP-Link TL-SG105S-M2
+    price: "¥7,980"
     rating: 4.6
-    spec: "5ポート全2.5GbE / アンマネージド / ファンレス静音"
+    spec: "5ポート全2.5GbE / アンマネージド / 金属筐体 / メーカー保証5年"
     pros:
-      - 5ポートすべて2.5GbEで価格が手頃、最初の1台に最適
-      - ファンレスで居室に置いても無音
-      - 設定不要、挿すだけで使えるアンマネージド
+      - 5ポートすべて2.5GbEで、最初の1台に選びやすい
+      - ファンレスの金属筐体で、居室に置いても動作音がない
+      - 設定不要のアンマネージドで挿すだけで使える
     cons:
       - VLANなどの管理機能はない
-      - 10GbEアップリンクは非搭載
+      - 10GbEのアップリンクポートは持たない
     affiliate:
-      amazon: "REPLACE_ASIN_SG105M2"
+      amazon: "B0H2D3DLCY"
       rakuten: ""
-  - name: QNAP QSW-1105-5T
-    price: "¥13,500 前後"
-    rating: 4.5
-    spec: "5ポート全2.5GbE / アンマネージド / 金属筐体"
+  - name: エレコム EHC-LQ01-5
+    price: "¥6,980"
+    rating: 4.4
+    spec: "5ポート全2.5GbE / アンマネージド / 金属筐体 / 電源外付"
     pros:
-      - NASメーカー製で相性の心配が少ない
-      - 放熱に強い金属筐体で連続稼働向き
-      - 全ポート2.5GbEでボトルネックが出にくい
+      - 国内メーカー製で、サポート窓口が日本語で使える
+      - 金属筐体で放熱に強く、連続稼働に向く
+      - 電源が外付けのため本体が小さく、設置場所を選ばない
     cons:
-      - 価格はやや高め
-      - 管理機能はなし
+      - ACアダプタの置き場所が別途必要になる
+      - 管理機能はなく、設定変更はできない
     affiliate:
-      amazon: "REPLACE_ASIN_QSW1105"
+      amazon: "B0G4BQW7NR"
       rakuten: ""
-  - name: 玄人志向 GbE-PCIE-2.5G（I226-V）
-    price: "¥2,500 前後"
+  - name: 玄人志向 GBE2.5i-PCIE
+    price: "¥5,416"
     rating: 4.3
-    spec: "PCIe接続の2.5GbE増設NIC / Intel I226-V"
+    spec: "PCIe接続の2.5GbE増設NIC / インテル製イーサネットコントローラー搭載 / WOL対応"
     pros:
-      - 既存PC・ミニPCを安価に2.5GbE化できる
-      - Intelチップでドライバの安定性が高い
-      - Windows/Linux/Proxmoxで扱いやすい
+      - 既存のPCや自作サーバーを安価に2.5GbE化できる
+      - インテル製コントローラーでドライバまわりの情報が多い
+      - WOL（Wake on LAN）に対応し、遠隔起動を組める
     cons:
-      - PCIeスロットに空きが必要
-      - ノートや小型機では増設できない
+      - PCIeスロットの空きが必要
+      - ノートPCや小型ミニPCには増設できない
     affiliate:
-      amazon: "REPLACE_ASIN_I226NIC"
+      amazon: "B0CMXLSHGG"
       rakuten: ""
-  - name: TP-Link UE306（USB 2.5GbEアダプタ）
-    price: "¥3,200 前後"
+  - name: Ankmax UA312G2（USB 2.5GbEアダプタ）
+    price: "¥3,089"
     rating: 4.2
-    spec: "USB-A接続の2.5GbE有線LANアダプタ"
+    spec: "USB-A接続の2.5GbE有線LANアダプタ / 最大2,500Mbps"
     pros:
-      - スロットのないノートやミニPCでも2.5GbE化できる
-      - 挿すだけで認識、持ち運びも簡単
-      - 増設NICより手軽で失敗が少ない
+      - スロットのないノートPCやミニPCでも2.5GbE化できる
+      - 挿すだけで認識し、持ち運びもできる
+      - この4製品の中で最も安く試せる
     cons:
       - USBポートを1つ占有する
-      - 発熱するため連続高負荷ではやや不利
+      - 連続して高負荷をかけると発熱しやすい
     affiliate:
-      amazon: "REPLACE_ASIN_UE306"
+      amazon: "B0BY6ZZL1P"
       rakuten: ""
 ---
 
@@ -198,8 +198,8 @@ USBアダプタを選ぶ場合は、**USB 3.0（5Gbps）以上のポートに挿
 
 | 構成 | 内訳 | 費用の目安 |
 |---|---|---|
-| **最小構成**（NAS↔PC直結） | NIC/アダプタ × 2 | 5,000〜8,000円 |
-| **標準構成** | 5ポートスイッチ + NIC/アダプタ × 2 | 15,000〜20,000円 |
+| **最小構成**（NAS↔PC直結） | USBアダプタ × 2 | 6,000〜7,000円 |
+| **標準構成** | 5ポートスイッチ + NIC/アダプタ × 2 | 13,000〜19,000円 |
 | **拡張構成** | 8ポートスイッチ + NIC × 3〜4 | 25,000〜35,000円 |
 
 10GbE一式（スイッチだけで2〜3万円〜）と比べて大幅に安く、体感の伸びは十分大きいので、**最初の高速化は2.5GbEから始めるのが失敗しません**。
