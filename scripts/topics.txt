@@ -19,7 +19,7 @@
 # [done] 中古法人ミニPC 自宅サーバー化 選び方 ThinkCentre OptiPlex
 # [done] 10インチ ミニラック 自宅サーバー ラック 自作 まとめ
 # [done] PoE スイッチ おすすめ 自宅ネットワーク 選び方
-自宅サーバー 消費電力 測定 ワットチェッカー おすすめ
+# [done] 自宅サーバー 消費電力 測定 ワットチェッカー おすすめ
 Home Assistant 自宅サーバー スマートホーム 始め方 必要機材
 TrueNAS Unraid Proxmox 自宅サーバーOS 比較 2026
 LANケーブル カテゴリ 違い CAT6A CAT8 自宅配線 選び方
