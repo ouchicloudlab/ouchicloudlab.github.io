@@ -22,4 +22,4 @@
 # [done] 自宅サーバー 消費電力 測定 ワットチェッカー おすすめ
 # [done] Home Assistant 自宅サーバー スマートホーム 始め方 必要機材
 # [done] TrueNAS Unraid Proxmox 自宅サーバーOS 比較 2026
-LANケーブル カテゴリ 違い CAT6A CAT8 自宅配線 選び方
+# [done] LANケーブル カテゴリ 違い CAT6A CAT8 自宅配線 選び方
