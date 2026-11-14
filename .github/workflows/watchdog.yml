@@ -1,0 +1,87 @@
+name: 監視（失敗・停止を Issue で通知）
+
+# 問題が起きたら GitHub の Issue を立てる。Issue が立つと、リポジトリの
+# オーナーに GitHub からメールが届く（通知設定で「Watching」のメールが有効な場合）。
+#
+# 検知するもの:
+#   1. 記事の自動生成 / 公開（デプロイ）が失敗したとき … 失敗の直後
+#   2. 記事の更新が 9 日以上止まっているとき … 毎日チェック
+#      （ワークフロー自体が動かなくなった場合など、失敗として現れない停止に備える）
+on:
+  workflow_run:
+    workflows: ["記事の自動生成（週次）", "Build & Deploy (GitHub Pages)"]
+    types: [completed]
+  schedule:
+    - cron: "17 0 * * *" # 毎日 09:17 JST
+  workflow_dispatch:
+    inputs:
+      test:
+        description: "通知のテスト用 Issue を立てる"
+        type: boolean
+        default: false
+
+permissions:
+  issues: write
+  actions: read
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: 状態を判定
+        id: judge
+        run: |
+          set -euo pipefail
+          title=""
+          body=""
+          if [ "${{ github.event_name }}" = "workflow_run" ]; then
+            if [ "${{ github.event.workflow_run.conclusion }}" = "failure" ]; then
+              title="【要確認】「${{ github.event.workflow_run.name }}」が失敗しました"
+              body="ワークフローが失敗しました。サイトの更新が止まっている可能性があります。
+
+          - ワークフロー: ${{ github.event.workflow_run.name }}
+          - 実行ログ: ${{ github.event.workflow_run.html_url }}
+          - 日時: ${{ github.event.workflow_run.updated_at }}"
+            fi
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.test }}" = "true" ]; then
+            title="【テスト】監視の通知テスト"
+            body="監視ワークフローからの通知テストです。このメールが届いていれば通知は正常に動作しています。この Issue は閉じて構いません。"
+          else
+            last=$(gh api "repos/$GH_REPO/commits?path=src/content/articles&per_page=1" --jq '.[0].commit.committer.date')
+            days=$(( ( $(date +%s) - $(date -d "$last" +%s) ) / 86400 ))
+            echo "最後の記事更新: $last（${days}日前）"
+            if [ "$days" -ge 9 ]; then
+              title="【要確認】記事の更新が止まっています"
+              body="最後に記事が更新されたのは ${last}（${days}日前）です。週1回の自動生成が動いていない可能性があります。
+
+          - 自動生成の実行履歴: ${{ github.server_url }}/${{ github.repository }}/actions/workflows/auto-article.yml
+          - よくある原因: scripts/topics.txt のネタ切れ、API キーの期限切れ・残高不足"
+            fi
+          fi
+          {
+            echo "title=$title"
+            echo "body<<__EOF__"
+            echo "$body"
+            echo "__EOF__"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Issue で通知
+        if: steps.judge.outputs.title != ''
+        env:
+          TITLE: ${{ steps.judge.outputs.title }}
+          BODY: ${{ steps.judge.outputs.body }}
+        run: |
+          set -euo pipefail
+          gh label create "監視" --color D93F0B --description "監視ワークフローの自動通知" 2>/dev/null || true
+          # 同じタイトルの Issue が開いていればコメントを追記（毎日 Issue が増えないように）
+          num=$(gh issue list --label "監視" --state open --json number,title \
+                  --jq "map(select(.title == env.TITLE)) | .[0].number // empty")
+          if [ -n "$num" ]; then
+            gh issue comment "$num" --body "$BODY"
+          else
+            gh issue create --title "$TITLE" --body "$BODY" --label "監視"
+          fi
