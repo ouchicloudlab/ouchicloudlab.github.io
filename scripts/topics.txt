@@ -23,3 +23,17 @@
 # [done] Home Assistant 自宅サーバー スマートホーム 始め方 必要機材
 # [done] TrueNAS Unraid Proxmox 自宅サーバーOS 比較 2026
 # [done] LANケーブル カテゴリ 違い CAT6A CAT8 自宅配線 選び方
+
+# --- 2026-11-14 追加分（既存記事と被らない具体的な悩み・手順系＋機材購入ニーズ）---
+自宅サーバー 静音化 ファン交換 騒音対策 寝室に置く方法
+ミニPC メモリ増設 SSD換装 自宅サーバー向け 手順と注意点
+Proxmox バックアップ Proxmox Backup Server 自宅 構築手順
+NAS バックアップ 3-2-1ルール 外付けHDD クラウド 組み合わせ方
+Wi-Fi 7 ルーター おすすめ 自宅サーバー 有線と無線の使い分け
+自宅サーバー ドメイン取得 Cloudflare Tunnel 外部公開 手順
+Nextcloud セルフホスト Googleドライブ代替 構築ガイド
+AdGuard Home Pi-hole 比較 家庭内広告ブロック DNS 導入
+自宅サーバー 電気代 月いくら 機材別 試算 節約のコツ
+中古サーバー Dell PowerEdge HPE ProLiant 自宅で使う メリット デメリット
+外付けHDDケース USB 複数台 NAS代わり 選び方 注意点
+自宅ネットワーク VLAN 分け方 入門 IoT機器 ゲストWi-Fi
