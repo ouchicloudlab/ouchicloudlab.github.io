@@ -97,6 +97,7 @@ function loadPages() {
 // ビルド中に見つかった品質上の問題の数。1件でもあればビルドを失敗させ、
 // 壊れたページや薄い記事が自動デプロイで公開されるのを止める。
 let buildProblems = 0;
+let knownSlugs = new Set();
 
 function renderArticleBody(article) {
   let md = article.markdown;
@@ -104,7 +105,7 @@ function renderArticleBody(article) {
   const cardsHtml = (article.products || [])
     .map((p, i) => productCard(p, i + 1))
     .join("\n");
-  const tableHtml = comparisonTable(article.products);
+  const tableHtml = comparisonTable(article.products, article.priceCheckedOn);
 
   md = md
     .replace(/<!--\s*PRODUCTS\s*-->/g, `\n<div class="products">${cardsHtml}</div>\n`)
@@ -179,6 +180,28 @@ function checkArticleQuality(article) {
     buildProblems++;
     console.warn(`⚠️  ${article.slug}: 見出し（##）がありません。`);
   }
+  // ASINプレースホルダが残ったまま公開しない（人のレビューを必須にする）。
+  const hasPlaceholder =
+    /REPLACE_ASIN/.test(md) ||
+    (article.products || []).some((p) => /REPLACE_ASIN/.test(p.affiliate?.amazon || ""));
+  if (hasPlaceholder) {
+    buildProblems++;
+    console.warn(`⚠️  ${article.slug}: REPLACE_ASIN が残っています。実在するASINに差し替えるか、affiliate.amazon を空にしてください。`);
+  }
+  // 存在しない記事への内部リンク（404）を公開しない。
+  for (const m of md.matchAll(/\]\((\/[^)\s#]*)\)/g)) {
+    const href = m[1];
+    const am = href.match(/^\/articles\/([^/]+)\/?$/);
+    const known =
+      (am && knownSlugs.has(am[1])) ||
+      /^\/(category\/[^/]+|about|privacy|disclaimer|contact)\/?$/.test(href) ||
+      href === "/" ||
+      href.startsWith("/tools/");
+    if (!known) {
+      buildProblems++;
+      console.warn(`⚠️  ${article.slug}: 存在しないページへの内部リンクがあります: ${href}`);
+    }
+  }
 }
 
 // ---- 各ページ生成 ----------------------------------------------------
@@ -202,9 +225,9 @@ function buildArticlePage(article) {
       }
     </div>
     <h1>${article.title}</h1>
+    <p class="pr-note">【PR】本記事にはアフィリエイト広告（Amazonアソシエイト等）が含まれています。</p>
     <p class="lead">${article.description || ""}</p>
   </header>
-  ${adSlot("inArticle")}
   <div class="article-body">
     ${bodyHtml}
   </div>
@@ -258,7 +281,7 @@ function buildCategoryPages(articles) {
     const list = articles.filter((a) => a.category === slug);
     const cards = list.length
       ? list.map(articleCard).join("\n")
-      : `<p class="empty">この カテゴリの記事は準備中です。</p>`;
+      : `<p class="empty">このカテゴリの記事はまだありません。</p>`;
     const body = `
 <section class="cat-head">
   <h1>${cat.emoji} ${cat.label} の記事</h1>
@@ -377,6 +400,26 @@ function buildAdsTxt() {
 }
 
 // ---- 実行 ------------------------------------------------------------
+// GitHub Pages は dist/404.html を存在しないURLの応答に使う。
+function build404() {
+  const links = Object.entries(categories)
+    .map(([slug, c]) => `<li><a href="/category/${slug}/">${c.emoji} ${c.label}</a></li>`)
+    .join("");
+  const html = layout({
+    title: `ページが見つかりません | ${site.name}`,
+    description: "お探しのページは見つかりませんでした。",
+    canonical: "",
+    noindex: true,
+    body: `
+<section class="cat-head">
+  <h1>ページが見つかりません</h1>
+  <p>お探しのページは移動または削除された可能性があります。<a href="/">トップページ</a>または各カテゴリからお探しください。</p>
+  <ul>${links}</ul>
+</section>`,
+  });
+  fs.writeFileSync(path.join(distDir, "404.html"), applyBase(html), "utf8");
+}
+
 function main() {
   rmrf(distDir);
   ensure(distDir);
@@ -388,6 +431,7 @@ function main() {
   const pages = loadPages();
   buildHome(articles);
   buildCategoryPages(articles);
+  knownSlugs = new Set(articles.map((a) => a.slug));
   articles.forEach(checkArticleQuality);
   articles.forEach(buildArticlePage);
   pages.forEach(buildStaticPage);
@@ -395,6 +439,7 @@ function main() {
   buildRss(articles);
   buildRobots();
   buildAdsTxt();
+  build404();
 
   console.log(
     `✅ ビルド完了: 記事 ${articles.length} 本 / 固定ページ ${pages.length} 枚 / 出力先 dist/`

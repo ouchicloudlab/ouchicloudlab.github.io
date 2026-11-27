@@ -3,7 +3,7 @@ title: "Home Assistantを自宅サーバーで始める方法｜必要機材と�
 slug: home-assistant-home-server-guide
 description: "Home Assistantを自宅サーバーで動かす始め方を解説。必要機材の選び方、電気代の目安、Docker Composeでの構築手順、つまずきポイントまで初心者向けにまとめました。"
 date: 2026-10-12
-updated: 2026-10-12
+updated: 2026-11-27
 category: guide
 type: guide
 tags: [Home Assistant, スマートホーム, 自宅サーバー, ミニPC, 入門]
@@ -57,10 +57,12 @@ Home Assistantを自宅サーバーで始めるにあたって、最低限必要
 |---|---|---|---|
 | 本体 | Raspberry Pi 4（4GB） | N100系ミニPC | NASまたは自作ミニPC（8GB以上） |
 | ストレージ | microSDカード 32GB | SSD 128〜256GB | SSD 256GB以上 |
-| OS/実行方式 | Home Assistant OS | Docker（HAOS or Container） | Docker Compose＋VM/コンテナ基盤 |
+| OS/実行方式 | Home Assistant OS | Home Assistant OS（直接インストール）またはContainer（Docker） | Proxmox上のHAOS VM、またはDocker Compose |
 | 無線機器連携 | Wi-Fi内蔵機器のみ | Zigbee USBドングル追加 | Zigbee＋Z-Wave両対応ドングル |
 | ネットワーク | 既存ルーターのWi-Fi | 有線LAN接続推奨 | VLANでIoT機器を分離 |
 | バックアップ | 手動エクスポート | 外付けHDD/クラウド併用 | NASへの自動バックアップ |
+
+なお、Home Assistant OS（HAOS）はDockerのコンテナではなく、Home Assistant専用のLinuxベースOSです。本体に直接インストールするか、Proxmoxなどの仮想マシンとして動かします。アドオン（追加機能）や設定画面からのバックアップ・更新が使えるのはHAOSの強みです。一方、既存のLinuxサーバーにDockerで入れる「Home Assistant Container」は軽量ですが、アドオン機能は使えません。
 
 最小構成であれば、Raspberry Piとmicro SDカードだけで数千円〜1万円台前半から始められます。一方で「常時稼働させてメインの自動化基盤にする」なら、SSD運用とZigbeeドングルの追加を推奨構成として考えておくと、後からの追加投資を減らせます。
 
@@ -74,7 +76,7 @@ Home Assistantは基本的に常時起動です。上のグラフの通り、本
 
 ### 2. Zigbee/Z-Wave機器を使うかどうか
 
-SwitchBotやPhilips Hueの一部製品、各種センサー類はWi-Fiではなく**Zigbee**という低消費電力の無線規格を使っています。これらを使うにはUSB接続のZigbeeコーディネーター（ドングル）が必要です。将来センサーを増やす予定があるなら、最初からUSBポートに余裕のある機種を選んでおくとつまずきません。
+IKEAのスマート照明・センサー、Aqaraのセンサー類、Philips Hueの電球などは、Wi-Fiではなく**Zigbee**という低消費電力の無線規格を使っています。これらをHome Assistantから直接制御するにはUSB接続のZigbeeコーディネーター（ドングル）が必要です（Hueのように専用ブリッジ経由で連携する方法もあります）。将来センサーを増やす予定があるなら、最初からUSBポートに余裕のある機種を選んでおくとつまずきません。
 
 ### 3. 仮想化基盤との同居の可否
 
@@ -92,16 +94,15 @@ SwitchBotやPhilips Hueの一部製品、各種センサー類はWi-Fiではな�
 
 ## セットアップ手順（Docker Composeで始める場合）
 
-NASや既存のLinuxサーバーにDockerが入っていれば、以下のようなcompose設定でHome Assistant Containerを立ち上げられます。
+NASや既存のLinuxサーバーにDockerが入っていれば、以下のようなcompose設定でHome Assistant Containerを立ち上げられます。設定ファイルは compose.yaml と同じ階層の `./config` ディレクトリに保存されます。
 
 ```yaml
-version: "3.8"
 services:
   homeassistant:
     container_name: homeassistant
     image: ghcr.io/home-assistant/home-assistant:stable
     volumes:
-      - /path/to/config:/config
+      - ./config:/config
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
     privileged: true
@@ -166,10 +167,12 @@ A. 多くの主要ブランドには公式の連携（インテグレーショ�
 
 Home Assistantを自宅サーバーで始める際は、「何を操作したいか」と「どれくらい常時稼働のコストをかけられるか」の2点から機材を選ぶのが近道です。お試しならRaspberry Pi、常用ならミニPC、すでにNASやサーバーがあるなら追加投資を最小限に抑えて同居させる、という3つの選択肢を自分の環境と照らし合わせて検討してみてください。
 
-関連記事として、自宅サーバー向けミニPCの選び方や、常時稼働機材の電気代をまとめた記事もあわせてご覧ください。
+関連記事として、自宅サーバー向けミニPCの選び方や、常時稼働機材の電気代・消費電力をまとめた記事もあわせてご覧ください。
 
-- [/articles/mini-pc-home-server-guide/](/articles/mini-pc-home-server-guide/)
-- [/articles/nas-electricity-cost/](/articles/nas-electricity-cost/)
+- [自宅サーバー向けミニPCおすすめ](/articles/mini-pc-osusume-2026/)
+- [アイドル時の消費電力を抑えた省電力ミニPCの選び方](/articles/low-power-mini-pc-idle-under-10w-home-server/)
+- [ワットチェッカーで自宅サーバーの消費電力を測る方法](/articles/watt-checker-home-server-power-measurement/)
+- [Proxmox入門｜ミニPC1台で始める自宅仮想化](/articles/proxmox-nyumon-minipc/)
 
 ---
 ※本記事の電気代試算は1kWhあたり31円を前提とした試算値であり、消費電力はメーカー公開値や一般的な実測レビューをもとにした目安です。機材の価格・仕様・対応状況は変動するため、購入前に必ず公式情報をご確認ください。

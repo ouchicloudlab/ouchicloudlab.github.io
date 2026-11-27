@@ -11,8 +11,10 @@ on:
   workflow_run:
     workflows: ["記事の自動生成（週次）", "Build & Deploy (GitHub Pages)"]
     types: [completed]
-  schedule:
-    - cron: "17 0 * * *" # 毎日 09:17 JST
+  # 記事の定期自動生成を停止したため（2026-11-27）、更新停止の毎日チェックも停止中。
+  # 自動生成を再開するときはこの schedule も戻す。
+  # schedule:
+  #   - cron: "17 0 * * *" # 毎日 09:17 JST
   workflow_dispatch:
     inputs:
       test:

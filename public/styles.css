@@ -220,3 +220,7 @@ a:hover { text-decoration: underline; }
 /* 公式サイトへの導線（アフィリエイトリンクではない） */
 .btn-official { background: transparent; border: 1px solid #4fd1c5; color: #4fd1c5; }
 .btn-official:hover { background: rgba(79, 209, 197, 0.12); }
+
+/* 景品表示法（ステマ規制）対応のPR表記 */
+.pr-note { display: inline-block; margin: 8px 0 4px; padding: 2px 8px; font-size: .82rem; color: var(--muted); border: 1px solid currentColor; border-radius: 4px; }
+.ad-label { display: block; font-size: .72rem; color: var(--muted); margin-bottom: 4px; }

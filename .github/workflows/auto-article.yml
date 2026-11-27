@@ -1,10 +1,15 @@
 name: 記事の自動生成（週次）
 
+# 【2026-11-27 変更】AdSense審査対策として、人のレビューなしの自動公開をやめた。
+#  - 定期実行(schedule)は停止中。手動実行(workflow_dispatch)のみ。
+#  - 生成した記事は main ではなく draft/article-* ブランチに push する。
+#    内容（型番・価格・ASIN・リンク）を確認してから main にマージすると公開される。
+
 # 毎週月曜 08:00 JST（=前日23:00 UTC）にネタから記事を1本生成してコミット。
 # コミットされると deploy.yml が走って自動公開される。
 on:
-  schedule:
-    - cron: "0 23 * * 0"
+  # schedule:
+  #   - cron: "0 23 * * 0"
   workflow_dispatch:
     inputs:
       topic:
@@ -27,9 +32,11 @@ jobs:
 
       - name: トピックを決定
         id: pick
+        env:
+          INPUT_TOPIC: ${{ github.event.inputs.topic }}
         run: |
-          if [ -n "${{ github.event.inputs.topic }}" ]; then
-            echo "topic=${{ github.event.inputs.topic }}" >> "$GITHUB_OUTPUT"
+          if [ -n "$INPUT_TOPIC" ]; then
+            echo "topic=$INPUT_TOPIC" >> "$GITHUB_OUTPUT"
           else
             # topics.txt からまだ未使用の行を1つ選ぶ（先頭の未処理行）
             TOPIC=$(grep -v '^#' scripts/topics.txt | grep -v '^\s*$' | head -n 1)
@@ -50,21 +57,27 @@ jobs:
       - name: 記事を生成（品質チェックに通るまで最大3回）
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TOPIC: ${{ steps.pick.outputs.topic }}
         run: |
           for i in 1 2 3; do
             echo "--- 生成 ${i} 回目 ---"
             git checkout -q -- src/content/articles && git clean -fdq src/content/articles
-            if node scripts/generate-article.mjs "${{ steps.pick.outputs.topic }}" && npm run build; then
+            if node scripts/generate-article.mjs "$TOPIC" && npm run build; then
               exit 0
             fi
           done
           echo "::error::3回生成しても品質チェックに通りませんでした。記事はコミットしません。"
           exit 1
 
-      - name: コミット
+      - name: 下書きブランチにコミット（main には入れない）
+        env:
+          TOPIC: ${{ steps.pick.outputs.topic }}
         run: |
+          BRANCH="draft/article-$(date +%Y%m%d-%H%M%S)"
+          git checkout -b "$BRANCH"
           git config user.name "article-bot"
           git config user.email "bot@users.noreply.github.com"
           git add src/content/articles scripts/topics.txt
-          git commit -m "記事を自動生成: ${{ steps.pick.outputs.topic }}" || echo "変更なし"
-          git push
+          git commit -m "記事を自動生成（要レビュー）: $TOPIC" || { echo "変更なし"; exit 0; }
+          git push origin "$BRANCH"
+          echo "::notice::$BRANCH に下書きを push しました。確認後に main へマージすると公開されます。"

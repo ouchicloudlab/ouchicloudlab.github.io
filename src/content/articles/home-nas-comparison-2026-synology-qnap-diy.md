@@ -3,13 +3,13 @@ title: 自宅NASおすすめ比較2026｜Synology・QNAP・自作の選び方
 slug: home-nas-comparison-2026-synology-qnap-diy
 description: 2026年版の自宅NAS比較。Synology・QNAPの完成品モデルと自作NASのメリット・デメリットを整理し、用途別に最適な1台を提案します。
 date: 2026-07-07
-updated: 2026-09-11
+updated: 2026-11-27
 category: nas
 type: comparison
 tags: [NAS, Synology, QNAP, 自作NAS, ホームサーバー]
 products:
   - name: Synology DS223j
-    price: "¥34,691"
+    price: "¥35,000前後"
     rating: 4.0
     spec: "2ベイ / ARMクアッドコア / 1GB RAM / 1GbE×1 ※ドライブ別売"
     pros:
@@ -23,7 +23,7 @@ products:
       amazon: "B0C8814GKB"
       rakuten: ""
   - name: Synology DS425+
-    price: "¥108,990"
+    price: "¥110,000前後"
     rating: 4.6
     spec: "4ベイ / クアッドコアCPU / 2GB RAM（拡張可）/ 2.5GbE ※ドライブ別売"
     pros:
@@ -37,9 +37,9 @@ products:
       amazon: "B0FGPXFW1B"
       rakuten: ""
   - name: QNAP TS-464
-    price: "¥146,263"
+    price: "¥100,000〜150,000前後（メモリ構成により変動）"
     rating: 4.3
-    spec: "4ベイ / Intel 4コアCPU / 8GB RAM / 2.5GbE×2 / PCIeスロット×1 ※ドライブ別売"
+    spec: "4ベイ / Intel 4コアCPU / 標準4GB RAM（8GB搭載はTS-464-8G）/ 2.5GbE×2 / PCIeスロット×1 ※ドライブ別売"
     pros:
       - HDMI出力とハードウェア変換で、メディアサーバー用途に強い
       - PCIeスロットがあり、10GbE NICやSSDキャッシュを後付けできる
@@ -51,7 +51,7 @@ products:
       amazon: "B0BP97WV3R"
       rakuten: ""
   - name: 自作NAS（ミニPC + TrueNAS / Unraid）
-    price: "¥60,000〜（構成次第）"
+    price: "¥60,000前後〜（構成次第）"
     rating: 4.2
     spec: "N100/N150系ミニPC等 + HDD/SSDを自由に選択 + TrueNAS SCALE / Unraid"
     pros:
@@ -190,7 +190,7 @@ NAS運用が初めての方は、UIの分かりやすさとコミュニティ情
 **自作を選ぶ前に確認すべきこと**：
 
 - **ECCメモリを使うか**：ZFSは大量のメモリをキャッシュに使うため、理想はECCメモリです。必須ではありませんが、長期保存の安心度に差が出ます。
-- **メモリ容量**：ZFSでは「実効容量1TBあたり1GB」が古典的な目安。8TB構成なら16GBは欲しいところです。
+- **メモリ容量**：ZFSでは「実効容量1TBあたり1GB」が古典的な目安で、8TB構成なら8GBが目安になります。家庭用途ではこれより少なくても動きますが、ARC（読み込みキャッシュ）に回せる量が増えるため、余裕を見て16GB積んでおくと安心です。
 - **HDDの接続本数**：ミニPCはSATAポートが少ない機種が大半です。3.5インチHDDを複数台使うなら、SATAポートの数と電源容量を先に確認してください。
 - **障害時に自分で復旧できるか**：ディスク交換・再構築・スクラブの手順を、平常時に一度試しておくことを強くおすすめします。
 

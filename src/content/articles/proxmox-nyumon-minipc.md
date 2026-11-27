@@ -3,7 +3,7 @@ title: Proxmox入門｜ミニPC1台で始める自宅仮想化のはじめ方【
 slug: proxmox-nyumon-minipc
 description: 自宅サーバーの定番、無料の仮想化基盤Proxmox VEをミニPC1台で始める手順を初心者向けに解説。インストールから最初のVM・LXCコンテナ作成、バックアップまで、つまずきやすい点も含めて紹介します。
 date: 2026-07-09
-updated: 2026-09-11
+updated: 2026-11-27
 category: guide
 type: guide
 tags: [Proxmox, 仮想化, homelab, ミニPC, 入門]
@@ -12,6 +12,8 @@ tags: [Proxmox, 仮想化, homelab, ミニPC, 入門]
 自宅サーバーを本格的に楽しむなら、避けて通れないのが **仮想化** です。1台のミニPCの中に、複数の仮想マシン（VM）や軽量コンテナ（LXC）を同居させ、「NAS用」「メディアサーバー用」「実験用」と役割を分けて動かせます。
 
 その仮想化基盤として自宅サーバー界隈で圧倒的な定番が、無料で使える **Proxmox VE** です。この記事では、ミニPC1台でProxmoxを始める手順を、初心者がつまずきやすいポイントとあわせて解説します。
+
+> **対象バージョン**：本記事の手順は、2025年8月にリリースされた **Proxmox VE 9系（Debian 13 "trixie" ベース）** を前提にしています。リポジトリ設定のように8系（Debian 12 "bookworm" ベース）と手順が異なる部分は、両方の書き方を併記しています。
 
 <!-- AD -->
 
@@ -44,7 +46,7 @@ Proxmox公式サイトから「Proxmox VE」のISOイメージをダウンロー
 ミニPCにUSBを挿して起動し、BIOS/UEFIで**USBブート**を選択します。画面の案内に従い、インストール先ディスク・タイムゾーン（Asia/Tokyo）・rootパスワード・固定IPアドレスを設定します。
 
 - **固定IP**は必ず控えておきましょう（後で管理画面にアクセスするのに使います）。
-- インストールは10分ほどで完了します。
+- インストール時間は環境によりますが、目安として10分前後です。
 
 ### 3. Web管理画面にアクセス
 
@@ -70,18 +72,42 @@ Proxmox公式サイトから「Proxmox VE」のISOイメージをダウンロー
 
 ログインするたびに表示される警告と、`apt update` でのリポジトリエラーです。Proxmox VE は無料で使えますが、標準では**有料サブスクリプション向けのリポジトリ**を参照しているため、更新時にエラーになります。
 
-無料版（no-subscription）のリポジトリに切り替えます。
+無料版（no-subscription）のリポジトリに切り替えます。いちばん簡単なのは、Web管理画面の「ノード → アップデート → リポジトリ」で enterprise リポジトリを「無効化」し、「追加」から「No-Subscription」を選ぶ方法です。コマンドで行う場合は、バージョンによって設定ファイルの形式が異なります。
+
+**Proxmox VE 9系（Debian 13 trixie）**：リポジトリ設定は deb822 形式の `.sources` ファイルです。
+
+```bash
+# エンタープライズリポジトリを無効化（ファイル末尾に Enabled: no を追記）
+echo "Enabled: no" >> /etc/apt/sources.list.d/pve-enterprise.sources
+# Cephのエンタープライズリポジトリ（ceph.sources）がある場合も同様に無効化する
+# echo "Enabled: no" >> /etc/apt/sources.list.d/ceph.sources
+
+# 無料版リポジトリを追加
+cat > /etc/apt/sources.list.d/proxmox.sources <<'SRC'
+Types: deb
+URIs: http://download.proxmox.com/debian/pve
+Suites: trixie
+Components: pve-no-subscription
+Signed-By: /usr/share/keyrings/proxmox-archive-keyring.gpg
+SRC
+
+apt update && apt full-upgrade -y
+```
+
+**Proxmox VE 8系（Debian 12 bookworm）**：従来の1行形式の `.list` ファイルです。
 
 ```bash
 # エンタープライズリポジトリを無効化
 sed -i 's/^deb/#deb/' /etc/apt/sources.list.d/pve-enterprise.list
 
-# 無料版リポジトリを追加（バージョン名は環境に合わせる）
+# 無料版リポジトリを追加
 echo "deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription" \
   > /etc/apt/sources.list.d/pve-no-subscription.list
 
 apt update && apt full-upgrade -y
 ```
+
+同じリポジトリを `.list` と `.sources` の両方に書くと、`apt update` で「configured multiple times」という警告が出ます。8系から9系へアップグレードした環境では、古い `.list` ファイルが残っていないか確認してください。最新の正確な記述は公式の「Package Repositories」ドキュメントで確認できます。
 
 ログイン時のダイアログ自体は消えませんが、**動作には一切影響ありません**。無料で使い続けて問題ないライセンスです。
 
@@ -199,14 +225,20 @@ Proxmox では2つの方式を選べます。使い分けの基準は明確で�
 Proxmox はサーバー用途を前提としているため、初期状態では**省電力よりも性能を優先**する設定になっています。24時間稼働の自宅サーバーでは、ここを調整すると数W下がります。
 
 ```bash
-# CPUの周波数制御を省電力寄りにする
-apt install cpufrequtils
-echo 'GOVERNOR="powersave"' > /etc/default/cpufrequtils
-systemctl restart cpufrequtils
+# CPUの周波数制御ツール（cpupower）を入れる
+apt install linux-cpupower
+
+# 使えるgovernorと現在の状態を確認
+cpupower frequency-info
+
+# governorを省電力寄り（powersave）に切り替える
+cpupower frequency-set -g powersave
 
 # 現在の状態を確認
 cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 ```
+
+`cpupower frequency-set` の設定は再起動で元に戻るため、恒久化したい場合は `crontab -e` に `@reboot /usr/bin/cpupower frequency-set -g powersave` を追記するなどの方法で起動時に実行させます。CPUとドライバ（intel_pstate / amd-pstate など）の組み合わせによって選べるgovernorや効果は異なるため、変更前後の消費電力をワットチェッカーで確認すると確実です。
 
 あわせてBIOSでC-Stateを有効にしてください。詳しくは [アイドル10W以下の省電力ミニPC5選](/articles/low-power-mini-pc-idle-under-10w-home-server/) の設定編にまとめています。
 
@@ -218,7 +250,7 @@ cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 - **スナップショットを撮ったまま放置**：スナップショットは差分を保持し続けるため、長期間放置すると容量を圧迫します。検証が終わったら削除しましょう。
 - **root で全部やってしまう**：慣れてきたら、日常操作用のユーザーを作って権限を分けると安全です。
 
-> **編集部メモ**：最初から完璧な構成を目指さず、「コンテナを1つ作る→壊す→また作る」を繰り返して慣れるのが上達の近道です。**スナップショットを撮ってから作業する**習慣をつけると、失敗を恐れずに実験できます。これがProxmoxを使う最大の心理的メリットです。
+> **ポイント**：最初から完璧な構成を目指さず、「コンテナを1つ作る→壊す→また作る」を繰り返して慣れるのが上達の近道です。**スナップショットを撮ってから作業する**習慣をつけると、失敗を恐れずに実験できます。これがProxmoxを使う最大の心理的メリットです。
 
 <!-- AD -->
 
@@ -228,7 +260,7 @@ cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 使えます。有料サブスクリプションは、企業向けの安定版リポジトリとサポートを得るためのものです。個人利用では no-subscription リポジトリで問題なく運用できます。
 
 **Q. ミニPC1台にProxmoxを入れると、性能が落ちませんか？**
-仮想化のオーバーヘッドはありますが、LXCコンテナならほぼ無視できる程度です。VMでも数%程度で、自宅サーバー用途で体感できる差にはなりにくいでしょう。それよりも「壊しても戻せる」利点の方が大きいと考えています。
+仮想化のオーバーヘッドはありますが、LXCコンテナならほぼ無視できる程度です。VMでも数%程度で、自宅サーバー用途で体感できる差にはなりにくいでしょう。それよりも「壊しても戻せる」利点の方が大きいと言えます。
 
 **Q. メモリは何GB必要ですか？**
 ホスト自身に2GB、そこに動かすサービス分を足します。LXCで軽量サービスを5〜6個なら8GBでも回りますが、**Immich や Jellyfin をVMで動かすなら16GB**は欲しいところです。
@@ -237,7 +269,7 @@ cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 問題ありません。むしろシンプルで、リソースの無駄も少ない構成です。Proxmox を選ぶ理由は「スナップショットで戻せること」と「Home Assistant OS のようなVM前提のソフトを同居させられること」の2点です。この2つが不要なら、Ubuntu + Docker で十分です。
 
 **Q. クラスタを組むべきですか？**
-自宅サーバーでは、まず1台で運用することをおすすめします。クラスタは3台以上が前提（2台構成では正常な多数決が成立しない）で、消費電力も台数分かかります。
+自宅サーバーでは、まず1台で運用することをおすすめします。クラスタは過半数の投票（クォーラム）で動作を決めるため、基本は3台以上の構成です。2台で組む場合は、Raspberry Piなどの小型機を外部の投票役（QDevice）として加えることで、2台＋QDeviceの構成も可能です。いずれにしても消費電力は台数分かかるため、まずは1台で慣れてから検討するのが現実的です。
 
 ## まとめ
 

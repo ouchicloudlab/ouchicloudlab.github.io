@@ -1,19 +1,19 @@
 ---
-title: アイドル10W以下の省電力ミニPC5選｜おうちサーバーの電気代を徹底比較
+title: アイドル10W前後を狙える省電力ミニPC4選｜おうちサーバーの電気代を徹底比較
 slug: low-power-mini-pc-idle-under-10w-home-server
-description: 24時間稼働のおうちサーバーに最適な、アイドル時消費電力10W以下を実現する省電力ミニPCを5機種厳選。電気代シミュレーションと選び方も解説。
+description: 24時間稼働のおうちサーバー向けに、アイドル時消費電力10W前後を狙える省電力ミニPCを4機種厳選。電気代シミュレーションと選び方も解説。
 date: 2026-07-13
-updated: 2026-09-11
+updated: 2026-11-27
 category: mini-pc
 type: comparison
 tags: [省電力ミニPC, おうちサーバー, Intel N100, 電気代, 自宅サーバー]
 products:
   - name: Raspberry Pi 5（8GBモデル）
-    price: "¥36,980"
+    price: "¥25,000〜37,000前後（2026年の値上げで変動が大きい）"
     rating: 3.9
-    spec: "Broadcom BCM2712（4コア）/ 8GB RAM / 公開値ベースでアイドル3〜4W"
+    spec: "Broadcom BCM2712（4コア）/ 8GB RAM / アイドル3〜4W前後（公式値ではなく第三者レビューの目安）"
     pros:
-      - 今回の5機種で最も消費電力が小さく、アイドル3〜4Wで足りる
+      - 今回の4機種で最も消費電力が小さく、第三者レビューではアイドル3〜4W前後とされる
       - 情報量が圧倒的に多く、詰まったときに解決策が見つかりやすい
       - 手のひらサイズで、置き場所をほとんど選ばない
     cons:
@@ -22,36 +22,23 @@ products:
     affiliate:
       amazon: "B0CQZHN2K4"
       rakuten: ""
-  - name: AIOPCWA ファンレス N200 ベアボーン
-    price: "¥42,850（ベアボーン・メモリ/SSD別売）"
-    rating: 4.2
-    spec: "Intel N200（TDP 6W）/ SATA3.0×2 / 2.5GbE×2（i226-V）/ M.2 NVMe×1 / PCIe×8スロット / ファンレス"
-    pros:
-      - ファンレスで可動部がなく、寝室に置いても完全に無音
-      - SATAが2ポートあり、3.5インチHDDを積んでNASにできる
-      - 2.5GbEを2口持ち、ルーターやファイアウォール用途にも使える
-    cons:
-      - ベアボーンのためメモリ・SSD・OSを自分で用意する必要がある
-      - ファンレスゆえ、夏場に高負荷を続けると性能が落ちる
-    affiliate:
-      amazon: "B0DCJRGN2F"
-      rakuten: ""
-  - name: WayPonDEV Nest Disk
-    price: "¥44,980"
+  - name: Youyeetoo NestDisk
+    price: "¥45,000前後"
     rating: 4.3
-    spec: "Intel N150（4コア）/ 12GB LPDDR5 / NVMeベイ×4 / 2.5GbE×2 / WiFi 6"
+    spec: "Intel N150（4コア）/ 12GB LPDDR5（オンボード）/ M.2 NVMeスロット×4 / 2.5GbE×2（i226-V）/ Wi-Fi 6 / 小型ファン搭載"
     pros:
       - NVMeを4枚積めて、HDDを使わない静かなNASを組める
       - 2.5GbEが2口あり、リンクアグリゲーションを組める
-      - メモリがDDR5で、コンテナを並べたときの余裕が大きい
+      - メモリ12GBを搭載し、8GB機よりコンテナを並べたときの余裕がある
     cons:
       - NVMe中心の構成になるため、大容量を狙うと費用がかさむ
       - 国内での流通が少なく、情報も多くない
+      - メモリはオンボードで、あとから増設できない
     affiliate:
       amazon: "B0G1T214SR"
       rakuten: ""
   - name: Beelink Mini S12 Pro（Intel N100）
-    price: "¥54,900"
+    price: "¥55,000前後"
     rating: 4.4
     spec: "Intel N100（4コア）/ 16GB DDR4 / 512GB SSD / 1GbE"
     pros:
@@ -65,7 +52,7 @@ products:
       amazon: "B0BYYZGWGX"
       rakuten: ""
   - name: GEEKOM Air12 Lite（Intel N95）
-    price: "¥56,499"
+    price: "¥56,500前後"
     rating: 4.2
     spec: "Intel N95（4コア）/ 最大16GB+2TBに拡張可 / メーカー公称の消費電力 6〜15W / 3年保証"
     pros:
@@ -73,7 +60,7 @@ products:
       - 3年保証が付き、24時間稼働の機材としては安心感がある
       - Wake On LAN・PXEブート・自動電源オンに対応し、遠隔運用しやすい
     cons:
-      - 今回の5機種で最も高く、性能はN100機とほぼ変わらない
+      - 今回の4機種で最も高く、性能はN100機とほぼ変わらない
       - 有線LANは1GbEで、2.5GbEは持たない
     affiliate:
       amazon: "B0GS9DDK59"
@@ -213,7 +200,7 @@ sudo powertop --auto-tune     # 推奨設定を一括適用
 データ用HDDを常時回す必要がないなら、一定時間で停止させます。
 
 ```bash
-# 20分（240 = 5秒単位で48回 → 実装依存）アクセスがなければ停止
+# 20分（240 × 5秒 = 1,200秒）アクセスがなければ停止
 sudo hdparm -S 240 /dev/sda
 ```
 
@@ -235,7 +222,7 @@ sudo hdparm -S 240 /dev/sda
 
 ## よくある質問
 
-**Q. アイドル10W以下を狙うと性能が足りなくなりませんか？**
+**Q. アイドル10W前後を狙うと性能が足りなくなりませんか？**
 用途によります。Pi-hole・Uptime Kuma・Vaultwarden・Home Assistant・Nextcloud 程度であれば N100/N150 クラスで十分です。足りなくなりやすいのは、Immich の初回インポート（機械学習処理）、Jellyfin の同時トランスコード、ローカルLLMの3つです。これらを想定するなら、10Wにこだわらず上位機を選んだ方が快適です。
 
 **Q. スリープや自動シャットダウンで節電すべきですか？**

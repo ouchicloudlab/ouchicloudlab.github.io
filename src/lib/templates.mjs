@@ -18,7 +18,7 @@ const esc = (s = "") =>
 // リンク先が商品ページなのか検索結果なのかでボタン表記を変え、
 // 読者に「どこへ飛ぶか」を正しく伝えるために使う。
 export function isAmazonSearchFallback(ref) {
-  return !(ref && (/^https?:\/\//.test(ref) || !/^REPLACE/i.test(ref)));
+  return !(ref && (/^https?:\/\//.test(ref) || !/^(REPLACE|search$)/i.test(ref)));
 }
 
 function amazonUrl(ref, name) {
@@ -28,10 +28,10 @@ function amazonUrl(ref, name) {
   let url;
   if (ref && /^https?:\/\//.test(ref)) {
     url = ref; // フルURL指定
-  } else if (ref && !/^REPLACE/i.test(ref)) {
+  } else if (ref && !/^(REPLACE|search$)/i.test(ref)) {
     url = `https://www.amazon.co.jp/dp/${encodeURIComponent(ref)}`; // 実在ASIN
   } else if (name) {
-    // ASIN未設定/プレースホルダ時は製品名の検索リンクに自動フォールバック。
+    // amazon: "search"（ASIN未確認）/プレースホルダ時は製品名の検索リンクにフォールバック。
     // 常に有効なリンクになり、誤った商品ページへ飛ぶ事故を防げる。
     url = `https://www.amazon.co.jp/s?k=${encodeURIComponent(name)}`;
   } else {
@@ -55,6 +55,7 @@ export function adSlot(kind = "inArticle") {
   if (ads.adsenseClient && slotId) {
     return `
 <div class="ad-slot">
+  <span class="ad-label">スポンサーリンク</span>
   <ins class="adsbygoogle"
        style="display:block"
        data-ad-client="${esc(ads.adsenseClient)}"
@@ -154,7 +155,7 @@ export function productCard(p, rank) {
 }
 
 // ---- 比較表 ----------------------------------------------------------
-export function comparisonTable(products) {
+export function comparisonTable(products, priceCheckedOn = "") {
   if (!products || products.length === 0) return "";
   const rows = products
     .map((p) => {
@@ -184,7 +185,7 @@ export function comparisonTable(products) {
   <tbody>${rows}</tbody>
 </table>
 </div>
-<p class="table-note">※「編集部スコア」は各メーカーの公開仕様・実売価格・入手性・自宅サーバー用途への適合度をもとに、当サイト編集部が5点満点で採点した<strong>相対的な目安</strong>です。第三者機関による測定値ではありません。価格は<strong>${esc(site.priceCheckedOn || "")}</strong>に確認した Amazon.co.jp の実売価格で、その後変動します。購入前にリンク先で必ず現在の価格をご確認ください。</p>`;
+<p class="table-note">※「編集部スコア」は各メーカーの公開仕様・実売価格・入手性・自宅サーバー用途への適合度をもとに、当サイト編集部が5点満点で採点した<strong>相対的な目安</strong>です。第三者機関による測定値ではありません。${priceCheckedOn ? `価格は<strong>${esc(priceCheckedOn)}</strong>時点の Amazon.co.jp の実売価格の目安で、その後変動します。` : "価格は執筆時点の参考目安で、実売価格とは異なる場合があります。"}購入前にリンク先で必ず現在の価格をご確認ください。</p>`;
 }
 
 
@@ -257,7 +258,7 @@ function hashString(s) {
 }
 
 // ---- ページ全体レイアウト -------------------------------------------
-export function layout({ title, description, canonical, body, article }) {
+export function layout({ title, description, canonical, body, article, noindex = false }) {
   const adsenseHead = ads.adsenseClient
     ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(
         ads.adsenseClient
@@ -303,6 +304,7 @@ export function layout({ title, description, canonical, body, article }) {
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description || site.description)}">
 ${canonical ? `<link rel="canonical" href="${esc(canonical)}">` : ""}
+${noindex ? `<meta name="robots" content="noindex">` : ""}
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description || site.description)}">
 <meta property="og:type" content="${article ? "article" : "website"}">
@@ -347,7 +349,7 @@ ${body}
       <a href="/tools/">🧮 サクッとツール</a>
       — 消費税・電気代・単位換算など、日常の計算をブラウザだけで片づける無料ツール集です。
     </p>
-    <p class="disclosure">※当サイトはアフィリエイトプログラム（Amazonアソシエイト等）を利用しています。商品リンク経由の購入で当サイトが収益を得る場合があります。掲載している価格は${esc(site.priceCheckedOn || "")}に確認したもので、その後変動します。最新の価格・在庫は各販売ページでご確認ください。</p>
+    <p class="disclosure">※当サイトはアフィリエイトプログラム（Amazonアソシエイト等）を利用しています。商品リンク経由の購入で当サイトが収益を得る場合があります。Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。掲載している価格は目安で、その後変動します。最新の価格・在庫は各販売ページでご確認ください。</p>
     <p>&copy; ${new Date().getFullYear()} ${esc(site.name)} — ${esc(site.tagline)}</p>
   </div>
 </footer>

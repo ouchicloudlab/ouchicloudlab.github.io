@@ -3,67 +3,67 @@ title: 中古法人ミニPCで自宅サーバー化｜ThinkCentre・OptiPlex選�
 slug: used-business-mini-pc-home-server-guide
 description: 中古法人ミニPC（ThinkCentre/OptiPlex/EliteDesk）で自宅サーバーを組む選び方を解説。CPU世代・電気代・つまずきポイントまで実用目線で比較。
 date: 2026-09-14
-updated: 2026-09-14
+updated: 2026-11-27
 category: mini-pc
 type: comparison
 tags: [中古ミニPC, ThinkCentre, OptiPlex, 自宅サーバー, Proxmox]
 products:
   - name: Lenovo ThinkCentre M720q（第8世代Core）
-    price: "¥12,000 前後"
+    price: "¥12,000前後"
     spec: "Core i5-8500T相当 / メモリDDR4 / M.2+2.5インチ対応 / 65W電源"
     rating: 4.3
     pros: ["個体数が多く相場が安定", "分解・清掃情報がネットに豊富", "M.2とSATAを両方搭載できる個体が多い"]
-    cons: ["第8世代は電源投入方式が機種依存で要確認", "ジャンク品は液晶用ケーブル欠品が多い"]
+    cons: ["電源投入（AC復電時の自動起動）の設定はBIOSで要確認", "ACアダプタ欠品の個体も多く、別途対応W数のアダプタが必要になることがある"]
     affiliate:
-      amazon: "REPLACE_ASIN_M720Q"
+      amazon: "search"
       rakuten: ""
   - name: Lenovo ThinkCentre M920q（第9世代Core・vPro）
-    price: "¥18,000 前後"
+    price: "¥18,000前後"
     spec: "Core i5-9500T相当 / vPro対応個体あり / DDR4 / M.2 NVMe対応"
     rating: 4.4
     pros: ["vPro搭載個体はリモート起動・BIOS操作が可能", "第9世代は動作クロックに余裕がある", "後継部品がM720qと共通点が多い"]
     cons: ["vPro個体は相場がやや高め", "電源ユニットが機種内で複数種類あり注意"]
     affiliate:
-      amazon: "REPLACE_ASIN_M920Q"
+      amazon: "search"
       rakuten: ""
   - name: Dell OptiPlex 3060 Micro
-    price: "¥10,000 前後"
+    price: "¥10,000前後"
     spec: "Core i5-8500T相当 / DDR4 / M.2 SATA中心（NVMe非対応個体あり）"
     rating: 4.0
     pros: ["法人放出数が多く価格がこなれている", "筐体がコンパクトで設置場所を選ばない", "電源アダプタが小型で扱いやすい"]
     cons: ["個体によりM.2がSATA限定でNVMeが刺さらない", "内部拡張性はThinkCentreよりやや劣る"]
     affiliate:
-      amazon: "REPLACE_ASIN_OPTI3060"
+      amazon: "search"
       rakuten: ""
   - name: Dell OptiPlex 5070 Micro
-    price: "¥16,000 前後"
-    spec: "Core i5-9500T相当 / M.2 NVMe対応 / DDR4 / 2.5GbE対応モデルあり"
+    price: "¥16,000前後"
+    spec: "Core i5-9500T相当 / M.2 NVMe対応 / DDR4 / 有線LANは1GbE"
     rating: 4.3
-    pros: ["2.5GbE NIC搭載個体があり将来性が高い", "NVMe対応で起動・I/O性能が安定", "法人整備品の状態が比較的良い"]
-    cons: ["2.5GbEモデルは価格差が出やすい", "BIOSがDell独自仕様でクセがある"]
+    pros: ["第9世代CPUで仮想化にも余裕がある", "NVMe対応で起動・I/O性能が安定", "法人整備品の状態が比較的良い"]
+    cons: ["第8世代機より相場がやや高め", "BIOSがDell独自仕様でクセがある"]
     affiliate:
-      amazon: "REPLACE_ASIN_OPTI5070"
+      amazon: "search"
       rakuten: ""
   - name: HP EliteDesk 800 G4 Mini
-    price: "¥14,000 前後"
+    price: "¥14,000前後"
     spec: "Core i5-8500T相当 / DDR4 / M.2+2.5インチ対応 / vPro個体あり"
     rating: 4.1
-    pros: ["筐体剛性が高くファンノイズが比較的静か", "M.2とSATAを同時搭載できる", "ACアダプタが汎用品と互換性がある"]
+    pros: ["筐体剛性が高くファンノイズが比較的静か", "M.2とSATAを同時搭載できる", "vPro対応個体ならリモート管理も可能"]
     cons: ["情報量がThinkCentreよりやや少ない", "BIOSアップデートがHPサイト依存で手間"]
     affiliate:
-      amazon: "REPLACE_ASIN_ELITEDESK800"
+      amazon: "search"
       rakuten: ""
   - name: HP ProDesk 400 G5 Mini
-    price: "¥9,000 前後"
+    price: "¥9,000前後"
     spec: "Core i3-9100T相当〜i5混在 / DDR4 / M.2 SATA中心"
     rating: 3.8
     pros: ["価格帯が最も安い部類", "軽量サーバー用途なら十分な性能", "電源が小型で消費電力も低め"]
     cons: ["CPU性能に余裕がなく仮想化多重運用は厳しい", "NVMe非対応個体が多い"]
     affiliate:
-      amazon: "REPLACE_ASIN_PRODESK400"
+      amazon: "search"
       rakuten: ""
 chart:
-  title: "中古ミニPC5機種のアイドル時想定・年間電気代目安"
+  title: "中古ミニPCのアイドル時想定・年間電気代目安（比較6機種のうち5機種）"
   rows:
     - label: "OptiPlex 3060 Micro（6W想定）"
       value: 1629
@@ -169,11 +169,11 @@ Micro/Tinyサイズの筐体は外部ACアダプタ方式がほとんどです�
 | Jellyfin等メディアサーバー | ThinkCentre M720q / EliteDesk 800 G4 Mini | M.2 NVMe対応個体を選べば動画ファイルの読み書きも快適 |
 | リモート初期構築を重視 | vPro搭載のM920q / EliteDesk 800 G4（vPro個体） | モニター無しでBIOS操作・遠隔起動が可能 |
 
-## セットアップ実例：Proxmox VEでの初期構築
+## セットアップ手順：Proxmox VEでの初期構築
 
-多くの中古法人ミニPCはUEFIブート・SecureBootが有効な状態で出荷時設定が残っています。Proxmox VEをインストールする場合の基本手順は次の通りです。
+中古法人ミニPCは、UEFIブートやSecure Bootが有効な設定のまま流通している個体もあります。Proxmox VEをインストールする場合の基本手順は次の通りです。
 
-1. BIOS（多くはF1またはF12キー）でSecureBootを無効化し、ブート順をUSBメモリ優先に変更
+1. 起動直後にBIOS設定画面を開き（Lenovo ThinkCentreはF1、Dell OptiPlexはF2、HP EliteDesk/ProDeskはF10が一般的）、ブート順をUSBメモリ優先に変更する。一時的にブートデバイスを選ぶだけなら、Lenovo・DellはF12、HPはF9のブートメニューも使える。Proxmox VEは8.1以降でSecure Bootに対応しているため必ずしも無効化は不要だが、古いISOを使う場合や起動できない場合はSecure Bootを無効にして試す
 2. Proxmox VEの公式ISOをUSBメモリに書き込み（`balenaEtcher`や`dd`コマンドを利用）
 3. インストール後、ネットワークブリッジ（vmbr0）の設定を確認
 4. 必要に応じてDockerを動かすLXCコンテナやVMを作成
@@ -181,7 +181,6 @@ Micro/Tinyサイズの筐体は外部ACアダプタ方式がほとんどです�
 Docker運用だけで十分な場合は、Ubuntu Server上に以下のようなdocker-compose.ymlでPi-holeを立てるだけでも十分実用的です。
 
 ```yaml
-version: "3"
 services:
   pihole:
     image: pihole/pihole:latest
@@ -191,9 +190,10 @@ services:
       - "8080:80/tcp"
     environment:
       TZ: "Asia/Tokyo"
+      # Pi-hole v6 以降の管理画面パスワード
+      FTLCONF_webserver_api_password: "your_password_here"
     volumes:
       - "./etc-pihole:/etc/pihole"
-      - "./etc-dnsmasq.d:/etc/dnsmasq.d"
     restart: unless-stopped
 ```
 
@@ -218,7 +218,7 @@ services:
 A. 個体差はありますが、法人リースで3〜5年使用された後の中古品でも、ファンやSSDを適切にメンテナンスすれば追加で3〜5年程度は実用に耐えるケースが多いです。ストレージは経年劣化しやすい部品なので、購入後早めにSSD換装しておくと安心です。
 
 **Q. ThinkCentreとOptiPlex、結局どちらがおすすめですか？**
-A. どちらも大差はありませんが、情報量（分解方法・ファン交換記事など）の多さで選ぶならThinkCentre、2.5GbE NICなど新しめの機能を求めるならOptiPlex 5070 Micro以降が候補になります。用途と予算で決めて問題ありません。
+A. どちらも大差はありませんが、情報量（分解方法・ファン交換記事など）の多さで選ぶならThinkCentre、NVMe対応や第9世代CPUを確実に押さえたいならOptiPlex 5070 Microが候補になります。なお、今回取り上げた機種の内蔵有線LANはいずれも1GbEが基本で、2.5GbEが必要な場合はUSB接続の2.5GbEアダプタなどで補う形になります。用途と予算で決めて問題ありません。
 
 **Q. メモリやSSDは中古品のまま使っても大丈夫ですか？**
 A. メモリは基本的に問題なく流用できますが、SSD（特にSATA SSDやeMMC）は書き込み回数の消耗が進んでいる可能性があるため、サーバー用途で長時間稼働させるなら早めに新品SSDへの換装をおすすめします。
@@ -233,7 +233,7 @@ A. vPro対応CPU＋対応チップセットの個体であれば基本的に使�
 
 中古法人ミニPCは、価格・性能・省電力性のバランスに優れた自宅サーバー候補です。ただし「M.2の規格」「電源投入設定」「OSライセンスの有無」など、法人機ならではの落とし穴もあります。この記事の比較表と電気代シミュレーションを参考に、自分の用途（軽量サービスか、仮想化多重稼働か）に合った1台を選んでみてください。
 
-ミニPC選びの基礎知識をより詳しく知りたい方は、当サイトのミニPC入門ガイド記事もあわせてご覧ください。また、選んだ機種にProxmox VEを導入する具体的な手順は別記事で詳しく解説予定です。
+新品も含めたミニPC選びは[自宅サーバー向けミニPCおすすめ比較](/articles/mini-pc-osusume-2026/)、メモリ・SSDの交換手順は[ミニPCのメモリ増設・SSD換装ガイド](/articles/mini-pc-memory-ssd-upgrade-guide/)もあわせてご覧ください。選んだ機種にProxmox VEを導入する具体的な手順は[Proxmox入門｜ミニPC1台で始める自宅仮想化](/articles/proxmox-nyumon-minipc/)で解説しています。
 
 ---
 ※本記事の価格・スペックは記事公開時点の中古市場相場およびメーカー公開仕様をもとにした目安であり、実測値ではありません。中古品の価格・在庫・個体状態は変動するため、購入前に最新の出品情報を必ずご確認ください。電気代試算は31円/kWhを前提とした編集部計算であり、実際の電気料金プランや使用状況により変動します。

@@ -3,24 +3,24 @@ title: "TrueNAS・Unraid・Proxmox比較2026｜自宅サーバーOSの選び方�
 slug: truenas-unraid-proxmox-comparison-2026
 description: "TrueNAS・Unraid・Proxmox VEの違いを費用・用途・必要スペックで比較。NAS用途かVM/コンテナ用途かで選び方が変わる理由を具体的な数字で解説する。"
 date: 2026-10-19
-updated: 2026-10-19
+updated: 2026-11-27
 category: guide
 type: comparison
 tags: [TrueNAS, Unraid, Proxmox, 自宅サーバー, NAS]
 products:
-  - name: TrueNAS（CORE/SCALE）
+  - name: TrueNAS Community Edition（旧CORE/SCALE）
     price: "¥0（無料・OSS）"
     rating: 4.3
-    spec: "ZFSベースのNAS専用OS。SCALE版はLinux/Dockerにも対応"
+    spec: "ZFSベースのNAS専用OS。25.04以降はLinuxベースのCommunity Edition（旧SCALEの系譜）に一本化され、Docker/VMにも対応"
     pros:
       - ZFSによるデータ保護（スナップショット・チェックサム）が標準
       - 完全無料で商用利用も可能なOSS
       - NAS用途に特化したシンプルなWeb UI
     cons:
-      - ZFSプール構成後のディスク構成変更が難しい
+      - RAIDZのレベル変更などZFSプール構成後の大きな変更は難しい（ディスクを1本ずつ足すRAIDZ拡張は24.10以降で対応）
       - VM/コンテナ運用はUnraidやProxmoxほど柔軟でない
   - name: Unraid
-    price: "¥7,500〜19,500 前後（買い切りライセンス）"
+    price: "¥7,400〜37,400前後（Starter/Unleashed/Lifetime、米ドル価格を1ドル=150円で換算）"
     rating: 4.4
     spec: "異なる容量のHDDを混在できる独自アレイ方式。Docker/VMにも対応"
     pros:
@@ -28,7 +28,7 @@ products:
       - Docker Community Appsが豊富でメディアサーバー構築が容易
       - GUIが直感的で初心者でも迷いにくい
     cons:
-      - ライセンス費用が発生する（容量上限で価格が変わる）
+      - ライセンス費用が発生する（接続ディスク数とアップデート期間で価格が変わる）
       - パリティ方式のため書き込み速度がZFSのミラー/RAIDZに劣る場面がある
   - name: Proxmox VE
     price: "¥0（無料・OSS、法人向け有償サポートは別途）"
@@ -41,13 +41,10 @@ products:
     cons:
       - NAS専用機に比べ、ファイル共有だけを目的とすると設定が煩雑
       - GPU/HBAのパススルー設定（IOMMU）でつまずきやすい
-    affiliate:
-      amazon: "REPLACE_ASIN_XXX"
-      rakuten: ""
 chart:
-  title: "ライセンス費用の違い（目安）"
+  title: "ライセンス費用の違い（初期費用の目安）"
   rows:
-    - label: "TrueNAS（CORE/SCALE）"
+    - label: "TrueNAS Community Edition"
       value: 0
       display: "¥0（無料・OSS）"
       highlight: true
@@ -55,17 +52,17 @@ chart:
       value: 0
       display: "¥0（無料・OSS）"
       highlight: true
-    - label: "Unraid Basic"
-      value: 7500
-      display: "¥7,500 前後"
-    - label: "Unraid Plus"
-      value: 13500
-      display: "¥13,500 前後"
-    - label: "Unraid Pro"
-      value: 19500
-      display: "¥19,500 前後"
-  caption: "TrueNASとProxmox VEは無料で始められる一方、Unraidは容量上限に応じて買い切りライセンスが必要になる。ただしUnraidは異容量HDD混在など運用面の自由度で費用差を補える場面がある。"
-  note: "※Unraidの価格は執筆時点の公式サイト表示額（米ドル）を1ドル=150円で概算換算した目安。為替・価格改定により変動する。TrueNAS・Proxmox VEはOSSのため無償（法人向け有償サポート/サブスクリプションは別途）。"
+    - label: "Unraid Starter（ディスク6台まで）"
+      value: 7350
+      display: "¥7,400前後（$49）"
+    - label: "Unraid Unleashed（台数無制限）"
+      value: 16350
+      display: "¥16,400前後（$109）"
+    - label: "Unraid Lifetime（台数無制限）"
+      value: 37350
+      display: "¥37,400前後（$249）"
+  caption: "TrueNASとProxmox VEは無料で始められる一方、Unraidはライセンス購入が必要。StarterとUnleashedは1年間のアップデートが含まれ、2年目以降もアップデートを受けるには任意の年額費用（$36前後）がかかる。Lifetimeは追加費用なしでアップデートを受けられる。"
+  note: "※Unraidの価格は2026年11月時点で確認できた公式の米ドル価格を1ドル=150円で概算換算した目安。為替・価格改定により変動する。TrueNAS・Proxmox VEはOSSのため無償（法人向け有償サポート/サブスクリプションは別途）。"
 ---
 
 ## この記事で分かること
@@ -92,31 +89,37 @@ chart:
 |---|---|---|
 | 写真・動画のバックアップ先を安定運用したい | TrueNAS | ZFSのスナップショット・チェックサムでデータ破損を検知しやすい |
 | 手持ちの容量バラバラなHDDを使い切りたい | Unraid | パリティ方式で異容量HDDを1本から追加・拡張できる |
-| Jellyfin/Immichなど自宅サービスをDockerで量産したい | Unraid or TrueNAS SCALE | どちらもCommunity Apps的な仕組みでワンクリック導入しやすい |
+| Jellyfin/Immichなど自宅サービスをDockerで量産したい | Unraid or TrueNAS Community Edition（旧SCALE） | どちらもCommunity Apps的な仕組みでワンクリック導入しやすい |
 | Windows VM・Linux VMを複数同時に動かしたい | Proxmox VE | KVMベースでVM・LXCを多数同時運用でき、クラスタ構成にも対応 |
 | 自宅の検証環境（ラボ）を本格的に作りたい | Proxmox VE | スナップショット・バックアップ・ネットワーク仮想化が一通り揃う |
 
 <!-- FIGURE -->
 
-グラフの通り、TrueNASとProxmox VEは導入コストがゼロなのに対し、Unraidは容量上限に応じたライセンス費用が発生する。ただしUnraidの費用は「買い切り」であり、月額課金ではない点は押さえておきたい。
+グラフの通り、TrueNASとProxmox VEは導入コストがゼロなのに対し、Unraidはライセンス費用が発生する。現行のUnraidは、接続できるディスク数が6台までの「Starter」、台数無制限の「Unleashed」、台数無制限かつアップデートが永続の「Lifetime」の3種類だ。StarterとUnleashedは購入後1年間のアップデートが含まれ、それ以降も新しいバージョンを受け取るには年額の延長費用を払う。ただし延長費用は任意で、払わなくてもライセンスが失効して使えなくなるわけではなく、その時点までのバージョンは使い続けられる。月額課金のサブスクリプションとは異なるが、「一度払えば最新版をずっと使える買い切り」でもない（それに当たるのはLifetime）点は押さえておきたい。
+
+なお、TrueNASはかつてFreeBSDベースの「CORE」とLinuxベースの「SCALE」の2系統があったが、2025年の25.04（Fangtooth）でLinuxベースの「TrueNAS Community Edition」に一本化された。古い解説記事でCORE/SCALEと書かれているものは、この点を読み替えてほしい。
 
 ## 費用を3年で均してみる
 
-Unraidのライセンス費用を「本当に高いのか」判断するために、3年間（36ヶ月）で月額換算してみる。
+Unraidのライセンス費用を「本当に高いのか」判断するために、3年間（36ヶ月）使った場合で月額換算してみる。StarterとUnleashedは、3年間アップデートを受け続ける場合（2年目・3年目に延長費用を払う）で計算した。
 
 ```
-月額換算 = ライセンス価格 ÷ 36ヶ月
+3年間の費用 = ライセンス価格 ＋ 延長費用（$36前後）× 2年
+月額換算 = 3年間の費用 ÷ 36ヶ月
 ```
 
-| プラン | 価格（目安） | 月額換算 | 対応ディスク上限（目安） |
+| プラン | 3年間の費用（目安） | 月額換算 | 接続ディスク上限 |
 |---|---|---|---|
-| Unraid Basic | ¥7,500 前後 | 約¥208/月 | 最大6台程度 |
-| Unraid Plus | ¥13,500 前後 | 約¥375/月 | 最大12台程度 |
-| Unraid Pro | ¥19,500 前後 | 約¥542/月 | 無制限（プール数に制限あり） |
-| TrueNAS | ¥0 | ¥0 | ハードウェア依存 |
+| Unraid Starter（延長なし） | ¥7,400前後 | 約¥204/月 | 6台まで |
+| Unraid Starter（延長あり） | ¥18,200前後 | 約¥504/月 | 6台まで |
+| Unraid Unleashed（延長あり） | ¥27,200前後 | 約¥754/月 | 無制限 |
+| Unraid Lifetime | ¥37,400前後 | 約¥1,038/月 | 無制限 |
+| TrueNAS Community Edition | ¥0 | ¥0 | ハードウェア依存 |
 | Proxmox VE | ¥0 | ¥0 | ハードウェア依存 |
 
-ディスク台数が少ない小規模運用ならUnraid Basicで十分なことが多く、月500円以下の負担で異容量HDD混在運用ができると考えればコストメリットは小さくない。逆に無料のTrueNASやProxmox VEでも、ハードウェア（HBA、メモリ増設など）にお金がかかる点は見落とされがちなので注意したい。
+※1ドル=150円で換算。Unraidの価格・延長費用は改定されることがあるため、購入前に公式の料金ページで確認してほしい。
+
+ディスク台数が少ない小規模運用ならUnraid Starterで足りることが多く、月数百円程度の負担で異容量HDD混在運用ができると考えればコストメリットは小さくない。5年以上使い、アップデートも受け続けるつもりなら、延長費用の累計とLifetimeの価格を比べて選ぶとよい。逆に無料のTrueNASやProxmox VEでも、ハードウェア（HBA、メモリ増設など）にお金がかかる点は見落とされがちなので注意したい。
 
 ## 必要スペックの目安
 
@@ -133,7 +136,7 @@ ZFSは「メモリを大量に使う」と言われがちだが、これは積�
 
 ## コンテナ運用の違いを設定例で見る
 
-3製品ともDockerコンテナを扱えるが、設定の“作法”が異なる。TrueNAS SCALEとUnraidはGUIから`docker-compose`相当のYAMLを読み込む運用が一般的で、例えばJellyfinを立てる場合は次のような構成になる。
+3製品ともDockerコンテナを扱えるが、設定の“作法”が異なる。TrueNAS Community Edition（旧SCALE）とUnraidはGUIから`docker-compose`相当のYAMLを読み込む運用が一般的で、例えばJellyfinを立てる場合は次のような構成になる。
 
 ```yaml
 services:
@@ -151,7 +154,7 @@ services:
 一方Proxmox VEではDockerを直接ホストに入れるのではなく、LXCコンテナやVMの中でDockerを動かす構成が推奨される。ホストOS自体を汚さずに済むメリットがある代わりに、1手順増える点は覚えておきたい。
 
 ```bash
-# Proxmox VE上でLXCコンテナを作成する例（テンプレートは事前にダウンロード済みとする）
+# Proxmox VE上でLXCコンテナを作成する例（テンプレートは事前にダウンロード済みとする。テンプレート名はバージョンにより異なる）
 pct create 200 local:vztmpl/debian-12-standard_12.2-1_amd64.tar.zst \
   --hostname docker-host --cores 2 --memory 2048 \
   --rootfs local-lvm:8 --net0 name=eth0,bridge=vmbr0,ip=dhcp
@@ -167,10 +170,10 @@ zfs list
 
 ## つまずきポイント
 
-- **ZFSプール作成後にディスク構成を変更しにくい**：TrueNAS・Proxmox VEともにRAIDZレベルの変更は原則非対応。後から台数を増やしたくなる前提なら、最初からミラー構成を複数作る運用にしておくと柔軟性が高い。
+- **ZFSプール作成後にディスク構成を変更しにくい**：TrueNAS・Proxmox VEともにRAIDZレベルの変更（RAIDZ1→RAIDZ2など）は原則非対応。一方、OpenZFS 2.3で追加された「RAIDZ拡張」により、既存のRAIDZにディスクを1本ずつ追加して容量を増やすことは可能になった（TrueNASは24.10以降で対応）。ただし拡張前に書き込まれたデータは元のパリティ比率のまま残るため、追加した分の容量がそのまま増えるわけではない点に注意したい。柔軟性を最優先するなら、ミラー構成を複数作る運用も引き続き有力な選択肢だ。
 - **UnraidのUSBブートメディアが単一障害点になる**：UnraidはライセンスがUSBメモリのシリアルに紐づくため、USBメモリの故障がそのままシステム停止につながる。バックアップ用USBの用意とライセンスのバックアップが必須。
 - **ProxmoxのGPU/HBAパススルーでIOMMUの有効化を忘れる**：BIOS設定とGRUB/カーネルパラメータ両方でIOMMUを有効にしないとパススルーが機能しない。エラーで止まった場合はまずこの設定漏れを疑う。
-- **Dockerのパーミッション（PUID/PGID）設定ミス**：TrueNAS SCALEやUnraidでDockerコンテナからNASの共有フォルダにアクセスできない場合、多くはユーザーID/グループIDの不一致が原因。コンテナ側の環境変数でホストのUID/GIDに合わせる。
+- **Dockerのパーミッション（PUID/PGID）設定ミス**：TrueNAS Community Edition（旧SCALE）やUnraidでDockerコンテナからNASの共有フォルダにアクセスできない場合、多くはユーザーID/グループIDの不一致が原因。コンテナ側の環境変数でホストのUID/GIDに合わせる。
 
 ## 買わない・選ばない方がよいケース
 
@@ -195,13 +198,13 @@ A. ZFSはチェックサムによるビット化けの検知など優れた機�
 A. Unraidはパリティアレイの仕組み上、1台のHDD故障からの復旧が直感的に分かりやすいと評判が高い。TrueNAS/Proxmox VEのZFSミラーやRAIDZも故障ディスクの交換・リシルバーで復旧できるが、コマンドやGUI操作の理解がやや必要になる。
 
 **Q. Unraidのライセンス費用は本当に必要？代替手段は？**
-A. Unraidは試用期間（トライアル）があるものの、継続利用には購入が必要になる。費用をかけたくない場合は、同様の用途をTrueNAS SCALE（ZFS＋Docker）やOpenMediaVaultのような無料OSSで代替する選択肢もある。ただし異容量HDD混在のしやすさという独自の強みは失われる点に注意。
+A. Unraidは試用期間（トライアル）があるものの、継続利用には購入が必要になる。費用をかけたくない場合は、同様の用途をTrueNAS Community Edition（旧SCALE）（ZFS＋Docker）やOpenMediaVaultのような無料OSSで代替する選択肢もある。ただし異容量HDD混在のしやすさという独自の強みは失われる点に注意。
 
 ## まとめ
 
 TrueNAS・Unraid・Proxmox VEはいずれも無料〜低コストで本格的な自宅サーバーを組めるが、得意分野がはっきり分かれている。ファイル保護を最優先するならTrueNAS、手持ちのHDDを柔軟に使い回しつつDockerも楽しみたいならUnraid、VMやコンテナを本格的に運用したいならProxmox VEが選択肢になる。用途が曖昧なまま高性能なハードウェアだけ揃えても使いこなせないことが多いため、まずは「自分が一番やりたいこと」を1つに絞ってOSを選ぶのが遠回りしないコツだ。
 
-自宅サーバー用のハードウェア選びについては、ミニPCの選び方やNASのRAID構成の基礎を扱った記事もあわせて参考にしてほしい。
+自宅サーバー用のハードウェア選びについては、[自宅サーバー向けミニPCおすすめ比較](/articles/mini-pc-osusume-2026/)や[家庭用NASの比較（Synology・QNAP・自作）](/articles/home-nas-comparison-2026-synology-qnap-diy/)、RAIDに使うHDD選びは[NAS用HDDの比較（WD Red・IronWolf）](/articles/nas-hdd-comparison-wd-red-ironwolf/)もあわせて参考にしてほしい。Proxmox VEを実際に試すなら[Proxmox入門｜ミニPC1台で始める自宅仮想化](/articles/proxmox-nyumon-minipc/)が手順の参考になる。
 
 ---
 

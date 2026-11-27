@@ -3,7 +3,7 @@ title: "PoEスイッチおすすめ比較2026｜自宅ネットワークでの�
 slug: poe-switch-home-network-guide
 description: "自宅にWi-FiアクセスポイントやIPカメラを増やすならPoEスイッチが便利。ポート数・PoE予算・規格の選び方と、主要モデルの比較、電気代の試算方法をまとめました。"
 date: 2026-09-28
-updated: 2026-09-28
+updated: 2026-11-27
 category: network
 type: comparison
 tags: ["PoEスイッチ", "自宅ネットワーク", "ネットワーク機器", "監視カメラ", "Wi-Fiアクセスポイント"]
@@ -11,30 +11,31 @@ products:
   - name: TP-Link TL-SG1005P
     price: "¥6,000 前後"
     rating: 4.0
-    spec: "5ポート（うちPoE給電4ポート）/ 非管理型 / PoE予算目安 40W前後"
+    spec: "5ポート（うちPoE+給電4ポート、1ポート最大30W）/ 非管理型 / PoE予算 65W（現行ハードウェアバージョンの公称値。旧バージョンは異なる場合あり）"
     pros:
       - 価格が安く初めてのPoE導入に向く
       - ファンレスで動作音が気にならない
       - 設定不要でLANケーブルを挿すだけで使える
     cons:
-      - PoE予算が小さく機器を多数つなぐと不足しがち
+      - PoE予算を超えると優先度の低いポートから給電が止まるため、高消費電力の機器を多数つなぐと不足しがち
       - VLANなど管理機能が一切ない
     affiliate:
-      amazon: "REPLACE_ASIN_001"
+      amazon: "search"
       rakuten: ""
   - name: Netgear GS305P
     price: "¥8,000 前後"
     rating: 4.0
-    spec: "5ポート（うちPoE給電4ポート）/ 非管理型 / PoE予算目安 56W前後"
+    spec: "5ポート（うちPoE+給電4ポート）/ 非管理型 / PoE予算 63W（現行のv2。旧版v1は55W）/ 外付けACアダプタ給電"
     pros:
-      - 同価格帯の中ではPoE予算に余裕がある
+      - 5ポート機としてはPoE予算に余裕がある
       - コンパクトで机上やラックの隙間に置きやすい
-      - 電源内蔵で追加のACアダプタが不要
+      - ファンレスで動作音が気にならない
     cons:
       - 管理画面がなく給電状況の可視化ができない
-      - ポート数は最大5port止まりで拡張性が低い
+      - 電源は外付けACアダプタのため、設置時にアダプタの置き場所が必要
+      - ポート数は5ポート止まりで拡張性が低い
     affiliate:
-      amazon: "REPLACE_ASIN_002"
+      amazon: "search"
       rakuten: ""
   - name: Ubiquiti USW-Lite-8-PoE
     price: "¥14,000 前後"
@@ -46,28 +47,28 @@ products:
       - 既存のUniFi APやカメラとの相性が良い
     cons:
       - UniFiエコシステム前提の設計で単体運用の恩恵は薄い
-      - 初期設定にアプリ・アカウント登録が必要
+      - 設定・管理はUniFi Network（アプリまたはコントローラー）を使う前提
     affiliate:
-      amazon: "REPLACE_ASIN_003"
+      amazon: "search"
       rakuten: ""
   - name: TP-Link TL-SG1210P
     price: "¥16,000 前後"
     rating: 4.0
-    spec: "8ポート（うちPoE給電8ポート）+ SFPポート2つ / 非管理型 / PoE予算目安 61W前後"
+    spec: "PoE+給電8ポート + ギガビットRJ45 1ポート + ギガビットSFPスロット1つ / 非管理型 / PoE予算 63W"
     pros:
-      - 全ポートPoE給電対応で配線計画の自由度が高い
-      - SFPポートで光回線や長距離延伸にも対応しやすい
-      - 金属筐体でラックマウントもしやすい
+      - PoE+給電ポートが8つあり配線計画の自由度が高い
+      - SFPスロットで光ファイバーによる長距離延伸にも対応しやすい
+      - ファンレスで、デスクトップ置き・壁掛けに対応
     cons:
       - 非管理型のため異常検知や再起動スケジュールが組めない
-      - 全ポート同時フル給電時は予算超過に注意が必要
+      - 8ポート合計で63Wのため、全ポート同時に高出力給電すると予算超過に注意が必要
     affiliate:
-      amazon: "REPLACE_ASIN_004"
+      amazon: "search"
       rakuten: ""
   - name: Buffalo BS-GS2016P
     price: "¥28,000 前後"
     rating: 4.0
-    spec: "16ポート（うちPoE給電16ポート）/ 管理型 / PoE予算目安 130W前後"
+    spec: "16ポート（PoE/PoE+給電、1ポート最大30W）/ 管理型（Webスマートスイッチ）/ 最大供給電力180W（2014年発売モデル。後継のBS-GS2016P/HPは別仕様）"
     pros:
       - PoE予算が大きくカメラ・APを同時に多数運用できる
       - Web管理画面でポートごとのオンオフや再起動が可能
@@ -75,33 +76,34 @@ products:
     cons:
       - 本体サイズが大きくラックまたは専用スペースが必要
       - 家庭用途としてはポート数・予算とも過剰なケースが多い
+      - 発売から年数がたっており、在庫・後継機の状況を購入前に確認する必要がある
     affiliate:
-      amazon: "REPLACE_ASIN_005"
+      amazon: "search"
       rakuten: ""
 chart:
   title: "PoEスイッチのPoE予算（合計給電量）比較"
   rows:
     - label: "TL-SG1005P"
-      value: 40
-      display: "約40W"
+      value: 65
+      display: "65W"
       highlight: false
-    - label: "GS305P"
-      value: 56
-      display: "約56W"
+    - label: "GS305P（v2）"
+      value: 63
+      display: "63W"
       highlight: false
     - label: "USW-Lite-8-PoE"
       value: 52
       display: "約52W"
       highlight: false
     - label: "TL-SG1210P"
-      value: 61
-      display: "約61W"
+      value: 63
+      display: "63W"
       highlight: false
     - label: "BS-GS2016P"
-      value: 130
-      display: "約130W"
+      value: 180
+      display: "180W"
       highlight: true
-  caption: "ポート数だけでなく「PoE予算（合計給電量）」を見ないと、実際につなげる機器数は分かりません。Wi-Fi APを3台・IPカメラを2台程度なら40〜60W前後で足りますが、カメラを多数運用するなら100W超のモデルが安心です。"
+  caption: "ポート数だけでなく「PoE予算（合計給電量）」を見ないと、実際につなげる機器数は分かりません。Wi-Fi APを3台・IPカメラを2台程度なら50〜65W前後で足りますが、カメラを多数運用するなら100W超のモデルが安心です。"
   note: "※各社の公開仕様に基づく目安。実際のPoE予算は型番・ファームウェアにより変動するため、購入前に必ずメーカー公式サイトで最新仕様を確認してください。"
 ---
 
@@ -167,7 +169,7 @@ AP: 7W × 3台 = 21W
 
 <!-- FIGURE -->
 
-上のグラフの通り、家庭用途であれば40〜60W前後のPoE予算があれば大半のケースはカバーできます。カメラを本格的に多数運用する、あるいはNVR一体型の監視システムを組む場合は100W超のモデルを検討すると安心です。
+上のグラフの通り、家庭用途であれば50〜65W前後のPoE予算があれば大半のケースはカバーできます。カメラを本格的に多数運用する、あるいはNVR一体型の監視システムを組む場合は100W超のモデルを検討すると安心です。
 
 ### PoE規格（802.3af / at / bt）の違い
 
@@ -250,9 +252,9 @@ A. 5〜8ポートクラスのファンレスモデルは動作音がほぼ気に
 
 ## まとめ
 
-PoEスイッチ選びでは、ポート数だけでなく「PoE予算（合計給電量）」を接続予定機器の消費電力から逆算して確認することが最も重要です。家庭用途であればAPとカメラ数台程度で40〜60W前後、監視カメラを本格的に運用するなら100W超のモデルが目安になります。あわせて管理機能の有無、設置場所の静音性、将来の増設余地も考慮して選びましょう。
+PoEスイッチ選びでは、ポート数だけでなく「PoE予算（合計給電量）」を接続予定機器の消費電力から逆算して確認することが最も重要です。家庭用途であればAPとカメラ数台程度で50〜65W前後、監視カメラを本格的に運用するなら100W超のモデルが目安になります。あわせて管理機能の有無、設置場所の静音性、将来の増設余地も考慮して選びましょう。
 
-自宅ネットワークの土台となるルーターやアクセスポイントの選び方については、関連記事の[/articles/home-wifi-router-guide/](/articles/home-wifi-router-guide/)もあわせてご覧ください。NASと組み合わせた監視カメラ運用については[/articles/nas-camera-storage/](/articles/nas-camera-storage/)で詳しく解説しています。
+自宅ネットワーク全体の高速化については[家庭内LANを2.5GbE化する機材まとめ](/articles/home-2-5gbe-network-2026/)、配線に使うLANケーブルの選び方は[Cat6AとCat8の違い](/articles/cat6a-cat8-difference-guide/)もあわせてご覧ください。監視カメラの録画先としてNASを検討している場合は[家庭用NASの比較（Synology・QNAP・自作）](/articles/home-nas-comparison-2026-synology-qnap-diy/)が参考になります。スイッチをラックにまとめたい場合は[10インチミニラックで自宅サーバーを組む方法](/articles/mini-rack-10inch-home-server-guide/)も参照してください。
 
 ---
 

@@ -8,15 +8,17 @@ description: おうちクラウド Lab における個人情報の取り扱い�
 
 ## 個人情報の利用目的
 
-当サイトでは、お問い合わせの際に、お名前やメールアドレス等の個人情報をご入力いただく場合があります。取得した個人情報は、お問い合わせに対する回答や必要な情報を電子メール等でご連絡する目的にのみ利用し、それ以外の目的では利用しません。
+当サイトでは、メールでお問い合わせいただいた際に、お名前やメールアドレス等の個人情報をお知らせいただく場合があります。取得した個人情報は、お問い合わせに対する回答や必要な情報を電子メール等でご連絡する目的にのみ利用し、それ以外の目的では利用しません。
 
 ## 広告について（Google AdSense）
 
-当サイトは、第三者配信の広告サービス「Google AdSense（グーグルアドセンス）」を利用する場合があります。
+当サイトは、第三者配信の広告サービス「Google AdSense（グーグルアドセンス）」を利用しています。
 
 - Googleなどの第三者配信事業者は、Cookie（クッキー）を使用して、ユーザーが当サイトや他のサイトに過去にアクセスした情報に基づいて広告を配信します。
 - Googleが広告Cookie（DoubleClick Cookie を含む）を使用することにより、当サイトやその他のサイトへのアクセス情報に基づいた広告をユーザーに表示できます。
-- ユーザーは、[広告設定](https://www.google.com/settings/ads)でパーソナライズ広告を無効にできます。また、[www.aboutads.info](https://www.aboutads.info/choices/) にアクセスすれば、第三者配信事業者のCookieを無効にできます。
+- ユーザーは、[Google の広告設定](https://adssettings.google.com/)でパーソナライズ広告を無効にできます。また、[www.aboutads.info](https://www.aboutads.info/choices/) にアクセスすれば、第三者配信事業者のCookieを無効にできます。
+
+Google による広告での Cookie の使用については、[広告 – ポリシーと規約 – Google](https://policies.google.com/technologies/ads?hl=ja) をご覧ください。欧州経済領域（EEA）・英国・スイスからアクセスされた方には、Google の同意管理メッセージにより Cookie 利用への同意を求める場合があります。
 
 第三者配信による広告掲載を無効にしていない場合、他の広告配信事業者やアドネットワークの広告が当サイトに掲載されることがあります。
 
@@ -28,9 +30,11 @@ Googleアナリティクスは、Cookieを使用してトラフィックデー�
 
 この機能は、お使いのブラウザでCookieを無効にすることで収集を拒否できます。また、Googleが提供する[Googleアナリティクス オプトアウト アドオン](https://tools.google.com/dlpage/gaoptout?hl=ja)を導入することでも無効化できます。
 
-Googleアナリティクスの利用規約については、[Googleアナリティクス利用規約](https://marketingplatform.google.com/about/analytics/terms/jp/)および[Googleのプライバシーポリシー](https://policies.google.com/privacy?hl=ja)をご確認ください。
+Googleアナリティクスの利用規約については、[Googleアナリティクス利用規約](https://marketingplatform.google.com/about/analytics/terms/jp/)、[Googleのプライバシーポリシー](https://policies.google.com/privacy?hl=ja)、[Google のサービスを使用するサイトやアプリから収集した情報の Google による使用](https://policies.google.com/technologies/partner-sites?hl=ja)をご確認ください。
 
 ## アフィリエイトプログラムについて
+
+Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。
 
 当サイトは、Amazon.co.jpを宣伝しリンクすることによってサイトが紹介料を獲得できる手段を提供することを目的に設定された、アフィリエイトプログラムである「Amazonアソシエイト・プログラム」の参加者です。このほか、複数のアフィリエイトプログラムに参加しており、商品・サービスのリンクを通じて当サイトが紹介料を得る場合があります。
 
@@ -55,4 +59,4 @@ Googleアナリティクスの利用規約については、[Googleアナリテ�
 本ポリシーに関するお問い合わせは、[お問い合わせページ](/contact/)よりお願いいたします。当サイトの運営方針・編集ポリシーについては[運営者情報](/about/)をご覧ください。
 
 制定日: 2026年7月12日
-最終更新日: 2026年8月20日
+最終更新日: 2026年11月27日

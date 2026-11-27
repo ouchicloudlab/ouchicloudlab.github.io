@@ -3,7 +3,7 @@ title: Dockerで動かす自宅サーバーの人気サービス10選【2026年�
 slug: docker-self-hosting-10
 description: 自宅サーバー（homelab）で定番のセルフホストサービス10個を、必要メモリ・ストレージ・難易度と実際の docker compose 設定例つきで解説。導入順序とつまずきやすい点もまとめました。
 date: 2026-07-04
-updated: 2026-09-11
+updated: 2026-11-27
 category: guide
 type: guide
 tags: [Docker, セルフホスト, Nextcloud, Pi-hole, homelab]
@@ -13,7 +13,7 @@ tags: [Docker, セルフホスト, Nextcloud, Pi-hole, homelab]
 
 ただ、「人気サービス10選」という記事を読んで片っ端から入れると、たいてい失敗します。**メモリが足りなくなる**か、**ポートがぶつかる**か、**バックアップを取っていないデータが飛ぶ**かのどれかです。
 
-この記事では定番サービス10個を、**必要リソース・難易度・導入順序**とセットで紹介します。あわせて、実際に動く `docker compose` の設定例と、筆者がつまずいた点も書いておきます。
+この記事では定番サービス10個を、**必要リソース・難易度・導入順序**とセットで紹介します。あわせて、実際に動く `docker compose` の設定例と、よくあるつまずき点も書いておきます。
 
 <!-- AD -->
 
@@ -97,7 +97,9 @@ tags: [Docker, セルフホスト, Nextcloud, Pi-hole, homelab]
 <figcaption>導入順序と、そのときの累計メモリの目安。STEP 2 までなら2GB級の格安機でも動きますが、Immich や Jellyfin を足した時点で必要量が一気に跳ね上がります。「あとで写真バックアップもやりたい」なら、最初からメモリ16GBまで載る機種を選んでおくと買い直しになりません。</figcaption>
 </figure>
 
-## 1. Pi-hole — ネットワーク全体の広告ブロック
+## 1. Pi-hole / AdGuard Home — ネットワーク全体の広告ブロック
+
+### Pi-hole
 
 DNSレベルで広告・トラッカーのドメインを遮断します。家中のスマホ・PC・テレビにまとめて効くのが最大の魅力で、**アプリ内広告やスマートTVの広告にも効く**のがブラウザ拡張との違いです。
 
@@ -124,9 +126,21 @@ services:
 
 導入したら、**ルーターのDHCP設定でDNSサーバーをこのマシンのIPに変更**します。ここを変えないと家中の端末には効きません。
 
-**つまずきポイント**：Ubuntu 系のOSでは `systemd-resolved` が53番ポートを掴んでいて起動に失敗します。`sudo systemctl disable --now systemd-resolved` で止めてから起動してください。また、**サーバーのIPは固定にしておくこと**。DHCPでIPが変わると、家中のインターネットが一斉に止まります。
+**つまずきポイント**：Ubuntu 系のOSでは `systemd-resolved` のスタブリゾルバが53番ポートを掴んでいて、起動に失敗することがあります。`systemd-resolved` 自体を無効化する方法もよく紹介されますが、`/etc/resolv.conf` が `127.0.0.53` を向いたままだとサーバー自身の名前解決ができなくなり、`apt` やイメージの取得が失敗するといった副作用があります。53番ポートを空けるだけなら、スタブリゾルバだけを止める方法が安全です。
 
-## 2. AdGuard Home — Pi-holeの対抗馬
+```bash
+# /etc/systemd/resolved.conf の [Resolve] セクションに DNSStubListener=no を設定
+sudo sed -i 's/^#\?DNSStubListener=.*/DNSStubListener=no/' /etc/systemd/resolved.conf
+
+# resolv.conf をスタブ経由でない実ファイルに向け直す
+sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+
+sudo systemctl restart systemd-resolved
+```
+
+また、**サーバーのIPは固定にしておくこと**。DHCPでIPが変わると、家中のインターネットが一斉に止まります。
+
+### AdGuard Home — Pi-holeの対抗馬
 
 Pi-hole と同系統の広告ブロックDNSです。**設定がすべてGUIで完結**し、DNS over HTTPS/TLS の設定も標準で持っているため、初心者にはこちらの方が扱いやすいという声が多いサービスです。
 
@@ -134,7 +148,7 @@ Pi-hole と同系統の広告ブロックDNSです。**設定がすべてGUIで�
 
 **どちらを選ぶか**：フィルタの細かい調整やコミュニティの情報量を重視するなら Pi-hole、初期設定のわかりやすさと機能の網羅性を重視するなら AdGuard Home。**両方を同時に動かす必要はありません**（53番ポートを取り合います）。
 
-## 3. Uptime Kuma — 死活監視ダッシュボード
+## 2. Uptime Kuma — 死活監視ダッシュボード
 
 自宅サーバー上のサービスや外部サイトを定期的にチェックし、落ちたら通知してくれます。LINE・Discord・Slack・メールなど通知先が豊富です。
 
@@ -156,7 +170,7 @@ services:
 
 <!-- AD -->
 
-## 4. Vaultwarden — パスワード管理（Bitwarden互換）
+## 3. Vaultwarden — パスワード管理（Bitwarden互換）
 
 Bitwarden のサーバー側を軽量に再実装したもので、公式クライアント（ブラウザ拡張・スマホアプリ）がそのまま使えます。有料プランの機能が実質無料で使える点も人気の理由です。
 
@@ -169,7 +183,7 @@ Bitwarden のサーバー側を軽量に再実装したもので、公式クラ�
 
 パスワード管理を自宅サーバーに置くのは、**バックアップと可用性を自分で背負う**ということです。運用に自信がないうちは商用サービスのままの方が安全な場合もあります。
 
-## 5. Tailscale — どこからでも安全に接続
+## 4. Tailscale — どこからでも安全に接続
 
 厳密にはサービスというより接続基盤です。**ルーターのポート開放をせずに**、外出先から自宅サーバーへ安全に接続できます。
 
@@ -179,7 +193,7 @@ Bitwarden のサーバー側を軽量に再実装したもので、公式クラ�
 
 詳しい設定手順は [Tailscaleで自宅サーバーに外部から安全にアクセスする設定方法](/articles/tailscale-home-server-remote-access-2026/) にまとめています。
 
-## 6. Nextcloud — 自宅版 Google Drive
+## 5. Nextcloud — 自宅版 Google Drive
 
 ファイル・カレンダー・連絡先・オフィス文書を自宅で管理できるクラウドです。月額課金のクラウドストレージを卒業したい人の定番。
 
@@ -189,7 +203,7 @@ Bitwarden のサーバー側を軽量に再実装したもので、公式クラ�
 
 また、**データベースは SQLite ではなく PostgreSQL または MariaDB を選んでください**。SQLite でも動きますが、ファイル数が万単位になると目に見えて重くなります。最初に選び直すのは簡単でも、後から移行するのは面倒です。
 
-## 7. Immich — 写真バックアップ（Googleフォト代替）
+## 6. Immich — 写真バックアップ（Googleフォト代替）
 
 スマホの写真を自動で自宅にバックアップします。AI による顔認識・被写体検索・アルバム機能を備え、操作感はGoogleフォトにかなり近いところまで来ています。
 
@@ -199,7 +213,7 @@ Bitwarden のサーバー側を軽量に再実装したもので、公式クラ�
 
 構築手順は [Immichで自宅サーバーにGoogleフォト代替を構築する完全ガイド](/articles/immich-selfhosted-google-photos-alternative-guide/) で詳しく解説しています。
 
-## 8. Jellyfin — 自宅の動画・音楽サーバー
+## 7. Jellyfin — 自宅の動画・音楽サーバー
 
 手持ちの動画や音楽を Netflix のようなUIで再生できます。Plex と違い**完全無料・広告なし・機能制限なし**です。
 
@@ -209,13 +223,21 @@ Bitwarden のサーバー側を軽量に再実装したもので、公式クラ�
 
 Plex との違いは [Jellyfin vs Plex 徹底比較](/articles/jellyfin-vs-plex-comparison/) にまとめました。
 
-## 9. Home Assistant — スマート家電の司令塔
+## 8. Home Assistant — スマート家電の司令塔
 
 各社バラバラのスマート家電を1つの画面で統合管理し、「誰もいなければエアコンを切る」といった自動化を組めます。
 
 **難易度：中〜高／メモリ：1〜2GB**
 
 **注意点**：Docker版（Home Assistant Container）では、アドオン機能が使えません。アドオンを含むフル機能が欲しい場合は、専用OS版（Home Assistant OS）を仮想マシンとして動かす構成になります。Proxmox 上の VM として立てるのが定番です。「Dockerで入れたのにアドオンのタブが無い」というのは、この違いによるものです。
+
+## 9. Ollama — ローカルでLLMを動かす
+
+手元のマシンで大規模言語モデルを実行します。API課金なしでチャットや要約を回せるため、2026年の homelab で最も注目される用途のひとつです。
+
+**難易度：中／メモリ：8GB〜（GPUがあると実用速度に）**
+
+ただし、**他のサービスとメモリを共有すると簡単に破綻します**。必要スペックの目安は [OllamaでローカルLLMを自宅サーバー化する必要スペック](/articles/ollama-local-llm-home-server-spec/) で整理しています。
 
 ## 10. Paperless-ngx — 書類の電子化・全文検索
 
@@ -224,14 +246,6 @@ Plex との違いは [Jellyfin vs Plex 徹底比較](/articles/jellyfin-vs-plex-
 **難易度：中／メモリ：1〜2GB**
 
 日本語OCRを使うには、環境変数で言語データを指定します（`PAPERLESS_OCR_LANGUAGE: jpn`）。取り込み時のOCR処理はCPUを使うため、大量の書類を一度に投入すると省電力機ではしばらく張り付きます。
-
-## 番外：Ollama — ローカルでLLMを動かす
-
-手元のマシンで大規模言語モデルを実行します。API課金なしでチャットや要約を回せるため、2026年の homelab で最も注目される用途のひとつです。
-
-**難易度：中／メモリ：8GB〜（GPUがあると実用速度に）**
-
-ただし、**他のサービスとメモリを共有すると簡単に破綻します**。必要スペックの目安は [OllamaでローカルLLMを自宅サーバー化する必要スペック](/articles/ollama-local-llm-home-server-spec/) で整理しています。
 
 <!-- AD -->
 
