@@ -6,10 +6,11 @@ date: 2026-08-23
 updated: 2026-11-28
 category: nas
 type: comparison
+priceCheckedOn: "2026年11月28日"
 tags: [NAS, HDD, WD Red, IronWolf, 自宅サーバー]
 products:
   - name: WD Red Plus 4TB（WD40EFZZ-AJP・Amazon.co.jp限定パッケージ）
-    price: "¥29,990前後（2026年11月時点）"
+    price: "¥29,990前後"
     rating: 4.3
     spec: "CMR方式 / 5,400rpm / キャッシュ128MB / 3.5インチ SATA / メーカー保証3年"
     pros:
@@ -22,10 +23,10 @@ products:
     affiliate:
       amazon: "B0FY2N485X"
       rakuten: ""
-  - name: WD Red Pro 8TB
-    price: "¥74,500前後"
+  - name: WD Red Pro 8TB（WD8005FFBX-AJP・Amazon限定パッケージ）
+    price: "¥81,600前後"
     rating: 4.5
-    spec: "CMR方式 / 7,200rpm / 3.5インチ SATA / 8TB"
+    spec: "CMR方式 / 7,200rpm / キャッシュ256MB / 3.5インチ SATA / 8TB / メーカー保証5年"
     pros:
       - 7,200rpmで連続読み書きの速度に余裕がある
       - 上位シリーズで、多台数のNASを想定した耐久設計
@@ -37,7 +38,7 @@ products:
       amazon: "B0FGY6YW5D"
       rakuten: ""
   - name: Seagate IronWolf 4TB（ST4000VN006）
-    price: "¥34,980前後（2026年11月時点）"
+    price: "¥34,980前後"
     rating: 4.2
     spec: "CMR方式 / 5,400rpm相当 / キャッシュ256MB / 3.5インチ SATA"
     pros:
@@ -51,7 +52,7 @@ products:
       amazon: "B0D8KTQBYS"
       rakuten: ""
   - name: Seagate IronWolf Pro 8TB（ST8000NT001）
-    price: "¥57,600前後"
+    price: "¥56,500前後"
     rating: 4.5
     spec: "CMR方式 / 7,200rpm / 3.5インチ SATA / 8TB"
     pros:
@@ -65,7 +66,7 @@ products:
       amazon: "B0BGSCF18W"
       rakuten: ""
   - name: 東芝 N300 8TB（HDWG780）
-    price: "¥52,750前後（2026年11月時点）"
+    price: "¥52,750前後"
     rating: 4.2
     spec: "CMR方式 / 7,200rpm / 3.5インチ SATA / 8TB / 3年保証（販売店・代理店により条件が異なる）"
     pros:
@@ -182,7 +183,7 @@ NAS用HDDを複数台使う場合、RAIDレベルによって実際に使える�
 
 ### WD RedシリーズとIronWolfシリーズ、結局どちらが良いか
 
-WD Red PlusとSeagate IronWolf（無印）、WD Red ProとIronWolf Proは、それぞれほぼ同格のポジションにある製品です。スペック上の大きな性能差は小さく、選択の決め手は「同時期のセール価格」「保証期間」「過去の使用経験」になることが多いのが実情です。IronWolf Proにはモデルによってデータ復旧サービスが付帯する場合があるため、万一の際の安心感を重視するならチェックしておくとよいでしょう（対象モデル・条件はメーカー公表情報で要確認）。
+WD Red PlusとSeagate IronWolf（無印）、WD Red ProとIronWolf Proは、それぞれほぼ同格のポジションにある製品です。スペック上の大きな性能差は小さく、選択の決め手は「同時期のセール価格」「保証期間」「過去の使用経験」になることが多いのが実情です。IronWolf Proにはモデルによってデータ復旧サービスが付帯する場合があるため、万一の際の安心感を重視するならチェックしておくとよいでしょう（対象モデル・条件はメーカー公表情報で要確認）。なお今回の価格目安では、8TBのProシリーズどうしでもWD Red ProがIronWolf Proより2.5万円前後高く、価格差が大きく開いている時期は安い方を選んで差し支えありません。
 
 ## 用途別の選び方
 
@@ -238,4 +239,4 @@ NAS用HDDはWD Red PlusとSeagate IronWolf、WD Red ProとIronWolf Proがそれ�
 - [ワットチェッカーで自宅サーバーの消費電力を測る方法](/articles/watt-checker-home-server-power-measurement/)
 
 ---
-※本記事中の価格・スペックは記事作成時点の一般的な目安であり、メーカー公開仕様や市場価格の変動により変わる可能性があります。電気代・容量試算は編集部による単純計算であり、実測値ではありません。購入前に必ず最新の公式仕様・価格をご確認ください。
+※本記事中の価格は2026年11月28日時点のAmazon.co.jpでの実売価格の目安、スペックはメーカー公開仕様に基づき、市場価格の変動により変わる可能性があります。電気代・容量試算は編集部による単純計算であり、実測値ではありません。購入前に必ず最新の公式仕様・価格をご確認ください。

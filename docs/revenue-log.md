@@ -19,7 +19,11 @@ revenue-strategist が次の作業を選ぶときの根拠にするファイル�
 | 2026-11-28 | 入門記事3本に、検証済みASINの商品ブロックと比較記事への内部リンクを追加 | immich-selfhosted-google-photos-alternative-guide / jitaku-server-nyumon / proxmox-nyumon-minipc | 機材の話を読んだ読者が買える場所を作る |
 | 2026-11-28 | WD Red Plus 4TB の型番表記をASINの実物（WD40EFZZ-AJP・キャッシュ128MB）に合わせて修正 | nas-hdd-comparison-wd-red-ironwolf | 誤表記の解消 |
 
+| 2026-11-28 | ASIN付きの全商品（30件）をブラウザで確認し、比較記事7本の価格を更新。記事ごとに priceCheckedOn を設定 | mini-pc-osusume-2026 ほか6本 | 古い価格による信頼低下を防ぐ |
+| 2026-11-28 | 在庫切れの GMKtec G10 のリンクを、同じ機種の在庫ありASIN（B0HJ8N3HZC、販売元 GMKtec-JP）に差し替え | mini-pc-osusume-2026 | 最安機のリンク切れ（売れない状態）を解消 |
+
 ## 次回への申し送り
-- GMKtec G10（B0H2PRRMCK）は在庫切れで再入荷予定なし（2026-11-28 確認）。mini-pc-osusume-2026 に掲載中なので、代替機に差し替える。
-- 全体の価格確認（priceCheckedOn: 2026年9月13日）が古い。比較記事の価格を一括で更新する。Amazonのページは WebFetch では取得できない（503）ため、アプリ内ブラウザで商品ページを開いて確認する。
-- `search` のままの商品（poe-switch / used-business-mini-pc / watt-checker）を商品ページへの直リンクにする。
+- `search` のままの商品（poe-switch / used-business-mini-pc / watt-checker）を商品ページへの直リンクにする。中古法人PCは出品ごとに状態が違うため、`search` のままが妥当な可能性が高い。PoEスイッチを優先する。
+- APC BR1000S-JP（B01N7P3E52）は、カートに入る新品の出品がない（2026-11-28）。次回も同じなら、同等の正弦波UPSへの差し替えを検討する。
+- 価格の確認は、月1回を目安に行う。比較表の注記に日付が出るため、確認日から60日を超えないようにする。
+- `src/lib/config.mjs` の `site.priceCheckedOn` はビルドで使われていない（記事ごとの frontmatter の priceCheckedOn だけが使われる）。

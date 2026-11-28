@@ -3,13 +3,13 @@ title: 自宅NASおすすめ比較2026｜Synology・QNAP・自作の選び方
 slug: home-nas-comparison-2026-synology-qnap-diy
 description: 2026年版の自宅NAS比較。Synology・QNAPの完成品モデルと自作NASのメリット・デメリットを整理し、用途別に最適な1台を提案します。
 date: 2026-07-07
-updated: 2026-11-27
+updated: 2026-11-28
 category: nas
 type: comparison
 tags: [NAS, Synology, QNAP, 自作NAS, ホームサーバー]
 products:
   - name: Synology DS223j
-    price: "¥35,000前後"
+    price: "¥33,000前後"
     rating: 4.0
     spec: "2ベイ / ARMクアッドコア / 1GB RAM / 1GbE×1 ※ドライブ別売"
     pros:
@@ -23,7 +23,7 @@ products:
       amazon: "B0C8814GKB"
       rakuten: ""
   - name: Synology DS425+
-    price: "¥110,000前後"
+    price: "¥108,000前後"
     rating: 4.6
     spec: "4ベイ / クアッドコアCPU / 2GB RAM（拡張可）/ 2.5GbE ※ドライブ別売"
     pros:
@@ -37,7 +37,7 @@ products:
       amazon: "B0FGPXFW1B"
       rakuten: ""
   - name: QNAP TS-464
-    price: "¥100,000〜150,000前後（メモリ構成により変動）"
+    price: "¥124,000前後（8GBモデル TS-464-8G）"
     rating: 4.3
     spec: "4ベイ / Intel 4コアCPU / 標準4GB RAM（8GB搭載はTS-464-8G）/ 2.5GbE×2 / PCIeスロット×1 ※ドライブ別売"
     pros:

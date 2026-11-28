@@ -6,10 +6,11 @@ date: 2026-07-13
 updated: 2026-11-28
 category: mini-pc
 type: comparison
+priceCheckedOn: "2026年11月28日"
 tags: [省電力ミニPC, おうちサーバー, Intel N100, 電気代, 自宅サーバー]
 products:
   - name: Raspberry Pi 5（8GBモデル）
-    price: "¥25,000〜37,000前後（2026年の値上げで変動が大きい）"
+    price: "¥36,400前後"
     rating: 3.9
     spec: "Broadcom BCM2712（4コア）/ 8GB RAM / アイドル3〜4W前後（公式値ではなく第三者レビューの目安）"
     pros:
@@ -18,14 +19,14 @@ products:
       - 手のひらサイズで、置き場所をほとんど選ばない
     cons:
       - x86ではないため、動かないDockerイメージがある
-      - 電源・ケース・NVMe HATを足すと総額が本体の1.5〜2倍になる
+      - 電源・ケース・NVMe HATを別途そろえる必要があり、総額は本体価格よりさらに上がる
     affiliate:
       amazon: "B0CQZHN2K4"
       rakuten: ""
-  - name: Youyeetoo NestDisk
+  - name: Nest Disk（Amazonでの販売名義はWayPonDEV）
     price: "¥45,000前後"
     rating: 4.3
-    spec: "Intel N150（4コア）/ 12GB LPDDR5（オンボード）/ M.2 NVMeスロット×4 / 2.5GbE×2（i226-V）/ Wi-Fi 6 / 小型ファン搭載"
+    spec: "Intel N150（4コア）/ 12GB LPDDR5（オンボード）/ M.2 NVMeスロット×4 / 2.5GbE×2（i226-V）/ Wi-Fi 6 / 小型ファン搭載（販売ページ上の表記は12GB+64GBモデル）"
     pros:
       - NVMeを4枚積めて、HDDを使わない静かなNASを組める
       - 2.5GbEが2口あり、リンクアグリゲーションを組める
@@ -38,7 +39,7 @@ products:
       amazon: "B0G1T214SR"
       rakuten: ""
   - name: Beelink Mini S12 Pro（Intel N100）
-    price: "¥51,900前後（2026年11月時点）"
+    price: "¥51,900前後"
     rating: 4.4
     spec: "Intel N100（4コア）/ 16GB DDR4 / 512GB SSD / 2.5GbE（商品ページ表記）"
     pros:
@@ -229,7 +230,7 @@ sudo hdparm -S 240 /dev/sda
 自宅サーバーは「いつでも応答すること」が価値なので、基本的には常時稼働が前提です。ただし、週末しか使わない検証環境などであれば、Wake-on-LAN で必要なときだけ起動する運用も有効です。
 
 **Q. 電気代よりも本体価格を優先すべきケースは？**
-3年以内に買い替える見込みがある場合や、消費電力の差が5W以内に収まる場合です。上の表のとおり、5W差の5年分は約1万円。本体価格差がそれ以上なら、安い方を選ぶ判断は合理的です。
+3年以内に買い替える見込みがある場合や、消費電力の差が5W以内に収まる場合です。上の表のとおり、5W差の5年分は約6,800円。本体価格差がそれ以上なら、安い方を選ぶ判断は合理的です。
 
 **Q. UPS（無停電電源装置）を挟むと消費電力は増えますか？**
 増えます。常時商用給電方式で数W、常時インバーター方式ではさらに大きくなります。ただし停電によるデータ破損のリスクと引き換えです。詳しくは [自宅サーバーのUPSおすすめと選び方](/articles/homelab-ups-osusume-2026/) をご覧ください。
