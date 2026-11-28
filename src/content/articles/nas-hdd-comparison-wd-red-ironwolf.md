@@ -3,15 +3,15 @@ title: NAS用HDDおすすめ比較2026 WD RedとIronWolfの違いと選び方
 slug: nas-hdd-comparison-wd-red-ironwolf
 description: 自宅サーバー・NAS向けHDDをWD Red PlusやSeagate IronWolfなど5製品で比較。CMR/SMRの違いや電気代試算、RAID構成の注意点まで解説。
 date: 2026-08-23
-updated: 2026-11-27
+updated: 2026-11-28
 category: nas
 type: comparison
 tags: [NAS, HDD, WD Red, IronWolf, 自宅サーバー]
 products:
-  - name: WD Red Plus 4TB（WD40EFPX）
-    price: "¥38,000前後"
+  - name: WD Red Plus 4TB（WD40EFZZ-AJP・Amazon.co.jp限定パッケージ）
+    price: "¥29,990前後（2026年11月時点）"
     rating: 4.3
-    spec: "CMR方式 / 5,400rpm / キャッシュ256MB / 3.5インチ SATA / メーカー保証3年"
+    spec: "CMR方式 / 5,400rpm / キャッシュ128MB / 3.5インチ SATA / メーカー保証3年"
     pros:
       - CMR方式で、RAIDの再構築中にトラブルが起きにくい
       - 5,400rpmで動作音と発熱が控えめ、24時間稼働に向く
@@ -37,13 +37,13 @@ products:
       amazon: "B0FGY6YW5D"
       rakuten: ""
   - name: Seagate IronWolf 4TB（ST4000VN006）
-    price: "¥35,000前後"
+    price: "¥34,980前後（2026年11月時点）"
     rating: 4.2
     spec: "CMR方式 / 5,400rpm相当 / キャッシュ256MB / 3.5インチ SATA"
     pros:
-      - WD Red Plusと並ぶ定番で、4TBクラスでは最も安い部類
+      - WD Red Plusと並ぶ定番で、今回の価格目安ではWD Red Plus 4TBとの差は5,000円前後
       - IronWolf Health Management に対応し、状態を監視しやすい
-      - キャッシュ256MBで、WD Red Plus 4TB（WD40EFPX）と同等
+      - キャッシュ256MBで、同容量のWD Red Plus（Amazon限定パッケージは128MB）より大きい
     cons:
       - 動作音はWD Red Plusよりやや大きいという声がある
       - 保証期間はProシリーズより短い
@@ -65,7 +65,7 @@ products:
       amazon: "B0BGSCF18W"
       rakuten: ""
   - name: 東芝 N300 8TB（HDWG780）
-    price: "¥52,200前後"
+    price: "¥52,750前後（2026年11月時点）"
     rating: 4.2
     spec: "CMR方式 / 7,200rpm / 3.5インチ SATA / 8TB / 3年保証（販売店・代理店により条件が異なる）"
     pros:

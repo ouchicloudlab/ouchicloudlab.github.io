@@ -3,7 +3,7 @@ title: アイドル10W前後を狙える省電力ミニPC4選｜おうちサー�
 slug: low-power-mini-pc-idle-under-10w-home-server
 description: 24時間稼働のおうちサーバー向けに、アイドル時消費電力10W前後を狙える省電力ミニPCを4機種厳選。電気代シミュレーションと選び方も解説。
 date: 2026-07-13
-updated: 2026-11-27
+updated: 2026-11-28
 category: mini-pc
 type: comparison
 tags: [省電力ミニPC, おうちサーバー, Intel N100, 電気代, 自宅サーバー]
@@ -38,15 +38,15 @@ products:
       amazon: "B0G1T214SR"
       rakuten: ""
   - name: Beelink Mini S12 Pro（Intel N100）
-    price: "¥55,000前後"
+    price: "¥51,900前後（2026年11月時点）"
     rating: 4.4
-    spec: "Intel N100（4コア）/ 16GB DDR4 / 512GB SSD / 1GbE"
+    spec: "Intel N100（4コア）/ 16GB DDR4 / 512GB SSD / 2.5GbE（商品ページ表記）"
     pros:
       - N100搭載機の中では出荷数が多く、動作報告を見つけやすい
       - メモリ16GBとSSD 512GBが最初から載っており、買い足しが要らない
       - 省電力機の定番で、Proxmoxでの動作例も豊富
     cons:
-      - 有線LANが1GbEのみで、NAS用途では帯域が足りなくなる
+      - 有線LANは1口のみで、ネットワークを物理的に分けたい構成には向かない
       - M.2スロットが1本で、システムとデータを分けにくい
     affiliate:
       amazon: "B0BYYZGWGX"

@@ -3,10 +3,54 @@ title: Proxmox入門｜ミニPC1台で始める自宅仮想化のはじめ方【
 slug: proxmox-nyumon-minipc
 description: 自宅サーバーの定番、無料の仮想化基盤Proxmox VEをミニPC1台で始める手順を初心者向けに解説。インストールから最初のVM・LXCコンテナ作成、バックアップまで、つまずきやすい点も含めて紹介します。
 date: 2026-07-09
-updated: 2026-11-27
+updated: 2026-11-28
 category: guide
 type: guide
 tags: [Proxmox, 仮想化, homelab, ミニPC, 入門]
+products:
+  - name: Beelink MINI-S13 Pro（Intel N150・16GB/512GB）
+    price: "¥53,900前後"
+    rating: 4.3
+    spec: "Intel N150（4コア）/ 16GB DDR4 / 512GB SSD / 2.5GbE×2"
+    pros:
+      - メモリ16GBとSSD 512GBが最初から載っており、届いたらすぐProxmoxを入れられる
+      - 2.5GbEが2口あり、管理用とVM用などでネットワークを分けやすい
+      - 低消費電力のCPUで、24時間稼働の入門機に向く
+    cons:
+      - CPU性能は控えめで、VMを何台も同時に回す用途には向かない
+      - N150の公開仕様上、メモリを大きく積み増す前提の構成には向かない
+    affiliate:
+      amazon: "B0DPQ976XJ"
+      rakuten: ""
+  - name: Beelink Mini S12 Pro（Intel N100・16GB/512GB）
+    price: "¥51,900前後"
+    rating: 4.1
+    spec: "Intel N100（4コア）/ 16GB DDR4 / 512GB SSD / 2.5GbE（商品ページ表記）"
+    pros:
+      - 3機種の中で最も安く、Proxmoxを試す最初の1台にしやすい
+      - メモリ16GB・SSD 512GB構成で、LXC中心の運用なら買い足しが要らない
+      - N100搭載機は情報が多く、設定で迷ったときに調べやすい
+    cons:
+      - LANは1口のため、ネットワークを物理的に分けたい場合は不向き
+      - N100の公開仕様上、メモリ増設による伸びしろは小さい
+    affiliate:
+      amazon: "B0BYYZGWGX"
+      rakuten: ""
+  - name: MINISFORUM MS-02U（Core Ultra 5 235HX・ベアボーン）
+    price: "¥104,000前後（メモリ・SSD別売）"
+    rating: 4.4
+    spec: "Core Ultra 5 235HX / 10GbE + 2.5GbE / DDR5 SO-DIMM 最大256GB / ベアボーン"
+    pros:
+      - DDR5を最大256GBまで積めるため、VMを複数台常駐させても余裕を持たせられる
+      - 10GbEを搭載し、NASとの間でVMのディスクやバックアップを高速にやり取りできる
+      - CPU性能に余裕があり、Docker用VMとWindows VMの同居なども現実的になる
+    cons:
+      - ベアボーンのためメモリ・SSDが別売りで、総額は本体価格より大きく上がる
+      - 入門用途やLXC数本の運用には明らかに過剰で、消費電力も入門機より大きい
+      - Amazonの商品名には25GbE SFP+の記載があるが、メーカー公式の仕様では25GbEは上位のCore Ultra 9 285HX構成のみのため、購入前に構成を確認する必要がある
+    affiliate:
+      amazon: "B0H3TRTCF5"
+      rakuten: ""
 ---
 
 自宅サーバーを本格的に楽しむなら、避けて通れないのが **仮想化** です。1台のミニPCの中に、複数の仮想マシン（VM）や軽量コンテナ（LXC）を同居させ、「NAS用」「メディアサーバー用」「実験用」と役割を分けて動かせます。
@@ -34,6 +78,16 @@ Proxmox VE（Virtual Environment）は、Debian Linuxをベースにした**無�
 4. 別のPC（Web管理画面にアクセスする用）
 
 > メモリはProxmox運用で最も効いてくる要素です。8GBでも始められますが、VM/コンテナを増やすとすぐ足りなくなります。増設できる機種なら16〜32GBにしておくと快適です。
+
+## Proxmox用ミニPCの選び方：メモリ16GBで足りるかで決める
+
+ホスト用の2GBを引くと、16GB機で動かせるのは「LXCの軽量サービス5〜6個＋Docker用VM 1台（4GB前後）」程度が目安で、Pi-holeやUptime Kumaなどを中心に始めるならMINI-S13 ProかMini S12 Proで足ります。一方、Docker用VMに加えてHome Assistant OSやWindowsのVMを同時に常駐させ、ImmichやJellyfinも動かす構成になると16GBでは割り当てが窮屈になり、Intelの公開仕様で最大メモリが限られるN100/N150機では増設での解決も難しくなります。MS-02Uはメモリ（DDR5、最大256GB）とSSDが別売りのベアボーンで、本体価格にそれらを足すと総額は入門機の数倍になるため、10GbEでNASとつなぎたい人や、32GB以上のメモリでVMを何台も並べると決まっている人向けの選択肢です。2.5GbE×2口で回線を分けたいならMINI-S13 Pro、とにかく安く試したいならMini S12 Pro、という分け方が現実的です。
+
+※価格は2026年11月28日時点のAmazon.co.jpの目安です。購入前にリンク先で最新価格をご確認ください。
+
+<!-- PRODUCTS -->
+
+新品にこだわらない場合は、法人向けの中古ミニPCも候補になります。機種によってメモリ上限は16〜32GB程度と幅があるため、VMを複数立てるなら32GB対応の個体を選ぶのがポイントです。選び方は [中古法人ミニPCで自宅サーバー化するガイド](/articles/used-business-mini-pc-home-server-guide/) にまとめています。
 
 ## インストールの手順
 
