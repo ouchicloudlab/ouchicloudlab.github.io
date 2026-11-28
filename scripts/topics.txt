@@ -28,7 +28,7 @@
 # [done] 自宅サーバー 静音化 ファン交換 騒音対策 寝室に置く方法
 # [done] ミニPC メモリ増設 SSD換装 自宅サーバー向け 手順と注意点
 Proxmox バックアップ Proxmox Backup Server 自宅 構築手順
-NAS バックアップ 3-2-1ルール 外付けHDD クラウド 組み合わせ方
+# [done] NAS バックアップ 3-2-1ルール 外付けHDD クラウド 組み合わせ方
 Wi-Fi 7 ルーター おすすめ 自宅サーバー 有線と無線の使い分け
 自宅サーバー ドメイン取得 Cloudflare Tunnel 外部公開 手順
 Nextcloud セルフホスト Googleドライブ代替 構築ガイド

@@ -21,6 +21,7 @@ revenue-strategist が次の作業を選ぶときの根拠にするファイル�
 | 2026-11-28 | ASIN付きの全商品（30件）をブラウザで確認し、比較記事7本の価格を更新。記事ごとに priceCheckedOn を設定 | mini-pc-osusume-2026 ほか6本 | 古い価格による信頼低下を防ぐ |
 | 2026-11-28 | 在庫切れの GMKtec G10 のリンクを、同じ機種の在庫ありASIN（B0HJ8N3HZC、販売元 GMKtec-JP）に差し替え | mini-pc-osusume-2026 | 最安機のリンク切れ（売れない状態）を解消 |
 | 2026-11-28 | 「Amazonで検索」のままだった商品のうち5件を商品ページへの直リンクに変更（PoEスイッチ3件・ワットチェッカー2件。RS-WFWATTCH1は後継のWATTCH2に差し替え） | poe-switch-home-network-guide / watt-checker-home-server-power-measurement | 検索結果経由より成約率の高い直リンクにする |
+| 2026-11-28 | 新規記事「NASバックアップの3-2-1ルール実践ガイド」を公開（外付けHDD・ポータブルHDD・2台目NAS・NAS用HDDの6商品） | nas-backup-3-2-1-rule-guide | NAS購入者の「2台目のHDD」需要を取る。HDD比較・NAS比較記事への内部リンク |
 
 ## 次回への申し送り
 - `search` のまま残しているもの: Ubiquiti USW-Lite-8-PoE（Amazonは第三者出品で3万円台のみ）、Buffalo BS-GS2016P（新品の通常出品なし）、中古法人PC 6機種（出品ごとに状態が違うため検索が妥当）。
