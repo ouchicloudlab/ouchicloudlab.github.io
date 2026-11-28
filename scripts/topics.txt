@@ -35,5 +35,5 @@ Nextcloud セルフホスト Googleドライブ代替 構築ガイド
 AdGuard Home Pi-hole 比較 家庭内広告ブロック DNS 導入
 自宅サーバー 電気代 月いくら 機材別 試算 節約のコツ
 中古サーバー Dell PowerEdge HPE ProLiant 自宅で使う メリット デメリット
-外付けHDDケース USB 複数台 NAS代わり 選び方 注意点
+# [done] 外付けHDDケース USB 複数台 NAS代わり 選び方 注意点
 自宅ネットワーク VLAN 分け方 入門 IoT機器 ゲストWi-Fi
