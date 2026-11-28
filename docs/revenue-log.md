@@ -24,6 +24,7 @@ revenue-strategist が次の作業を選ぶときの根拠にするファイル�
 | 2026-11-28 | 新規記事「NASバックアップの3-2-1ルール実践ガイド」を公開（外付けHDD・ポータブルHDD・2台目NAS・NAS用HDDの6商品） | nas-backup-3-2-1-rule-guide | NAS購入者の「2台目のHDD」需要を取る。HDD比較・NAS比較記事への内部リンク |
 | 2026-11-28 | 既存3記事（NAS比較・Immich・HDD比較）のバックアップの節から、3-2-1記事への内部リンクを追加 | home-nas-comparison / immich / nas-hdd-comparison | 新記事に読者と評価を流す |
 | 2026-11-28 | 新規記事「複数台用HDDケースをNAS代わりに使う選び方」を公開（HDDケース5製品） | usb-hdd-enclosure-multi-bay-nas-alternative | NAS・ストレージ分野の記事群を厚くする。電気代記事は既存2記事と重複するため見送り |
+| 2026-11-28 | 新規記事「Wi-Fi 7ルーターの選び方｜自宅サーバーの有線・無線の使い分け」を公開（ルーター5製品、¥8,000〜¥30,500） | wifi7-router-home-server-wired-wireless | ネットワーク分野の購入記事を追加。「10G対応はWAN側だけ」の誤解を軸に、2.5GbE記事へ送る |
 
 ## 次回への申し送り
 - `search` のまま残しているもの: Ubiquiti USW-Lite-8-PoE（Amazonは第三者出品で3万円台のみ）、Buffalo BS-GS2016P（新品の通常出品なし）、中古法人PC 6機種（出品ごとに状態が違うため検索が妥当）。

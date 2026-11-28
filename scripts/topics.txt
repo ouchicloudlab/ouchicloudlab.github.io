@@ -29,7 +29,7 @@
 # [done] ミニPC メモリ増設 SSD換装 自宅サーバー向け 手順と注意点
 Proxmox バックアップ Proxmox Backup Server 自宅 構築手順
 # [done] NAS バックアップ 3-2-1ルール 外付けHDD クラウド 組み合わせ方
-Wi-Fi 7 ルーター おすすめ 自宅サーバー 有線と無線の使い分け
+# [done] Wi-Fi 7 ルーター おすすめ 自宅サーバー 有線と無線の使い分け
 自宅サーバー ドメイン取得 Cloudflare Tunnel 外部公開 手順
 Nextcloud セルフホスト Googleドライブ代替 構築ガイド
 AdGuard Home Pi-hole 比較 家庭内広告ブロック DNS 導入
